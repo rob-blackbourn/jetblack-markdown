@@ -13,8 +13,12 @@ def create_subelement(tag: str, attrs: Iterable[Tuple[str, str]], parent: etree.
     return element
 
 
-def create_span_subelement(text: str, klass: Optional[str], parent: etree.Element) -> etree.Element:
+def create_text_subelement(tag: str, text: str, klass: Optional[str], parent: etree.Element) -> etree.Element:
     attrs = [] if klass is None else [('class', klass)]
-    span = create_subelement('span', attrs, parent)
-    span.text = text
-    return span
+    element = create_subelement(tag, attrs, parent)
+    element.text = text
+    return element
+
+
+def create_span_subelement(text: str, klass: Optional[str], parent: etree.Element) -> etree.Element:
+    return create_text_subelement('span', text, klass, parent)
