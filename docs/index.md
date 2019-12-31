@@ -18,3 +18,4 @@ For full documentation visit [mkdocs.org](https://mkdocs.org).
 
 @[jetblack_markdown.myextension.import_from_string]
 
+@[jetblack_markdown.myextension.sample_func]

@@ -6,6 +6,8 @@ import re
 from typing import (
     Any,
     List,
+    Optional,
+    Mapping,
     Set,
     Tuple
 )
@@ -109,6 +111,31 @@ class MyExtension(Extension):
 
 def makeExtension():
     return MyExtension()
+
+
+def sample_func(
+        arg1: int,
+        arg2: Optional[float],
+        arg3=Mapping[str, Any]
+) -> Optional[Tuple[List[str], Any]]:
+    """A sample function
+
+    A function that does nothing.
+
+    Args:
+        arg1 (int): The first arg
+        arg2 (Optional[float]): The second arg
+        arg3 (Mapping[str, Any], optional): The third arg. Defaults to Mapping[str, Any].
+
+    Raises:
+        RuntimeError: When arg1 is 0
+
+    Returns:
+        Optional[Tuple[List[str], Any]]: Some stuff
+    """
+    if not arg1:
+        raise RuntimeError('arg1 cannot be zero')
+    return None
 
 
 if __name__ == '__main__':

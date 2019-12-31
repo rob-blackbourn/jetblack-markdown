@@ -8,7 +8,7 @@ def test_placeholder():
     content = """
 This ??is some?? markdown.
 
-@[jetblack_markdown.myextension.import_from_string]
+@[jetblack_markdown.myextension.sample_func]
 
 Something else
 """

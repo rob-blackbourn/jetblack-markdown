@@ -2,6 +2,7 @@
 """
 
 import inspect
+import typing
 from typing import (
     Any,
     List,
@@ -137,12 +138,176 @@ def _render_summary(
     return container
 
 
-def _render_signature(obj: Any, parent: etree.Element) -> etree.Element:
+def _get_type_name(
+        annotation: Any,
+        docstring_param: Optional[docstring_parser.DocstringParam]
+) -> str:
+    type_name = docstring_param.type_name if docstring_param else None
+    if not type_name:
+        type_name = getattr(annotation, '__name__', None)
+    if not type_name:
+        type_name = getattr(annotation, '_', None)
+    if not type_name:
+        type_name = str(annotation)
+    return type_name
+
+
+def _get_return_type_name(
+        annotation: Any,
+        docstring_returns: Optional[docstring_parser.DocstringReturns]
+) -> str:
+    type_name = docstring_returns.type_name if docstring_returns else None
+    if not type_name:
+        type_name = getattr(annotation, '__name__', None)
+    if not type_name:
+        type_name = getattr(annotation, '_', None)
+    if not type_name:
+        type_name = str(annotation)
+    return type_name
+
+
+def _render_signature(
+        obj: Any,
+        signature: inspect.Signature,
+        docstring: docstring_parser.Docstring,
+        parent: etree.Element
+) -> etree.Element:
     container = create_subelement(
-        'div',
+        'p',
         [('class', f'{HTML_CLASS_BASE}-function-signature')],
         parent
     )
+
+    create_span_subelement(
+        obj.__name__,
+        f'{HTML_CLASS_BASE}-function-name',
+        container
+    )
+
+    create_span_subelement('(', f'{HTML_CLASS_BASE}-punctuation', container)
+
+    for index, parameter in enumerate(signature.parameters.values()):
+        if index:
+            create_span_subelement(
+                ', ', f'{HTML_CLASS_BASE}-punctuation', container)
+        create_text_subelement(
+            'var',
+            parameter.name,
+            f'{HTML_CLASS_BASE}-function-var',
+            container
+        )
+        if parameter.annotation:
+
+            docstring_param = next(
+                param
+                for param in docstring.params
+                if param.arg_name == parameter.name
+            ) if docstring else None
+
+            type_name = _get_type_name(parameter.annotation, docstring_param)
+
+            create_span_subelement(
+                ': ', f'{HTML_CLASS_BASE}-punctuation', container)
+            create_span_subelement(
+                type_name,
+                f'{HTML_CLASS_BASE}-variable-type',
+                container
+            )
+
+    create_span_subelement(')', f'{HTML_CLASS_BASE}-punctuation', container)
+
+    if signature.return_annotation:
+        type_name = _get_return_type_name(
+            signature.return_annotation,
+            docstring.returns if docstring else None
+        )
+
+        create_span_subelement(
+            ' -> ', f'{HTML_CLASS_BASE}-punctuation', container)
+        create_span_subelement(
+            type_name,
+            f'{HTML_CLASS_BASE}-variable-type',
+            container
+        )
+
+    parameter_container = create_subelement(
+        'div',
+        [('class', f'{HTML_CLASS_BASE}-function-parameters')],
+        container
+    )
+    create_text_subelement(
+        'h2',
+        'Parameters',
+        f'{HTML_CLASS_BASE}-function-header',
+        parameter_container
+    )
+    for index, parameter in enumerate(signature.parameters.values()):
+
+        var_container = create_subelement(
+            'div',
+            [('class', f'{HTML_CLASS_BASE}-function-parameters')],
+            parameter_container
+        )
+
+        create_text_subelement(
+            'var',
+            parameter.name,
+            f'{HTML_CLASS_BASE}-function-var',
+            parameter_container
+        )
+
+        docstring_param = next(
+            param
+            for param in docstring.params
+            if param.arg_name == parameter.name
+        ) if docstring else None
+
+        if parameter.annotation:
+            type_name = _get_type_name(parameter.annotation, docstring_param)
+
+            create_span_subelement(
+                ': ',
+                f'{HTML_CLASS_BASE}-punctuation',
+                parameter_container
+            )
+            create_span_subelement(
+                type_name,
+                f'{HTML_CLASS_BASE}-variable-type',
+                parameter_container
+            )
+
+        create_subelement('br', [], parameter_container)
+
+        if docstring_param and docstring_param.description:
+            create_text_subelement(
+                'p',
+                docstring_param.description,
+                f'{HTML_CLASS_BASE}-function-param',
+                parameter_container
+            )
+
+    return container
+
+
+def _render_description(
+        docstring: Optional[docstring_parser.Docstring],
+        parent: etree.Element
+) -> etree.Element:
+    container = create_subelement(
+        'div',
+        [('class', f'{HTML_CLASS_BASE}-function-description')],
+        parent
+    )
+
+    if docstring and docstring.long_description:
+        summary = create_subelement(
+            'p',
+            [('class', f'{HTML_CLASS_BASE}-function-description')],
+            container
+        )
+        summary.text = docstring.long_description
+
+    return container
 
 
 def render_function(obj: Any, instructions: Set[str]) -> etree.Element:
@@ -181,15 +346,7 @@ def render_function(obj: Any, instructions: Set[str]) -> etree.Element:
     _render_function_title(obj, container)
     _render_meta_data(obj, container)
     _render_summary(docstring, container)
-
-    parameters: List[str] = []
-    for param in signature.parameters.values():
-        parameter = param.name
-        if param.annotation:
-            parameter += f': {param.annotation.__name__}'
-        parameters.append(parameter)
-
-    prototype = etree.SubElement(container, 'p')
-    prototype.text = f'{function_name}({", ".join(parameters)})'
+    _render_signature(obj, signature, docstring, container)
+    _render_description(docstring, container)
 
     return container
