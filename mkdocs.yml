@@ -1,0 +1,9 @@
+site_name: My Docs
+
+markdown_extensions:
+  - admonition
+  - codehilite
+  - jetblack_markdown
+
+extra_css:
+    - css/custom.css

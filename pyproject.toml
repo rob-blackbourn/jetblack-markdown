@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "jetblack-markdown"
+version = "0.1.0"
+description = "A markdown extension for python documentation"
+authors = ["Rob Blackbourn <rob.blackbourn@googlemail.com>"]
+license = "Apache-2.0"
+
+[tool.poetry.dependencies]
+python = "^3.7"
+markdown = "^3.1"
+docstring-parser = "^0.5.0"
+
+[tool.poetry.dev-dependencies]
+mypy = "^0.761.0"
+autopep8 = "^1.4"
+pytest = "^5.3"
+mkdocs = "^1.0"
+
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"

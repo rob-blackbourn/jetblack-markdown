@@ -1,0 +1,14 @@
+.venv
+venv
+__pycache__
+.mypy_cache
+dist
+*.egg-info
+.eggs
+.vscode
+.idea
+.pytest_cache
+.history
+pip-wheel-metadata
+.mypy_cache/
+node_modules
