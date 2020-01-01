@@ -313,8 +313,6 @@ def _render_parameters(
         )
 
         if type_name:
-            type_name = get_type_name(parameter.annotation, docstring_param)
-
             create_span_subelement(
                 ': ',
                 f'{HTML_CLASS_BASE}-punctuation',
@@ -335,6 +333,48 @@ def _render_parameters(
             f'{HTML_CLASS_BASE}-function-param',
             parameter_container
         )
+
+    return container
+
+
+def _render_returns(
+        obj: Any,
+        signature: inspect.Signature,
+        docstring: Docstring,
+        parent: etree.Element
+) -> etree.Element:
+
+    container = create_subelement(
+        'p',
+        [('class', f'{HTML_CLASS_BASE}-function-returns')],
+        parent
+    )
+    create_text_subelement(
+        'h3',
+        'Returns',
+        f'{HTML_CLASS_BASE}-function-header',
+        container
+    )
+
+    type_name = get_type_name(signature.return_annotation, docstring.returns)
+
+    create_span_subelement(
+        type_name,
+        f'{HTML_CLASS_BASE}-variable-type',
+        container
+    )
+    create_span_subelement(
+        ': ',
+        f'{HTML_CLASS_BASE}-punctuation',
+        container
+    )
+
+    description = docstring.returns.description if docstring.returns else ''
+    create_span_subelement(
+        description,
+        f'{HTML_CLASS_BASE}-function-param',
+        container
+    )
 
     return container
 
@@ -399,6 +439,7 @@ def render_function(obj: Any, instructions: Set[str]) -> etree.Element:
     _render_summary(docstring, container)
     _render_signature(obj, signature, docstring, container)
     _render_parameters(obj, signature, docstring, container)
+    _render_returns(obj, signature, docstring, container)
     _render_description(docstring, container)
 
     return container
