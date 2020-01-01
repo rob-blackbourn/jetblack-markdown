@@ -349,14 +349,17 @@ def _render_returns(
         [('class', f'{HTML_CLASS_BASE}-function-returns')],
         parent
     )
+
+    type_name = get_type_name(signature.return_annotation, docstring.returns)
+    if type_name == 'None' or type_name == 'typing.None':
+        return container
+
     create_text_subelement(
         'h3',
         'Returns',
         f'{HTML_CLASS_BASE}-function-header',
         container
     )
-
-    type_name = get_type_name(signature.return_annotation, docstring.returns)
 
     create_span_subelement(
         type_name,
@@ -375,6 +378,56 @@ def _render_returns(
         f'{HTML_CLASS_BASE}-function-param',
         container
     )
+
+    return container
+
+
+def _render_raises(
+        obj: Any,
+        signature: inspect.Signature,
+        docstring: Docstring,
+        parent: etree.Element
+) -> etree.Element:
+
+    container = create_subelement(
+        'div',
+        [('class', f'{HTML_CLASS_BASE}-function-raises')],
+        parent
+    )
+    if not docstring.raises:
+        return container
+
+    create_text_subelement(
+        'h3',
+        'Raises',
+        f'{HTML_CLASS_BASE}-function-header',
+        container
+    )
+
+    for error in docstring.raises:
+        error_container = create_subelement(
+            'p',
+            [('class', f'{HTML_CLASS_BASE}-function-raises')],
+            container
+        )
+
+        create_span_subelement(
+            error.type_name,
+            f'{HTML_CLASS_BASE}-variable-type',
+            error_container
+        )
+        create_span_subelement(
+            ': ',
+            f'{HTML_CLASS_BASE}-punctuation',
+            error_container
+        )
+
+        description = docstring.returns.description if docstring.returns else ''
+        create_span_subelement(
+            error.description,
+            f'{HTML_CLASS_BASE}-function-raises',
+            error_container
+        )
 
     return container
 
@@ -440,6 +493,7 @@ def render_function(obj: Any, instructions: Set[str]) -> etree.Element:
     _render_signature(obj, signature, docstring, container)
     _render_parameters(obj, signature, docstring, container)
     _render_returns(obj, signature, docstring, container)
+    _render_raises(obj, signature, docstring, container)
     _render_description(docstring, container)
 
     return container
