@@ -290,19 +290,29 @@ def _render_parameters(
             container
         )
 
-        create_text_subelement(
-            'var',
-            parameter.name,
-            f'{HTML_CLASS_BASE}-function-var',
-            parameter_container
-        )
-
         docstring_param = find_docstring_param(
             parameter.name,
             docstring
         )
 
-        if parameter.annotation:
+        if parameter.kind is Parameter.VAR_POSITIONAL:
+            arg_name = '*' + parameter.name
+            type_name = None
+        elif parameter.kind is Parameter.VAR_KEYWORD:
+            arg_name = '**' + parameter.name
+            type_name = None
+        else:
+            arg_name = parameter.name
+            type_name = get_type_name(parameter.annotation, docstring_param)
+
+        create_text_subelement(
+            'var',
+            arg_name,
+            f'{HTML_CLASS_BASE}-function-var',
+            parameter_container
+        )
+
+        if type_name:
             type_name = get_type_name(parameter.annotation, docstring_param)
 
             create_span_subelement(
