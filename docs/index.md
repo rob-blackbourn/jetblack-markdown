@@ -16,6 +16,8 @@ For full documentation visit [mkdocs.org](https://mkdocs.org).
         index.md  # The documentation homepage.
         ...       # Other markdown pages, images and other files.
 
-@[jetblack_markdown.myextension.import_from_string]
+@[jetblack_markdown.example_google.function_with_types_in_docstring]
 
-@[jetblack_markdown.myextension.sample_func]
+@[jetblack_markdown.example_google.function_with_pep484_type_annotations]
+
+@[jetblack_markdown.example_google.module_level_function]

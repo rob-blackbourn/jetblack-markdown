@@ -2,19 +2,32 @@
 """
 
 import inspect
+from inspect import Parameter
 import typing
 from typing import (
     Any,
     List,
     Optional,
-    Set
+    Set,
+    Union
 )
 
 import docstring_parser
+from docstring_parser import (
+    Docstring,
+    DocstringParam,
+    DocstringReturns
+)
 from markdown.util import etree
 
 from .constants import HTML_CLASS_BASE
-from .utils import create_subelement, create_span_subelement, create_text_subelement
+from .utils import (
+    create_subelement,
+    create_span_subelement,
+    create_text_subelement,
+    find_docstring_param,
+    get_type_name
+)
 
 
 def _render_function_title(obj: Any, parent: etree.Element) -> etree.Element:
@@ -25,7 +38,7 @@ def _render_function_title(obj: Any, parent: etree.Element) -> etree.Element:
     )
 
     header = create_subelement(
-        'h1',
+        'h2',
         [('class', f'{HTML_CLASS_BASE}-function-header')],
         container
     )
@@ -118,7 +131,7 @@ def _render_meta_data(obj: Any, parent: etree.Element) -> etree.Element:
 
 
 def _render_summary(
-        docstring: Optional[docstring_parser.Docstring],
+        docstring: Optional[Docstring],
         parent: etree.Element
 ) -> etree.Element:
     container = create_subelement(
@@ -128,6 +141,12 @@ def _render_summary(
     )
 
     if docstring and docstring.short_description:
+        create_text_subelement(
+            'h3',
+            'Summary',
+            f'{HTML_CLASS_BASE}-function-summary',
+            container
+        )
         summary = create_subelement(
             'p',
             [('class', f'{HTML_CLASS_BASE}-function-summary')],
@@ -138,42 +157,14 @@ def _render_summary(
     return container
 
 
-def _get_type_name(
-        annotation: Any,
-        docstring_param: Optional[docstring_parser.DocstringParam]
-) -> str:
-    type_name = docstring_param.type_name if docstring_param else None
-    if not type_name:
-        type_name = getattr(annotation, '__name__', None)
-    if not type_name:
-        type_name = getattr(annotation, '_', None)
-    if not type_name:
-        type_name = str(annotation)
-    return type_name
-
-
-def _get_return_type_name(
-        annotation: Any,
-        docstring_returns: Optional[docstring_parser.DocstringReturns]
-) -> str:
-    type_name = docstring_returns.type_name if docstring_returns else None
-    if not type_name:
-        type_name = getattr(annotation, '__name__', None)
-    if not type_name:
-        type_name = getattr(annotation, '_', None)
-    if not type_name:
-        type_name = str(annotation)
-    return type_name
-
-
 def _render_signature(
         obj: Any,
         signature: inspect.Signature,
-        docstring: docstring_parser.Docstring,
+        docstring: Docstring,
         parent: etree.Element
 ) -> etree.Element:
     container = create_subelement(
-        'p',
+        'code',
         [('class', f'{HTML_CLASS_BASE}-function-signature')],
         parent
     )
@@ -186,26 +177,68 @@ def _render_signature(
 
     create_span_subelement('(', f'{HTML_CLASS_BASE}-punctuation', container)
 
+    is_pos_only_rendered = False
+    is_kw_only_rendered = False
+
     for index, parameter in enumerate(signature.parameters.values()):
         if index:
             create_span_subelement(
-                ', ', f'{HTML_CLASS_BASE}-punctuation', container)
+                ', ',
+                f'{HTML_CLASS_BASE}-punctuation',
+                container
+            )
+
+        if parameter.kind is Parameter.VAR_POSITIONAL:
+            arg_name = '*' + parameter.name
+            type_name = None
+        elif parameter.kind is Parameter.VAR_KEYWORD:
+            arg_name = '**' + parameter.name
+            type_name = None
+        else:
+            if parameter.kind is Parameter.POSITIONAL_ONLY and not is_pos_only_rendered:
+                create_text_subelement(
+                    'var',
+                    '/',
+                    f'{HTML_CLASS_BASE}-function-var',
+                    container
+                )
+                create_span_subelement(
+                    ', ',
+                    f'{HTML_CLASS_BASE}-punctuation',
+                    container
+                )
+                is_pos_only_rendered = True
+            elif parameter.kind is Parameter.KEYWORD_ONLY and not is_kw_only_rendered:
+                create_text_subelement(
+                    'var',
+                    '*',
+                    f'{HTML_CLASS_BASE}-function-var',
+                    container
+                )
+                create_span_subelement(
+                    ', ',
+                    f'{HTML_CLASS_BASE}-punctuation',
+                    container
+                )
+                is_kw_only_rendered = True
+
+            arg_name = parameter.name
+
+            docstring_param = find_docstring_param(
+                parameter.name,
+                docstring
+            )
+
+            type_name = get_type_name(parameter.annotation, docstring_param)
+
         create_text_subelement(
             'var',
-            parameter.name,
+            arg_name,
             f'{HTML_CLASS_BASE}-function-var',
             container
         )
-        if parameter.annotation:
 
-            docstring_param = next(
-                param
-                for param in docstring.params
-                if param.arg_name == parameter.name
-            ) if docstring else None
-
-            type_name = _get_type_name(parameter.annotation, docstring_param)
-
+        if type_name:
             create_span_subelement(
                 ': ', f'{HTML_CLASS_BASE}-punctuation', container)
             create_span_subelement(
@@ -217,7 +250,7 @@ def _render_signature(
     create_span_subelement(')', f'{HTML_CLASS_BASE}-punctuation', container)
 
     if signature.return_annotation:
-        type_name = _get_return_type_name(
+        type_name = get_type_name(
             signature.return_annotation,
             docstring.returns if docstring else None
         )
@@ -230,23 +263,31 @@ def _render_signature(
             container
         )
 
-    parameter_container = create_subelement(
+
+def _render_parameters(
+        obj: Any,
+        signature: inspect.Signature,
+        docstring: Docstring,
+        parent: etree.Element
+) -> etree.Element:
+
+    container = create_subelement(
         'div',
         [('class', f'{HTML_CLASS_BASE}-function-parameters')],
-        container
+        parent
     )
     create_text_subelement(
-        'h2',
+        'h3',
         'Parameters',
         f'{HTML_CLASS_BASE}-function-header',
-        parameter_container
+        container
     )
     for index, parameter in enumerate(signature.parameters.values()):
 
-        var_container = create_subelement(
+        parameter_container = create_subelement(
             'div',
             [('class', f'{HTML_CLASS_BASE}-function-parameters')],
-            parameter_container
+            container
         )
 
         create_text_subelement(
@@ -256,14 +297,13 @@ def _render_signature(
             parameter_container
         )
 
-        docstring_param = next(
-            param
-            for param in docstring.params
-            if param.arg_name == parameter.name
-        ) if docstring else None
+        docstring_param = find_docstring_param(
+            parameter.name,
+            docstring
+        )
 
         if parameter.annotation:
-            type_name = _get_type_name(parameter.annotation, docstring_param)
+            type_name = get_type_name(parameter.annotation, docstring_param)
 
             create_span_subelement(
                 ': ',
@@ -278,13 +318,13 @@ def _render_signature(
 
         create_subelement('br', [], parameter_container)
 
-        if docstring_param and docstring_param.description:
-            create_text_subelement(
-                'p',
-                docstring_param.description,
-                f'{HTML_CLASS_BASE}-function-param',
-                parameter_container
-            )
+        description = docstring_param.description if docstring_param else ''
+        create_text_subelement(
+            'p',
+            description,
+            f'{HTML_CLASS_BASE}-function-param',
+            parameter_container
+        )
 
     return container
 
@@ -300,6 +340,12 @@ def _render_description(
     )
 
     if docstring and docstring.long_description:
+        create_text_subelement(
+            'h3',
+            'Description',
+            f'{HTML_CLASS_BASE}-function-description',
+            container
+        )
         summary = create_subelement(
             'p',
             [('class', f'{HTML_CLASS_BASE}-function-description')],
@@ -332,11 +378,6 @@ def render_function(obj: Any, instructions: Set[str]) -> etree.Element:
     :return: The html etree
     :rtype: etree.Element
     """
-    function_name = obj.__name__
-    module_name = obj.__module__
-    module = inspect.getmodule(obj)
-    package_name = module.__package__ if module is not None else None
-    file_name = module.__file__ if module is not None else None
     signature = inspect.signature(obj)
     docstring = docstring_parser.parse(inspect.getdoc(obj))
 
@@ -347,6 +388,7 @@ def render_function(obj: Any, instructions: Set[str]) -> etree.Element:
     _render_meta_data(obj, container)
     _render_summary(docstring, container)
     _render_signature(obj, signature, docstring, container)
+    _render_parameters(obj, signature, docstring, container)
     _render_description(docstring, container)
 
     return container

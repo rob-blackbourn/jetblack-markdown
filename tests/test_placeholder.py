@@ -6,9 +6,8 @@ import markdown
 
 def test_placeholder():
     content = """
-This ??is some?? markdown.
 
-@[jetblack_markdown.myextension.sample_func]
+@[jetblack_markdown.example_google.module_level_function]
 
 Something else
 """
