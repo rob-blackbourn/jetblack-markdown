@@ -471,7 +471,6 @@ def _render_raises(
     
 def create_function(
         obj: Any,
-        instructions: Set[str],
         md: Markdown,
         container: etree.Element,
         function_type: str
@@ -497,7 +496,6 @@ def create_function(
 
 def render_function(
         obj: Any,
-        instructions: Set[str],
         md: Markdown,
         parent: etree.Element
 ) -> etree.Element:
@@ -506,5 +504,5 @@ def render_function(
         [('class', f'{HTML_CLASS_BASE}-function')],
         parent
     )
-    return create_function(obj, instructions, md, container, 'function')
+    return create_function(obj, md, container, 'function')
 

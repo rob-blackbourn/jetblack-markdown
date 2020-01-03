@@ -90,33 +90,24 @@ class AutodocInlineProcessor(InlineProcessor):
             Tuple[etree.Element, int, int]: The element to insert and the start
                 and end index
         """
-        text = matches.group(1)
-        import_str, _sep, instructions = text.partition('!')
+        import_str = matches.group(1)
         obj = import_from_string(import_str)
-        if not instructions:
-            instruction_set = DEFAULT_INSTRUCTION_SET
-        else:
-            instruction_set = {
-                instruction.strip()
-                for instruction in instructions.split(',')
-            }
 
-        element = self._render_obj(obj, instruction_set)
+        element = self._render_obj(obj)
         start = matches.start(0)
         end = matches.end(0)
         return element, start, end
 
-    def _render_obj(self, obj: Any, instructions: Set[str]) -> etree.Element:
+    def _render_obj(self, obj: Any) -> etree.Element:
 
         container = etree.Element('div')
         container.set('class', f'{HTML_CLASS_BASE}-documentation')
 
         if inspect.ismodule(obj):
-            render_module(obj, instructions, self.md, container)
+            render_module(obj, self.md, container)
         elif inspect.isclass(obj):
             render_class(
                 obj,
-                instructions,
                 self.md,
                 self.class_from_init,
                 self.ignore_dunder,
@@ -124,7 +115,7 @@ class AutodocInlineProcessor(InlineProcessor):
                 container
             )
         elif inspect.isfunction(obj):
-            render_function(obj, instructions, self.md, container)
+            render_function(obj, self.md, container)
 
         return container
 

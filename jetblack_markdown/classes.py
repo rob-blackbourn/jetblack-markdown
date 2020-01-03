@@ -1,15 +1,10 @@
 """Module rendering"""
 
 import inspect
-from inspect import Parameter
-import typing
 from typing import (
     Any,
     Dict,
-    List,
-    Optional,
-    Set,
-    Union
+    Set
 )
 
 import docstring_parser
@@ -40,8 +35,6 @@ from .functions import (
     _render_meta_data,
     _render_signature,
     _render_parameters,
-    _render_yields,
-    _render_returns,
     _render_raises,
     create_function
 )
@@ -50,9 +43,7 @@ def render_property(
         obj: Any,
         klass: Any,
         property_name: str,
-        instructions: Set[str],
         md: Markdown,
-        class_from_init: bool,
         parent: etree.Element
 ) -> etree.Element:
     container = create_subelement(
@@ -161,8 +152,6 @@ def render_property(
     return container
 
 def render_class_attributes(
-        obj: Any,
-        instructions: Set[str],
         docstring: Docstring,
         md: Markdown,
         parent: etree.Element
@@ -232,7 +221,6 @@ def render_class_attributes(
 
 def render_class(
         obj: Any,
-        instructions: Set[str],
         md: Markdown,
         class_from_init: bool,
         ignore_dunder: bool,
@@ -261,7 +249,7 @@ def render_class(
     render_summary(docstring, container, md)
     _render_signature(obj, signature, docstring, container, 'constructor')
     _render_parameters(obj, signature, docstring, container, md, 'constructor')
-    render_class_attributes(obj, instructions, docstring, md, container)
+    render_class_attributes(docstring, md, container)
     _render_raises(obj, signature, docstring, container, md)
     render_description(docstring, container, md)
     render_examples(docstring, container, md)
@@ -284,13 +272,11 @@ def render_class(
                 member,
                 obj,
                 name,
-                instructions,
                 md,
-                class_from_init,
                 para
             )
         elif inspect.isfunction(member):
-            create_function(member, instructions, md, para, 'method')
+            create_function(member, md, para, 'method')
 
     return container
 

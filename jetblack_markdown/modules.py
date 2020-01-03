@@ -83,8 +83,6 @@ def _render_module_meta_data(module: Any, parent: etree.Element) -> etree.Elemen
     return container
 
 def render_module_attributes(
-        obj: Any,
-        instructions: Set[str],
         docstring: Docstring,
         md: Markdown,
         parent: etree.Element
@@ -154,7 +152,6 @@ def render_module_attributes(
 
 def render_module(
         obj: Any,
-        instructions: Set[str],
         md,
         parent: etree.Element
 ) -> etree.Element:
@@ -169,7 +166,7 @@ def render_module(
     render_title_from_obj(obj, container)
     _render_module_meta_data(obj, container)
     render_summary(docstring, container, md)
-    render_module_attributes(obj, instructions, docstring, md, container)
+    render_module_attributes(docstring, md, container)
     render_description(docstring, container, md)
     render_examples(docstring, container, md)
 
