@@ -160,6 +160,76 @@ def render_property(
 
     return container
 
+def render_class_attributes(
+        obj: Any,
+        instructions: Set[str],
+        docstring: Docstring,
+        md: Markdown,
+        parent: etree.Element
+) -> etree.Element:
+    container = create_subelement(
+        'div',
+        [('class', f'{HTML_CLASS_BASE}-attributes')],
+        parent
+    )
+
+    if docstring is None:
+        return container
+    attributes = [
+        (meta.args[1], meta.description)
+        for meta in docstring.meta
+        if 'attribute' in meta.args
+    ]
+    if not attributes:
+        return container
+
+    create_text_subelement(
+        'h3',
+        'Attributes',
+        f'{HTML_CLASS_BASE}-description',
+        container
+    )
+
+    for attr_details, attr_desc in attributes:
+        attr_container = create_subelement(
+            'div',
+            [('class', f'{HTML_CLASS_BASE}-class-attributes')],
+            container
+        )
+
+        attr_name, sep, attr_type = attr_details.partition(' ')
+        attr_type = attr_type.strip('()')
+
+        create_text_subelement(
+            'var',
+            attr_name,
+            f'{HTML_CLASS_BASE}-class-attr',
+            attr_container
+        )
+
+        if attr_type:
+            create_span_subelement(
+                ': ',
+                f'{HTML_CLASS_BASE}-punctuation',
+                attr_container
+            )
+            create_span_subelement(
+                attr_type,
+                f'{HTML_CLASS_BASE}-variable-type',
+                attr_container
+            )
+
+        create_subelement('br', [], attr_container)
+
+        create_text_subelement(
+            'p',
+            md.convert(attr_desc),
+            f'{HTML_CLASS_BASE}-class-attr',
+            attr_container
+        )
+
+    return container
+
 def render_class(
         obj: Any,
         instructions: Set[str],
@@ -187,6 +257,7 @@ def render_class(
     render_summary(docstring, container, md)
     _render_signature(obj, signature, docstring, container, 'constructor')
     _render_parameters(obj, signature, docstring, container, md, 'constructor')
+    render_class_attributes(obj, instructions, docstring, md, container)
     _render_raises(obj, signature, docstring, container, md)
     render_description(docstring, container, md)
     render_examples(docstring, container, md)
