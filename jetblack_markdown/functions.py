@@ -31,7 +31,7 @@ from .utils import (
 )
 
 from .renderers import (
-    render_title,
+    render_title_from_obj,
     render_summary,
     render_description,
     render_examples
@@ -110,7 +110,8 @@ def _render_signature(
         obj: Any,
         signature: inspect.Signature,
         docstring: Docstring,
-        parent: etree.Element
+        parent: etree.Element,
+        function_type: str
 ) -> etree.Element:
     container = create_subelement(
         'code',
@@ -125,8 +126,9 @@ def _render_signature(
             container
         )
 
+    name = obj.__qualname__ if hasattr(obj, '__qualname__') else obj.__name__
     create_span_subelement(
-        obj.__name__,
+        name,
         f'{HTML_CLASS_BASE}-function-name',
         container
     )
@@ -136,8 +138,16 @@ def _render_signature(
     is_pos_only_rendered = False
     is_kw_only_rendered = False
 
-    for index, parameter in enumerate(signature.parameters.values()):
-        if index:
+    is_self = function_type in {'method', 'constructor'}
+    is_first = True
+    for parameter in signature.parameters.values():
+        if is_self:
+            is_self = False
+            continue
+
+        if is_first:
+            is_first = False
+        else:
             create_span_subelement(
                 ', ',
                 f'{HTML_CLASS_BASE}-punctuation',
@@ -225,7 +235,8 @@ def _render_parameters(
         signature: inspect.Signature,
         docstring: Docstring,
         parent: etree.Element,
-        md: Markdown
+        md: Markdown,
+        function_type: str
 ) -> etree.Element:
 
     container = create_subelement(
@@ -239,7 +250,12 @@ def _render_parameters(
         f'{HTML_CLASS_BASE}-function-header',
         container
     )
+
+    is_self = function_type in {'method', 'constructor'}
     for parameter in signature.parameters.values():
+        if is_self:
+            is_self = False
+            continue
 
         parameter_container = create_subelement(
             'div',
@@ -452,7 +468,14 @@ def _render_raises(
     return container
 
 
-def render_function(obj: Any, instructions: Set[str], md: Markdown) -> etree.Element:
+    
+def create_function(
+        obj: Any,
+        instructions: Set[str],
+        md: Markdown,
+        container: etree.Element,
+        function_type: str
+) -> etree.Element:
     """Render a function
 
     <div class="function">
@@ -477,14 +500,11 @@ def render_function(obj: Any, instructions: Set[str], md: Markdown) -> etree.Ele
     signature = inspect.signature(obj)
     docstring = docstring_parser.parse(inspect.getdoc(obj))
 
-    container = etree.Element('div')
-    container.set('class', f'{HTML_CLASS_BASE}-function')
-
-    render_title(obj, container)
+    render_title_from_obj(obj, container)
     _render_meta_data(obj, container)
     render_summary(docstring, container, md)
-    _render_signature(obj, signature, docstring, container)
-    _render_parameters(obj, signature, docstring, container, md)
+    _render_signature(obj, signature, docstring, container, function_type)
+    _render_parameters(obj, signature, docstring, container, md, function_type)
 
     if inspect.isgeneratorfunction(obj) or inspect.isasyncgenfunction(obj):
         _render_yields(obj, signature, docstring, container, md)
@@ -495,3 +515,9 @@ def render_function(obj: Any, instructions: Set[str], md: Markdown) -> etree.Ele
     render_examples(docstring, container, md)
 
     return container
+
+def render_function(obj: Any, instructions: Set[str], md: Markdown) -> etree.Element:
+    container = etree.Element('div')
+    container.set('class', f'{HTML_CLASS_BASE}-function')
+    return create_function(obj, instructions, md, container, 'function')
+

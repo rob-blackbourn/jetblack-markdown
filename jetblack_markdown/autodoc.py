@@ -18,6 +18,7 @@ from markdown.util import etree
 
 from .functions import render_function
 from .modules import render_module
+from .classes import render_class
 
 DOCSTRING_RE = r'@\[([^\]]+)\]'
 DEFAULT_INSTRUCTION_SET = {'shallow'}
@@ -63,10 +64,14 @@ class AutodocInlineProcessor(InlineProcessor):
     def __init__(
             self,
             pattern,
-            class_from_init: bool,
-            md: Markdown = None
+            md: Markdown = None,
+            class_from_init: bool = True,
+            ignore_dunder: bool = True,
+            ignore_private: bool = True
     ) -> None:
         self.class_from_init = class_from_init
+        self.ignore_dunder = ignore_dunder
+        self.ignore_private = ignore_private
         super().__init__(pattern, md=md)
 
     # pylint: disable=arguments-differ
@@ -105,7 +110,14 @@ class AutodocInlineProcessor(InlineProcessor):
         if inspect.ismodule(obj):
             return render_module(obj, instructions, self.md)
         elif inspect.isclass(obj):
-            pass
+            return render_class(
+                obj,
+                instructions,
+                self.md,
+                self.class_from_init,
+                self.ignore_dunder,
+                self.ignore_private
+            )
         elif inspect.isfunction(obj):
             return render_function(obj, instructions, self.md)
         else:
@@ -130,15 +142,24 @@ class AutodocExtension(Extension):
 
     def __init__(self, *args, **kwargs) -> None:
         self.config = {
-            'class_from_init': [False, 'Class documentation is on __init__']
+            'class_from_init': [False, 'Class documentation is on __init__'],
+            'ignore_dunder': [True, 'Ignore dunder methods'],
+            'ignore_private': [True, 'Ignore private methods'],
         }
         super().__init__(*args, **kwargs)
 
     def extendMarkdown(self, md: Markdown) -> None:
         class_from_init = self.getConfig('class_from_init')
-        print('class_from_init', class_from_init)
+        ignore_dunder = self.getConfig('ignore_dunder')
+        ignore_private = self.getConfig('ignore_private')
         md.inlinePatterns.register(
-            AutodocInlineProcessor(DOCSTRING_RE, class_from_init, md),
+            AutodocInlineProcessor(
+                DOCSTRING_RE,
+                md,
+                class_from_init,
+                ignore_dunder,
+                ignore_private
+            ),
             'autodoc',
             175
         )

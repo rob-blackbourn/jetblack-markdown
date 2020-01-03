@@ -29,7 +29,7 @@ from .utils import (
     get_type_name
 )
 from .renderers import (
-    render_title,
+    render_title_from_obj,
     render_summary,
     render_description,
     render_examples
@@ -88,7 +88,7 @@ def render_module(obj: Any, instructions: Set[str], md) -> etree.Element:
     container = etree.Element('div')
     container.set('class', f'{HTML_CLASS_BASE}-module')
 
-    render_title(obj, container)
+    render_title_from_obj(obj, container)
     _render_meta_data(obj, container)
     render_summary(docstring, container, md)
     render_description(docstring, container, md)

@@ -31,7 +31,8 @@ from .utils import (
 )
 
 
-def render_title(obj: Any, parent: etree.Element) -> etree.Element:
+
+def render_title(name: str, object_type: str, parent: etree.Element) -> etree.Element:
     container = create_subelement(
         'div',
         [('class', f'{HTML_CLASS_BASE}-title')],
@@ -45,7 +46,7 @@ def render_title(obj: Any, parent: etree.Element) -> etree.Element:
     )
 
     create_span_subelement(
-        obj.__name__,
+        name.replace('_', '&lowbar;'),
         f'{HTML_CLASS_BASE}-name',
         header
     )
@@ -55,32 +56,29 @@ def render_title(obj: Any, parent: etree.Element) -> etree.Element:
         header
     )
 
-    if inspect.ismodule(obj):
-        create_span_subelement(
-            '(module)',
-            f'{HTML_CLASS_BASE}-object-type',
-            header
-        )
-    elif inspect.isgeneratorfunction(obj):
-        create_span_subelement(
-            '(generator function)',
-            f'{HTML_CLASS_BASE}-object-type',
-            header
-        )
-    elif inspect.isasyncgenfunction(obj):
-        create_span_subelement(
-            '(async generator function)',
-            f'{HTML_CLASS_BASE}-object-type',
-            header
-        )
-    else:
-        create_span_subelement(
-            '(function)',
-            f'{HTML_CLASS_BASE}-object-type',
-            header
-        )
+    create_span_subelement(
+        f'({object_type})',
+        f'{HTML_CLASS_BASE}-object-type',
+        header
+    )
 
     return container
+
+
+def render_title_from_obj(obj: Any, parent: etree.Element) -> etree.Element:
+    name = obj.__qualname__ if hasattr(obj, '__qualname__') else obj.__name__
+    if inspect.ismodule(obj):
+        object_type = 'module'
+    elif inspect.isclass(obj):
+        object_type = 'class'
+    elif inspect.isgeneratorfunction(obj):
+        object_type = 'generator function'
+    elif inspect.isasyncgenfunction(obj):
+        object_type = 'async generator function'
+    else:
+        object_type = 'function'
+
+    return render_title(name, object_type, parent)
 
 
 

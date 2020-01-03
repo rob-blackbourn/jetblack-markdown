@@ -4,7 +4,8 @@ markdown_extensions:
   - admonition
   - codehilite
   - jetblack_markdown.autodoc:
-      class_from_init: false
+      class_from_init: true
+      ignore_dunder: true
 
 extra_css:
     - css/custom.css

@@ -169,6 +169,9 @@ async def example_async_generator(n: int):
         yield i
 
 
+class EmptyClass:
+    """A class with no content
+    """
 
 class ExampleError(Exception):
     """Exceptions are documented in the same way as classes.
@@ -198,30 +201,23 @@ class ExampleError(Exception):
 
 
 class ExampleClass(object):
-    """The summary line for a class docstring should fit on one line.
-
-    If the class has public attributes, they may be documented here
-    in an `Attributes` section and follow the same formatting as a
-    function's `Args` section. Alternatively, attributes may be documented
-    inline with the attribute's declaration (see __init__ method below).
-
-    Properties created with the ``@property`` decorator should be documented
-    in the property's getter method.
-
-    Attributes:
-        attr1 (str): Description of `attr1`.
-        attr2 (int, optional): Description of `attr2`.
-
-    """
 
     def __init__(self, param1, param2, param3):
-        """Example of docstring on the __init__ method.
+        """Example of docstring on the \\_\\_init\\_\\_ method.
 
-        The __init__ method may be documented in either the class level
-        docstring, or as a docstring on the __init__ method itself.
+        The \_\_init\_\_ method may be documented in either the class level
+        docstring, or as a docstring on the \_\_init\_\_ method itself.
 
         Either form is acceptable, but the two should not be mixed. Choose one
-        convention to document the __init__ method and be consistent with it.
+        convention to document the \_\_init\_\_ method and be consistent with it.
+
+        If the class has public attributes, they may be documented here
+        in an `Attributes` section and follow the same formatting as a
+        function's `Args` section. Alternatively, attributes may be documented
+        inline with the attribute's declaration (see \_\_init\_\_ method below).
+
+        Properties created with the ``@property`` decorator should be documented
+        in the property's getter method.
 
         Note:
             Do not include the `self` parameter in the `Args` section.
@@ -232,6 +228,9 @@ class ExampleClass(object):
                 lines are supported.
             param3 (list of str): Description of `param3`.
 
+        Attributes:
+            attr1 (str): Description of `attr1`.
+            attr2 (int, optional): Description of `attr2`.
         """
         self.attr1 = param1
         self.attr2 = param2
@@ -244,7 +243,7 @@ class ExampleClass(object):
         """str: Docstring *after* attribute, with type specified."""
 
     @property
-    def readonly_property(self):
+    def readonly_property(self) -> str:
         """str: Properties should be documented in their getter method."""
         return 'readonly_property'
 
@@ -260,6 +259,7 @@ class ExampleClass(object):
 
     @readwrite_property.setter
     def readwrite_property(self, value):
+        """str: readwrite_property setter"""
         value
 
     def example_method(self, param1, param2):
