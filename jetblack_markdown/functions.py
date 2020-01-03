@@ -29,50 +29,11 @@ from .utils import (
     get_type_name
 )
 
-
-def _render_function_title(obj: Any, parent: etree.Element) -> etree.Element:
-    container = create_subelement(
-        'div',
-        [('class', f'{HTML_CLASS_BASE}-function-title')],
-        parent
-    )
-
-    header = create_subelement(
-        'h2',
-        [('class', f'{HTML_CLASS_BASE}-function-header')],
-        container
-    )
-
-    create_span_subelement(
-        obj.__name__,
-        f'{HTML_CLASS_BASE}-function-name',
-        header
-    )
-    create_span_subelement(
-        ' ',
-        None,
-        header
-    )
-    if inspect.isgeneratorfunction(obj):
-        create_span_subelement(
-            '(generator function)',
-            f'{HTML_CLASS_BASE}-object-type',
-            header
-        )
-    elif inspect.isasyncgenfunction(obj):
-        create_span_subelement(
-            '(async generator function)',
-            f'{HTML_CLASS_BASE}-object-type',
-            header
-        )
-    else:
-        create_span_subelement(
-            '(function)',
-            f'{HTML_CLASS_BASE}-object-type',
-            header
-        )
-
-    return container
+from .renderers import (
+    render_title,
+    render_summary,
+    render_description
+)
 
 
 def _render_meta_data(obj: Any, parent: etree.Element) -> etree.Element:
@@ -139,33 +100,6 @@ def _render_meta_data(obj: Any, parent: etree.Element) -> etree.Element:
                 container
             )
             create_subelement('br', [], container)
-
-    return container
-
-
-def _render_summary(
-        docstring: Optional[Docstring],
-        parent: etree.Element
-) -> etree.Element:
-    container = create_subelement(
-        'div',
-        [('class', f'{HTML_CLASS_BASE}-function-summary')],
-        parent
-    )
-
-    if docstring and docstring.short_description:
-        create_text_subelement(
-            'h3',
-            'Summary',
-            f'{HTML_CLASS_BASE}-function-summary',
-            container
-        )
-        summary = create_subelement(
-            'p',
-            [('class', f'{HTML_CLASS_BASE}-function-summary')],
-            container
-        )
-        summary.text = docstring.short_description
 
     return container
 
@@ -504,33 +438,6 @@ def _render_raises(
     return container
 
 
-def _render_description(
-        docstring: Optional[docstring_parser.Docstring],
-        parent: etree.Element
-) -> etree.Element:
-    container = create_subelement(
-        'div',
-        [('class', f'{HTML_CLASS_BASE}-function-description')],
-        parent
-    )
-
-    if docstring and docstring.long_description:
-        create_text_subelement(
-            'h3',
-            'Description',
-            f'{HTML_CLASS_BASE}-function-description',
-            container
-        )
-        summary = create_subelement(
-            'p',
-            [('class', f'{HTML_CLASS_BASE}-function-description')],
-            container
-        )
-        summary.text = docstring.long_description
-
-    return container
-
-
 def render_function(obj: Any, instructions: Set[str]) -> etree.Element:
     """Render a function
 
@@ -559,9 +466,9 @@ def render_function(obj: Any, instructions: Set[str]) -> etree.Element:
     container = etree.Element('div')
     container.set('class', f'{HTML_CLASS_BASE}-function')
 
-    _render_function_title(obj, container)
+    render_title(obj, container)
     _render_meta_data(obj, container)
-    _render_summary(docstring, container)
+    render_summary(docstring, container)
     _render_signature(obj, signature, docstring, container)
     _render_parameters(obj, signature, docstring, container)
 
@@ -570,6 +477,6 @@ def render_function(obj: Any, instructions: Set[str]) -> etree.Element:
     else:
         _render_returns(obj, signature, docstring, container)
     _render_raises(obj, signature, docstring, container)
-    _render_description(docstring, container)
+    render_description(docstring, container)
 
     return container

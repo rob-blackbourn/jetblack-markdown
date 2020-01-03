@@ -14,6 +14,7 @@ from markdown.inlinepatterns import InlineProcessor
 from markdown.util import etree
 
 from .functions import render_function
+from .modules import render_module
 
 DOCSTRING_RE = r'@\[([^\]]+)\]'
 DEFAULT_INSTRUCTION_SET = {'shallow'}
@@ -33,7 +34,7 @@ def import_from_string(import_str: str) -> Any:
     Returns:
         Any: The imported object
     """
-    module_str, _, attr_str = import_str.rpartition(".")
+    module_str, _, attr_str = import_str.partition(":")
 
     try:
         module = importlib.import_module(module_str)
@@ -42,6 +43,9 @@ def import_from_string(import_str: str) -> Any:
         if exc.name != module_name:
             raise exc from None
         raise ValueError(f"Could not import module {module_str!r}.")
+
+    if not attr_str:
+        return module
 
     try:
         return getattr(module, attr_str)
@@ -70,7 +74,7 @@ class AutodocInlineProcessor(InlineProcessor):
                 and end index
         """
         text = matches.group(1)
-        import_str, _sep, instructions = text.partition(':')
+        import_str, _sep, instructions = text.partition('!')
         obj = import_from_string(import_str)
         if not instructions:
             instruction_set = DEFAULT_INSTRUCTION_SET
@@ -87,7 +91,7 @@ class AutodocInlineProcessor(InlineProcessor):
 
     def _render_obj(self, obj: Any, instructions: Set[str]) -> etree.Element:
         if inspect.ismodule(obj):
-            pass
+            return render_module(obj, instructions)
         elif inspect.isclass(obj):
             pass
         elif inspect.isfunction(obj):
