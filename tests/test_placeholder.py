@@ -7,7 +7,7 @@ import markdown
 def test_placeholder():
     content = """
 
-@[jetblack_markdown.example_google.module_level_function]
+@[jetblack_markdown.example_google.module_level_async_func]
 
 Something else
 """

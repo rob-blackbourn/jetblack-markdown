@@ -169,6 +169,13 @@ def _render_signature(
         parent
     )
 
+    if inspect.iscoroutinefunction(obj):
+        create_span_subelement(
+            "async ",
+            f'{HTML_CLASS_BASE}-function-punctuation',
+            container
+        )
+
     create_span_subelement(
         obj.__name__,
         f'{HTML_CLASS_BASE}-function-name',

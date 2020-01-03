@@ -21,3 +21,5 @@ For full documentation visit [mkdocs.org](https://mkdocs.org).
 @[jetblack_markdown.example_google.function_with_pep484_type_annotations]
 
 @[jetblack_markdown.example_google.module_level_function]
+
+@[jetblack_markdown.example_google.module_level_async_func]

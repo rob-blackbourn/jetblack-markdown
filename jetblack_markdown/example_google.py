@@ -130,6 +130,16 @@ def module_level_function(param1, param2=None, *args, **kwargs):
     return True
 
 
+async def module_level_async_func(arg1: str) -> float:
+    """An asynchronous module level function
+
+    Args:
+        arg1 (str): The first argument
+
+    Returns:
+        float: Some return value
+    """
+
 def example_generator(n):
     """Generators have a ``Yields`` section instead of a ``Returns`` section.
 
