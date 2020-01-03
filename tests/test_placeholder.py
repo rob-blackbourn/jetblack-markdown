@@ -11,5 +11,5 @@ def test_placeholder():
 
 Something else
 """
-    output = markdown.markdown(content, extensions=["jetblack_markdown"])
+    output = markdown.markdown(content, extensions=["jetblack_markdown.autodoc"])
     assert output is not None

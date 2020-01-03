@@ -3,7 +3,7 @@ site_name: My Docs
 markdown_extensions:
   - admonition
   - codehilite
-  - jetblack_markdown
+  - jetblack_markdown.autodoc
 
 extra_css:
     - css/custom.css
