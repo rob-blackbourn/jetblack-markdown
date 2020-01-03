@@ -324,6 +324,14 @@ def _render_parameters(
                 parameter_container
             )
 
+        if docstring_param and docstring_param.is_optional:
+            create_span_subelement(
+                ' (optional)',
+                f'{HTML_CLASS_BASE}-punctuation',
+                parameter_container
+            )
+
+
         create_subelement('br', [], parameter_container)
 
         description = docstring_param.description if docstring_param else ''

@@ -5,14 +5,10 @@ import inspect
 import re
 from typing import (
     Any,
-    List,
-    Optional,
-    Mapping,
     Set,
     Tuple
 )
 
-import docstring_parser
 from markdown.extensions import Extension
 from markdown.inlinepatterns import InlineProcessor
 from markdown.util import etree
@@ -27,10 +23,15 @@ HTML_CLASS_BASE = 'jetblack'
 def import_from_string(import_str: str) -> Any:
     """Import some python object from a given string
 
-    :param import_str: The import string
-    :type import_str: str
-    :return: The imported object
-    :rtype: Any
+    Args:
+        import_str (str): The import string
+
+    Raises:
+        ImportError: If the module could not be imported.
+        ValueError: If the module could not be imported.
+
+    Returns:
+        Any: The imported object
     """
     module_str, _, attr_str = import_str.rpartition(".")
 
@@ -52,6 +53,7 @@ def import_from_string(import_str: str) -> Any:
 class AutodocInlineProcessor(InlineProcessor):
     """An inline processort for Python documentation"""
 
+    # pylint: disable=arguments-differ
     def handleMatch(
             self,
             matches: re.Match,
@@ -59,15 +61,16 @@ class AutodocInlineProcessor(InlineProcessor):
     ) -> Tuple[etree.Element, int, int]:
         """Handle a match
 
-        :param matches: The regular expression match result
-        :type matches: re.Matche
-        :param data: The matched text
-        :type data: str
-        :return: The element to insert and the start and end index
-        :rtype: Tuple[Element, int, int]
+        Args:
+            matches (re.Match): The regular expression match result
+            data (str): The matched text
+
+        Returns:
+            Tuple[etree.Element, int, int]: The element to insert and the start
+                and end index
         """
         text = matches.group(1)
-        import_str, sep, instructions = text.partition(':')
+        import_str, _sep, instructions = text.partition(':')
         obj = import_from_string(import_str)
         if not instructions:
             instruction_set = DEFAULT_INSTRUCTION_SET
@@ -104,10 +107,24 @@ class AutodocInlineProcessor(InlineProcessor):
 
 
 class AutodocExtension(Extension):
+    """The autodoc extension.
+
+    Reference as "jetblack_markdown.autodoc"
+    """
+
     def extendMarkdown(self, md):
         md.inlinePatterns.register(
             AutodocInlineProcessor(DOCSTRING_RE, md), 'autodoc', 175)
 
 
-def makeExtension():
+# pylint: disable=invalid-name
+def makeExtension() -> Extension:
+    """Make the extension
+
+    This hook function get picked up by the markdown processor when the
+    extension is listed
+
+    Returns:
+        Extension: The extension
+    """
     return AutodocExtension()
