@@ -161,6 +161,20 @@ def example_generator(n):
         yield i
 
 
+async def example_async_generator(n: int):
+    """An async generator
+
+    Args:
+        n (int): The upper limit of the range to generate, from 0 to `n` - 1.
+
+    Yields:
+        int: The next number in the range of 0 to `n` - 1.
+    """
+    for i in range(n):
+        yield i
+
+
+
 class ExampleError(Exception):
     """Exceptions are documented in the same way as classes.
 

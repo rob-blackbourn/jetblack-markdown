@@ -23,3 +23,7 @@ For full documentation visit [mkdocs.org](https://mkdocs.org).
 @[jetblack_markdown.example_google.module_level_function]
 
 @[jetblack_markdown.example_google.module_level_async_func]
+
+@[jetblack_markdown.example_google.example_generator]
+
+@[jetblack_markdown.example_google.example_async_generator]

@@ -53,11 +53,24 @@ def _render_function_title(obj: Any, parent: etree.Element) -> etree.Element:
         None,
         header
     )
-    create_span_subelement(
-        '(function)',
-        f'{HTML_CLASS_BASE}-object-type',
-        header
-    )
+    if inspect.isgeneratorfunction(obj):
+        create_span_subelement(
+            '(generator function)',
+            f'{HTML_CLASS_BASE}-object-type',
+            header
+        )
+    elif inspect.isasyncgenfunction(obj):
+        create_span_subelement(
+            '(async generator function)',
+            f'{HTML_CLASS_BASE}-object-type',
+            header
+        )
+    else:
+        create_span_subelement(
+            '(function)',
+            f'{HTML_CLASS_BASE}-object-type',
+            header
+        )
 
     return container
 
@@ -169,7 +182,7 @@ def _render_signature(
         parent
     )
 
-    if inspect.iscoroutinefunction(obj):
+    if inspect.iscoroutinefunction(obj) or inspect.isasyncgenfunction(obj):
         create_span_subelement(
             "async ",
             f'{HTML_CLASS_BASE}-function-punctuation',
@@ -396,6 +409,50 @@ def _render_returns(
 
     return container
 
+def _render_yields(
+        obj: Any,
+        signature: inspect.Signature,
+        docstring: Docstring,
+        parent: etree.Element
+) -> etree.Element:
+
+    container = create_subelement(
+        'p',
+        [('class', f'{HTML_CLASS_BASE}-function-yields')],
+        parent
+    )
+
+    type_name = get_type_name(signature.return_annotation, docstring.returns)
+    if type_name == 'None' or type_name == 'typing.None':
+        return container
+
+    create_text_subelement(
+        'h3',
+        'Yields',
+        f'{HTML_CLASS_BASE}-function-header',
+        container
+    )
+
+    create_span_subelement(
+        type_name,
+        f'{HTML_CLASS_BASE}-variable-type',
+        container
+    )
+    create_span_subelement(
+        ': ',
+        f'{HTML_CLASS_BASE}-punctuation',
+        container
+    )
+
+    description = docstring.returns.description if docstring.returns else ''
+    create_span_subelement(
+        description,
+        f'{HTML_CLASS_BASE}-function-param',
+        container
+    )
+
+    return container
+
 
 def _render_raises(
         obj: Any,
@@ -507,7 +564,11 @@ def render_function(obj: Any, instructions: Set[str]) -> etree.Element:
     _render_summary(docstring, container)
     _render_signature(obj, signature, docstring, container)
     _render_parameters(obj, signature, docstring, container)
-    _render_returns(obj, signature, docstring, container)
+
+    if inspect.isgeneratorfunction(obj) or inspect.isasyncgenfunction(obj):
+        _render_yields(obj, signature, docstring, container)
+    else:
+        _render_returns(obj, signature, docstring, container)
     _render_raises(obj, signature, docstring, container)
     _render_description(docstring, container)
 
