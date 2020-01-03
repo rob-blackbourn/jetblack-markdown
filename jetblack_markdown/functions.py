@@ -215,7 +215,7 @@ def _render_signature(
 
     create_span_subelement(')', f'{HTML_CLASS_BASE}-punctuation', container)
 
-    if signature.return_annotation:
+    if signature.return_annotation and function_type != 'constructor':
         type_name = get_type_name(
             signature.return_annotation,
             docstring.returns if docstring else None

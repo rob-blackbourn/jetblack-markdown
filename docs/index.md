@@ -30,4 +30,8 @@ For full documentation visit [mkdocs.org](https://mkdocs.org).
 
 @[jetblack_markdown.example_google:example_async_generator]
 
+@[jetblack_markdown.example_google:EmptyClass]
+
+@[jetblack_markdown.example_google:ExampleError]
+
 @[jetblack_markdown.example_google:ExampleClass]

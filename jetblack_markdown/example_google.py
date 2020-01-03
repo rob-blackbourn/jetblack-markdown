@@ -174,28 +174,27 @@ class EmptyClass:
     """
 
 class ExampleError(Exception):
-    """Exceptions are documented in the same way as classes.
-
-    The __init__ method may be documented in either the class level
-    docstring, or as a docstring on the __init__ method itself.
-
-    Either form is acceptable, but the two should not be mixed. Choose one
-    convention to document the __init__ method and be consistent with it.
-
-    Note:
-        Do not include the `self` parameter in the ``Args`` section.
-
-    Args:
-        msg (str): Human readable string describing the exception.
-        code (int, optional): Error code.
-
-    Attributes:
-        msg (str): Human readable string describing the exception.
-        code (int): Exception error code.
-
-    """
 
     def __init__(self, msg, code):
+        """Exceptions are documented in the same way as classes.
+
+        The &lowbar;&lowbar;init&lowbar;&lowbar; method may be documented in either the class level
+        docstring, or as a docstring on the &lowbar;&lowbar;init&lowbar;&lowbar; method itself.
+
+        Either form is acceptable, but the two should not be mixed. Choose one
+        convention to document the &lowbar;&lowbar;init&lowbar;&lowbar; method and be consistent with it.
+
+        Note:
+            Do not include the `self` parameter in the ``Args`` section.
+
+        Args:
+            msg (str): Human readable string describing the exception.
+            code (int, optional): Error code.
+
+        Attributes:
+            msg (str): Human readable string describing the exception.
+            code (int): Exception error code.
+        """
         self.msg = msg
         self.code = code
 
@@ -203,18 +202,18 @@ class ExampleError(Exception):
 class ExampleClass(object):
 
     def __init__(self, param1, param2, param3):
-        """Example of docstring on the \\_\\_init\\_\\_ method.
+        """Example of docstring on the &lowbar;&lowbar;initlowbar;&lowbar method.
 
-        The \_\_init\_\_ method may be documented in either the class level
-        docstring, or as a docstring on the \_\_init\_\_ method itself.
+        The &lowbar;&lowbar;init&lowbar;&lowbar; method may be documented in either the class level
+        docstring, or as a docstring on the &lowbar;&lowbar;init&lowbar;&lowbar; method itself.
 
         Either form is acceptable, but the two should not be mixed. Choose one
-        convention to document the \_\_init\_\_ method and be consistent with it.
+        convention to document the &lowbar;&lowbar;init&lowbar;&lowbar; method and be consistent with it.
 
         If the class has public attributes, they may be documented here
         in an `Attributes` section and follow the same formatting as a
         function's `Args` section. Alternatively, attributes may be documented
-        inline with the attribute's declaration (see \_\_init\_\_ method below).
+        inline with the attribute's declaration (see &lowbar;&lowbar;init&lowbar;&lowbar; method below).
 
         Properties created with the ``@property`` decorator should be documented
         in the property's getter method.

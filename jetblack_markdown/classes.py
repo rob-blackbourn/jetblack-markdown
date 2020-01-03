@@ -154,6 +154,10 @@ def render_property(
         )
         # create_subelement('br', [], code)
 
+    _render_raises(obj, signature, docstring, container, md)
+    render_description(docstring, container, md)
+    render_examples(docstring, container, md)
+
     return container
 
 def render_class(
