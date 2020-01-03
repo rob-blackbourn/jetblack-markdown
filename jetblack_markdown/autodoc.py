@@ -107,25 +107,26 @@ class AutodocInlineProcessor(InlineProcessor):
         return element, start, end
 
     def _render_obj(self, obj: Any, instructions: Set[str]) -> etree.Element:
+
+        container = etree.Element('div')
+        container.set('class', f'{HTML_CLASS_BASE}-documentation')
+
         if inspect.ismodule(obj):
-            return render_module(obj, instructions, self.md)
+            render_module(obj, instructions, self.md, container)
         elif inspect.isclass(obj):
-            return render_class(
+            render_class(
                 obj,
                 instructions,
                 self.md,
                 self.class_from_init,
                 self.ignore_dunder,
-                self.ignore_private
+                self.ignore_private,
+                container
             )
         elif inspect.isfunction(obj):
-            return render_function(obj, instructions, self.md)
-        else:
-            pass
+            render_function(obj, instructions, self.md, container)
 
-        element = etree.Element('span')
-        element.text = 'hello'
-        return element
+        return container
 
     def _render_class(self, obj: Any, instructions: Set[str]) -> etree.Element:
         pass

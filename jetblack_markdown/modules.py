@@ -35,7 +35,7 @@ from .renderers import (
     render_examples
 )
 
-def _render_meta_data(module: Any, parent: etree.Element) -> etree.Element:
+def _render_module_meta_data(module: Any, parent: etree.Element) -> etree.Element:
     container = create_subelement(
         'p',
         [('class', f'{HTML_CLASS_BASE}-metadata')],
@@ -82,17 +82,101 @@ def _render_meta_data(module: Any, parent: etree.Element) -> etree.Element:
 
     return container
 
-def render_module(obj: Any, instructions: Set[str], md) -> etree.Element:
+def render_module_attributes(
+        obj: Any,
+        instructions: Set[str],
+        docstring: Docstring,
+        md: Markdown,
+        parent: etree.Element
+) -> etree.Element:
+    container = create_subelement(
+        'div',
+        [('class', f'{HTML_CLASS_BASE}-attributes')],
+        parent
+    )
+
+    if docstring is None:
+        return container
+    attributes = [
+        (meta.args[1], meta.description)
+        for meta in docstring.meta
+        if 'attribute' in meta.args
+    ]
+    if not attributes:
+        return container
+
+    create_text_subelement(
+        'h3',
+        'Attributes',
+        f'{HTML_CLASS_BASE}-description',
+        container
+    )
+
+    for attr_details, attr_desc in attributes:
+        attr_container = create_subelement(
+            'div',
+            [('class', f'{HTML_CLASS_BASE}-class-attributes')],
+            container
+        )
+
+        attr_name, sep, attr_type = attr_details.partition(' ')
+        attr_type = attr_type.strip('()')
+
+        create_text_subelement(
+            'var',
+            attr_name,
+            f'{HTML_CLASS_BASE}-class-attr',
+            attr_container
+        )
+
+        if attr_type:
+            create_span_subelement(
+                ': ',
+                f'{HTML_CLASS_BASE}-punctuation',
+                attr_container
+            )
+            create_span_subelement(
+                attr_type,
+                f'{HTML_CLASS_BASE}-variable-type',
+                attr_container
+            )
+
+        create_subelement('br', [], attr_container)
+
+        create_text_subelement(
+            'p',
+            md.convert(attr_desc),
+            f'{HTML_CLASS_BASE}-class-attr',
+            attr_container
+        )
+
+    return container
+
+def render_module(
+        obj: Any,
+        instructions: Set[str],
+        md,
+        parent: etree.Element
+) -> etree.Element:
     docstring = docstring_parser.parse(inspect.getdoc(obj))
 
-    container = etree.Element('div')
-    container.set('class', f'{HTML_CLASS_BASE}-module')
+    container = create_subelement(
+        'div',
+        [('class', f'{HTML_CLASS_BASE}-module')],
+        parent
+    )
 
     render_title_from_obj(obj, container)
-    _render_meta_data(obj, container)
+    _render_module_meta_data(obj, container)
     render_summary(docstring, container, md)
+    render_module_attributes(obj, instructions, docstring, md, container)
     render_description(docstring, container, md)
     render_examples(docstring, container, md)
+
+    members = {
+        name: value
+        for name, value in  inspect.getmembers(obj)
+    }
 
     return container
 

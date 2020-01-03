@@ -236,7 +236,8 @@ def render_class(
         md: Markdown,
         class_from_init: bool,
         ignore_dunder: bool,
-        ignore_private: bool
+        ignore_private: bool,
+        parent: etree.Element
 ) -> etree.Element:
     members: Dict[str, Any] = {
         name: value
@@ -249,8 +250,11 @@ def render_class(
         )
     )
 
-    container = etree.Element('div')
-    container.set('class', f'{HTML_CLASS_BASE}-class')
+    container = create_subelement(
+        'div',
+        [('class', f'{HTML_CLASS_BASE}-class')],
+        parent
+    )
 
     render_title_from_obj(obj, container)
     _render_meta_data(obj, container)

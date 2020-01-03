@@ -476,27 +476,6 @@ def create_function(
         container: etree.Element,
         function_type: str
 ) -> etree.Element:
-    """Render a function
-
-    <div class="function">
-        <div class="function-title">
-            <h1><span class="function-name">render_function</span> <span class="object-type">(function)</span><h1>
-        </div>
-
-        <div class="function-metadata">
-            module: jetblack_markdown
-            package: jetblack-markdown
-            file: 
-        <div>
-    <div>
-
-    :param obj: the function object
-    :type obj: Any
-    :param instructions: the render instructions
-    :type instructions: Set[str]
-    :return: The html etree
-    :rtype: etree.Element
-    """
     signature = inspect.signature(obj)
     docstring = docstring_parser.parse(inspect.getdoc(obj))
 
@@ -516,8 +495,16 @@ def create_function(
 
     return container
 
-def render_function(obj: Any, instructions: Set[str], md: Markdown) -> etree.Element:
-    container = etree.Element('div')
-    container.set('class', f'{HTML_CLASS_BASE}-function')
+def render_function(
+        obj: Any,
+        instructions: Set[str],
+        md: Markdown,
+        parent: etree.Element
+) -> etree.Element:
+    container = create_subelement(
+        'p',
+        [('class', f'{HTML_CLASS_BASE}-function')],
+        parent
+    )
     return create_function(obj, instructions, md, container, 'function')
 

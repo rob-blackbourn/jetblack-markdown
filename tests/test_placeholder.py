@@ -9,7 +9,7 @@ from jetblack_markdown.autodoc import AutodocExtension
 def test_placeholder():
     content = """
 
-@[jetblack_markdown.example_google:ExampleClass]
+@[jetblack_markdown.example_google]
 
 Something else
 """
