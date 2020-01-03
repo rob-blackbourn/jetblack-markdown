@@ -3,20 +3,13 @@
 
 import inspect
 from inspect import Parameter
-import typing
 from typing import (
-    Any,
-    List,
-    Optional,
-    Set,
-    Union
+    Any
 )
 
 import docstring_parser
 from docstring_parser import (
-    Docstring,
-    DocstringParam,
-    DocstringReturns
+    Docstring
 )
 from markdown import Markdown
 from markdown.util import etree
