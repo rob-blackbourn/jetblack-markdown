@@ -91,11 +91,11 @@ class AutodocInlineProcessor(InlineProcessor):
 
     def _render_obj(self, obj: Any, instructions: Set[str]) -> etree.Element:
         if inspect.ismodule(obj):
-            return render_module(obj, instructions)
+            return render_module(obj, instructions, self.md)
         elif inspect.isclass(obj):
             pass
         elif inspect.isfunction(obj):
-            return render_function(obj, instructions)
+            return render_function(obj, instructions, self.md)
         else:
             pass
 

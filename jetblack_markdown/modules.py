@@ -17,6 +17,7 @@ from docstring_parser import (
     DocstringParam,
     DocstringReturns
 )
+from markdown import Markdown
 from markdown.util import etree
 
 from .constants import HTML_CLASS_BASE
@@ -30,7 +31,8 @@ from .utils import (
 from .renderers import (
     render_title,
     render_summary,
-    render_description
+    render_description,
+    render_examples
 )
 
 def _render_meta_data(module: Any, parent: etree.Element) -> etree.Element:
@@ -80,7 +82,7 @@ def _render_meta_data(module: Any, parent: etree.Element) -> etree.Element:
 
     return container
 
-def render_module(obj: Any, instructions: Set[str]) -> etree.Element:
+def render_module(obj: Any, instructions: Set[str], md) -> etree.Element:
     docstring = docstring_parser.parse(inspect.getdoc(obj))
 
     container = etree.Element('div')
@@ -88,8 +90,9 @@ def render_module(obj: Any, instructions: Set[str]) -> etree.Element:
 
     render_title(obj, container)
     _render_meta_data(obj, container)
-    render_summary(docstring, container)
-    render_description(docstring, container)
+    render_summary(docstring, container, md)
+    render_description(docstring, container, md)
+    render_examples(docstring, container, md)
 
     return container
 

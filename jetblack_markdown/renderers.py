@@ -18,6 +18,7 @@ from docstring_parser import (
     DocstringParam,
     DocstringReturns
 )
+from markdown import Markdown
 from markdown.util import etree
 
 from .constants import HTML_CLASS_BASE
@@ -85,7 +86,8 @@ def render_title(obj: Any, parent: etree.Element) -> etree.Element:
 
 def render_summary(
         docstring: Optional[Docstring],
-        parent: etree.Element
+        parent: etree.Element,
+        md: Markdown
 ) -> etree.Element:
     container = create_subelement(
         'div',
@@ -105,14 +107,15 @@ def render_summary(
             [('class', f'{HTML_CLASS_BASE}-function-summary')],
             container
         )
-        summary.text = docstring.short_description
+        summary.text = md.convert(docstring.short_description)
 
     return container
 
 
 def render_description(
         docstring: Optional[docstring_parser.Docstring],
-        parent: etree.Element
+        parent: etree.Element,
+        md: Markdown
 ) -> etree.Element:
     container = create_subelement(
         'div',
@@ -127,11 +130,45 @@ def render_description(
             f'{HTML_CLASS_BASE}-description',
             container
         )
-        summary = create_subelement(
+        description = create_subelement(
             'p',
             [('class', f'{HTML_CLASS_BASE}-description')],
             container
         )
-        summary.text = docstring.long_description
+        description.text = md.convert(docstring.long_description)
+
+    return container
+
+def render_examples(
+        docstring: Optional[docstring_parser.Docstring],
+        parent: etree.Element,
+        md: Markdown
+) -> etree.Element:
+    container = create_subelement(
+        'div',
+        [('class', f'{HTML_CLASS_BASE}-examples')],
+        parent
+    )
+
+    if docstring is None:
+        return container
+    examples = [
+        meta.description
+        for meta in docstring.meta
+        if 'examples' in meta.args
+    ]
+    if not examples:
+        return container
+
+    create_text_subelement(
+        'h3',
+        'Examples',
+        f'{HTML_CLASS_BASE}-description',
+        container
+    )
+
+    for example in examples:
+        paragraph = create_subelement('p', [], container)
+        paragraph.text = md.convert(example)
 
     return container

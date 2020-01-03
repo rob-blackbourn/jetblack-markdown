@@ -18,6 +18,7 @@ from docstring_parser import (
     DocstringParam,
     DocstringReturns
 )
+from markdown import Markdown
 from markdown.util import etree
 
 from .constants import HTML_CLASS_BASE
@@ -32,7 +33,8 @@ from .utils import (
 from .renderers import (
     render_title,
     render_summary,
-    render_description
+    render_description,
+    render_examples
 )
 
 
@@ -222,7 +224,8 @@ def _render_parameters(
         obj: Any,
         signature: inspect.Signature,
         docstring: Docstring,
-        parent: etree.Element
+        parent: etree.Element,
+        md: Markdown
 ) -> etree.Element:
 
     container = create_subelement(
@@ -236,7 +239,7 @@ def _render_parameters(
         f'{HTML_CLASS_BASE}-function-header',
         container
     )
-    for index, parameter in enumerate(signature.parameters.values()):
+    for parameter in signature.parameters.values():
 
         parameter_container = create_subelement(
             'div',
@@ -291,7 +294,7 @@ def _render_parameters(
         description = docstring_param.description if docstring_param else ''
         create_text_subelement(
             'p',
-            description,
+            md.convert(description),
             f'{HTML_CLASS_BASE}-function-param',
             parameter_container
         )
@@ -303,7 +306,8 @@ def _render_returns(
         obj: Any,
         signature: inspect.Signature,
         docstring: Docstring,
-        parent: etree.Element
+        parent: etree.Element,
+        md: Markdown
 ) -> etree.Element:
 
     container = create_subelement(
@@ -335,9 +339,12 @@ def _render_returns(
     )
 
     description = docstring.returns.description if docstring.returns else ''
+    text = md.convert(description)
+    if text.startswith('<p>') and text.endswith('</p>'):
+        text = text[3:-4]
     create_span_subelement(
-        description,
-        f'{HTML_CLASS_BASE}-function-param',
+        text,
+        f'{HTML_CLASS_BASE}-description',
         container
     )
 
@@ -347,7 +354,8 @@ def _render_yields(
         obj: Any,
         signature: inspect.Signature,
         docstring: Docstring,
-        parent: etree.Element
+        parent: etree.Element,
+        md: Markdown
 ) -> etree.Element:
 
     container = create_subelement(
@@ -379,9 +387,12 @@ def _render_yields(
     )
 
     description = docstring.returns.description if docstring.returns else ''
+    text = md.convert(description)
+    if text.startswith('<p>') and text.endswith('</p>'):
+        text = text[3:-4]
     create_span_subelement(
-        description,
-        f'{HTML_CLASS_BASE}-function-param',
+        text,
+        f'{HTML_CLASS_BASE}-description',
         container
     )
 
@@ -392,7 +403,8 @@ def _render_raises(
         obj: Any,
         signature: inspect.Signature,
         docstring: Docstring,
-        parent: etree.Element
+        parent: etree.Element,
+        md: Markdown
 ) -> etree.Element:
 
     container = create_subelement(
@@ -428,9 +440,11 @@ def _render_raises(
             error_container
         )
 
-        description = docstring.returns.description if docstring.returns else ''
+        text = md.convert(error.description)
+        if text.startswith('<p>') and text.endswith('</p>'):
+            text = text[3:-4]
         create_span_subelement(
-            error.description,
+            text,
             f'{HTML_CLASS_BASE}-function-raises',
             error_container
         )
@@ -438,7 +452,7 @@ def _render_raises(
     return container
 
 
-def render_function(obj: Any, instructions: Set[str]) -> etree.Element:
+def render_function(obj: Any, instructions: Set[str], md: Markdown) -> etree.Element:
     """Render a function
 
     <div class="function">
@@ -468,15 +482,16 @@ def render_function(obj: Any, instructions: Set[str]) -> etree.Element:
 
     render_title(obj, container)
     _render_meta_data(obj, container)
-    render_summary(docstring, container)
+    render_summary(docstring, container, md)
     _render_signature(obj, signature, docstring, container)
-    _render_parameters(obj, signature, docstring, container)
+    _render_parameters(obj, signature, docstring, container, md)
 
     if inspect.isgeneratorfunction(obj) or inspect.isasyncgenfunction(obj):
-        _render_yields(obj, signature, docstring, container)
+        _render_yields(obj, signature, docstring, container, md)
     else:
-        _render_returns(obj, signature, docstring, container)
-    _render_raises(obj, signature, docstring, container)
-    render_description(docstring, container)
+        _render_returns(obj, signature, docstring, container, md)
+    _render_raises(obj, signature, docstring, container, md)
+    render_description(docstring, container, md)
+    render_examples(docstring, container, md)
 
     return container
