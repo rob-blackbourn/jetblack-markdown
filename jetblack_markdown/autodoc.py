@@ -5,10 +5,13 @@ import inspect
 import re
 from typing import (
     Any,
+    Dict,
+    Optional,
     Set,
     Tuple
 )
 
+from markdown import Markdown
 from markdown.extensions import Extension
 from markdown.inlinepatterns import InlineProcessor
 from markdown.util import etree
@@ -56,6 +59,15 @@ def import_from_string(import_str: str) -> Any:
 
 class AutodocInlineProcessor(InlineProcessor):
     """An inline processort for Python documentation"""
+
+    def __init__(
+            self,
+            pattern,
+            class_from_init: bool,
+            md: Markdown = None
+    ) -> None:
+        self.class_from_init = class_from_init
+        super().__init__(pattern, md=md)
 
     # pylint: disable=arguments-differ
     def handleMatch(
@@ -116,13 +128,24 @@ class AutodocExtension(Extension):
     Reference as "jetblack_markdown.autodoc"
     """
 
-    def extendMarkdown(self, md):
+    def __init__(self, *args, **kwargs) -> None:
+        self.config = {
+            'class_from_init': [False, 'Class documentation is on __init__']
+        }
+        super().__init__(*args, **kwargs)
+
+    def extendMarkdown(self, md: Markdown) -> None:
+        class_from_init = self.getConfig('class_from_init')
+        print('class_from_init', class_from_init)
         md.inlinePatterns.register(
-            AutodocInlineProcessor(DOCSTRING_RE, md), 'autodoc', 175)
+            AutodocInlineProcessor(DOCSTRING_RE, class_from_init, md),
+            'autodoc',
+            175
+        )
 
 
 # pylint: disable=invalid-name
-def makeExtension() -> Extension:
+def makeExtension(*args, **kwargs) -> Extension:
     """Make the extension
 
     This hook function get picked up by the markdown processor when the
@@ -131,4 +154,4 @@ def makeExtension() -> Extension:
     Returns:
         Extension: The extension
     """
-    return AutodocExtension()
+    return AutodocExtension(*args, **kwargs)

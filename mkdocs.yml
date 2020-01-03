@@ -3,7 +3,8 @@ site_name: My Docs
 markdown_extensions:
   - admonition
   - codehilite
-  - jetblack_markdown.autodoc
+  - jetblack_markdown.autodoc:
+      class_from_init: false
 
 extra_css:
     - css/custom.css
