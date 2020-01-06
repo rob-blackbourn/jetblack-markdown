@@ -46,22 +46,21 @@ def import_from_string(import_str: str) -> Any:
             f"Attribute {attr_str!r} not found in module {module_str!r}.")
 
 
-def create_subelement(tag: str, attrs: Iterable[Tuple[str, str]], parent: etree.Element) -> etree.Element:
+def add_tag(tag: str, class_name: Optional[str], parent: etree.Element) -> etree.Element:
     element = etree.SubElement(parent, tag)
-    for name, value in attrs:
-        element.set(name, value)
+    if class_name:
+        element.set('class', class_name)
     return element
 
 
-def create_text_subelement(tag: str, text: str, klass: Optional[str], parent: etree.Element) -> etree.Element:
-    attrs = [] if klass is None else [('class', klass)]
-    element = create_subelement(tag, attrs, parent)
+def add_text_tag(tag: str, text: str, klass: Optional[str], parent: etree.Element) -> etree.Element:
+    element = add_tag(tag, klass, parent)
     element.text = text
     return element
 
 
-def create_span_subelement(text: str, klass: Optional[str], parent: etree.Element) -> etree.Element:
-    return create_text_subelement('span', text, klass, parent)
+def add_span_tag(text: str, klass: Optional[str], parent: etree.Element) -> etree.Element:
+    return add_text_tag('span', text, klass, parent)
 
 
 def find_docstring_param(name: str, docstring: Docstring) -> DocstringParam:
