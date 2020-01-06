@@ -94,6 +94,20 @@ class FunctionDescriptor:
         self.package = package
         self.file = file
 
+    @property
+    def function_type_name(self) -> str:
+        if self.function_type == FunctionType.CONSTRUCTOR:
+            return 'class'
+        elif self.function_type == FunctionType.METHOD:
+            return 'method'
+        elif self.is_generator:
+            if self.is_async:
+                return 'async generator function'
+            else:
+                return 'generator function'
+        else:
+            return 'function'
+
     @classmethod
     def create(
             cls,

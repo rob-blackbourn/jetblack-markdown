@@ -9,14 +9,14 @@ from typing import (
     Tuple
 )
 
+import docstring_parser
 from markdown import Markdown
 from markdown.inlinepatterns import InlineProcessor
 from markdown.util import etree
 
 from .constants import HTML_CLASS_BASE
-from .functions import render_function
-from .modules import render_module
-from .classes import render_class
+from .metadata import ModuleDescriptor, FunctionDescriptor, FunctionType, ClassDescriptor
+from .renderers import render_function, render_module, render_class
 from .utils import import_from_string
 
 DEFAULT_INSTRUCTION_SET = {'shallow'}
@@ -67,17 +67,35 @@ class AutodocInlineProcessor(InlineProcessor):
         container.set('class', f'{HTML_CLASS_BASE}-documentation')
 
         if inspect.ismodule(obj):
-            render_module(obj, self.md, container)
+            self._render_module(obj, container)
         elif inspect.isclass(obj):
-            render_class(
-                obj,
-                self.md,
-                self.class_from_init,
-                self.ignore_dunder,
-                self.ignore_private,
-                container
-            )
+            self._render_class(obj, container)
         elif inspect.isfunction(obj):
-            render_function(obj, self.md, container)
+            self._render_function(obj, container)
 
         return container
+
+    def _render_module(self, obj: Any, container: etree.Element) -> etree.Element:
+        module_descriptor = ModuleDescriptor.create(obj)
+        return render_module(module_descriptor, self.md, container)
+
+    def _render_function(self, obj: Any, container: etree.Element) -> etree.Element:
+        signature = inspect.signature(obj)
+        docstring = docstring_parser.parse(inspect.getdoc(obj))
+
+        function_descriptor = FunctionDescriptor.create(
+            obj,
+            signature,
+            docstring,
+            FunctionType.FUNCTION
+        )
+        return render_function(function_descriptor, self.md, container)
+
+    def _render_class(self, obj: Any, container: etree.Element) -> etree.Element:
+        class_descriptor = ClassDescriptor.create(
+            obj,
+            self.class_from_init,
+            self.ignore_dunder,
+            self.ignore_private
+        )
+        return render_class(class_descriptor, self.md, container)    
