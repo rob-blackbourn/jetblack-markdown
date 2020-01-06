@@ -25,229 +25,161 @@ from .metadata import (
     ModuleDescriptor
 )
 
-def render_title(name: str, object_type: str, parent: etree.Element) -> etree.Element:
-    container = add_tag('div', f'{HTML_CLASS_BASE}-title',parent)
-    header = add_tag('h2', f'{HTML_CLASS_BASE}-header', container)
-    add_span_tag(name.replace('_', '&lowbar;'), f'{HTML_CLASS_BASE}-name', header)
-    add_span_tag(' ', None, header)
+class Renderer:
 
-    add_span_tag(
-        f'({object_type})',
-        f'{HTML_CLASS_BASE}-object-type',
-        header
-    )
-
-    return container
+    def __init__(self, md: Markdown) -> None:
+        self.md = md
 
 
-def render_summary(
-        summary: Optional[str],
-        parent: etree.Element,
-        md: Markdown
-) -> etree.Element:
-    container = add_tag('div', f'{HTML_CLASS_BASE}-summary', parent)
+    def _render_title(
+            self,
+            name: str,
+            object_type: str,
+            parent: etree.Element
+    ) -> etree.Element:
+        container = add_tag('div', f'{HTML_CLASS_BASE}-title',parent)
+        header = add_tag('h2', f'{HTML_CLASS_BASE}-header', container)
+        add_span_tag(name.replace('_', '&lowbar;'), f'{HTML_CLASS_BASE}-name', header)
+        add_span_tag(' ', None, header)
+        add_span_tag(f'({object_type})', f'{HTML_CLASS_BASE}-object-type', header)
 
-    if summary:
-        add_text_tag('h3', 'Summary', f'{HTML_CLASS_BASE}-summary', container)
-        paragraph = add_tag('p', f'{HTML_CLASS_BASE}-function-summary', container)
-        paragraph.text = md.convert(summary)
-
-    return container
-
-
-def render_description(
-        description: Optional[str],
-        parent: etree.Element,
-        md: Markdown
-) -> etree.Element:
-    container = add_tag('div', f'{HTML_CLASS_BASE}-description', parent)
-
-    if description:
-        add_text_tag('h3', 'Description', f'{HTML_CLASS_BASE}-description', container)
-        paragraph = add_tag('p', f'{HTML_CLASS_BASE}-description', container)
-        paragraph.text = md.convert(description)
-
-
-def render_examples(
-        examples: Optional[List[str]],
-        parent: etree.Element,
-        md: Markdown
-) -> etree.Element:
-    container = add_tag('div', f'{HTML_CLASS_BASE}-examples', parent)
-
-    if not examples:
         return container
 
-    add_text_tag('h3', 'Examples', f'{HTML_CLASS_BASE}-description', container)
 
-    for example in examples:
-        paragraph = add_tag('p', None, container)
-        paragraph.text = md.convert(example)
+    def _render_summary(
+            self,
+            summary: Optional[str],
+            parent: etree.Element
+    ) -> etree.Element:
+        container = add_tag('div', f'{HTML_CLASS_BASE}-summary', parent)
 
-    return container
+        if summary:
+            add_text_tag('h3', 'Summary', f'{HTML_CLASS_BASE}-summary', container)
+            paragraph = add_tag('p', f'{HTML_CLASS_BASE}-function-summary', container)
+            paragraph.text = self.md.convert(summary)
 
-def render_meta_data(
-        module_name: Optional[str],
-        package_name: Optional[str],
-        file_name: Optional[str],
-        parent: etree.Element
-) -> etree.Element:
-    container = add_tag('p', f'{HTML_CLASS_BASE}-metadata', parent)
-
-    if module_name:
-        add_text_tag(
-            'strong',
-            'Module:',
-            f'{HTML_CLASS_BASE}-metadata-header',
-            container
-        )
-        add_span_tag(
-            ' ',
-            None,
-            container
-        )
-        add_span_tag(
-            module_name,
-            f'{HTML_CLASS_BASE}-metadata-value',
-            container
-        )
-        add_tag('br', None, container)
-
-    if package_name:
-        add_text_tag(
-            'strong',
-            'Package: ',
-            f'{HTML_CLASS_BASE}-metadata-header',
-            container
-        )
-        add_span_tag(
-            ' ',
-            None,
-            container
-        )
-        add_span_tag(
-            package_name,
-            f'{HTML_CLASS_BASE}-metadata-value',
-            container
-        )
-        add_tag('br', None, container)
-
-    if file_name:
-        add_text_tag(
-            'strong',
-            'File',
-            f'{HTML_CLASS_BASE}-metadata-header',
-            container
-        )
-        add_span_tag(
-            ': ',
-            None,
-            container
-        )
-        add_span_tag(
-            file_name,
-            f'{HTML_CLASS_BASE}-metadata-value',
-            container
-        )
-        add_tag('br', None, container)
-
-    return container
-
-
-def render_attributes(
-        attributes: List[ArgumentDescriptor],
-        md: Markdown,
-        parent: etree.Element
-) -> etree.Element:
-    container = add_tag('div', f'{HTML_CLASS_BASE}-attributes',parent)
-
-    if not attributes:
         return container
 
-    add_text_tag(
-        'h3',
-        'Attributes',
-        f'{HTML_CLASS_BASE}-description',
-        container
-    )
 
-    for attribute in attributes:
-        attr_container = add_tag('div', f'{HTML_CLASS_BASE}-attributes', container)
+    def _render_description(
+            self,
+            description: Optional[str],
+            parent: etree.Element
+    ) -> etree.Element:
+        container = add_tag('div', f'{HTML_CLASS_BASE}-description', parent)
 
-        add_text_tag(
-            'var',
-            attribute.name,
-            f'{HTML_CLASS_BASE}-name',
-            attr_container
-        )
+        if description:
+            add_text_tag('h3', 'Description', f'{HTML_CLASS_BASE}-description', container)
+            paragraph = add_tag('p', f'{HTML_CLASS_BASE}-description', container)
+            paragraph.text = self.md.convert(description)
+
+
+    def _render_examples(
+            self,
+            examples: Optional[List[str]],
+            parent: etree.Element
+    ) -> etree.Element:
+        container = add_tag('div', f'{HTML_CLASS_BASE}-examples', parent)
+
+        if not examples:
+            return container
+
+        add_text_tag('h3', 'Examples', f'{HTML_CLASS_BASE}-description', container)
+
+        for example in examples:
+            paragraph = add_tag('p', None, container)
+            paragraph.text = self.md.convert(example)
+
+        return container
+
+    def _render_meta_data(
+            self,
+            module_name: Optional[str],
+            package_name: Optional[str],
+            file_name: Optional[str],
+            parent: etree.Element
+    ) -> etree.Element:
+        container = add_tag('p', f'{HTML_CLASS_BASE}-metadata', parent)
+
+        if module_name:
+            add_text_tag('strong', 'Module:', f'{HTML_CLASS_BASE}-metadata-header', container)
+            add_span_tag(' ', None, container)
+            add_span_tag(module_name, f'{HTML_CLASS_BASE}-metadata-value', container)
+            add_tag('br', None, container)
+
+        if package_name:
+            add_text_tag('strong', 'Package: ', f'{HTML_CLASS_BASE}-metadata-header', container)
+            add_span_tag(' ', None, container)
+            add_span_tag(package_name, f'{HTML_CLASS_BASE}-metadata-value', container)
+            add_tag('br', None, container)
+
+        if file_name:
+            add_text_tag('strong', 'File', f'{HTML_CLASS_BASE}-metadata-header', container)
+            add_span_tag(': ', None, container)
+            add_span_tag(file_name, f'{HTML_CLASS_BASE}-metadata-value', container)
+            add_tag('br', None, container)
+
+        return container
+
+
+    def _render_attribute(
+            self,
+            attribute: ArgumentDescriptor,
+            parent: etree.Element
+    ) -> etree.Element:
+        container = add_tag('div', f'{HTML_CLASS_BASE}-attributes', parent)
+
+        add_text_tag('var', attribute.name, f'{HTML_CLASS_BASE}-name', container)
 
         if attribute.type:
-            add_span_tag(
-                ': ',
-                f'{HTML_CLASS_BASE}-punctuation',
-                attr_container
-            )
-            add_span_tag(
-                attribute.type,
-                f'{HTML_CLASS_BASE}-vartype',
-                attr_container
-            )
+            add_span_tag(': ', f'{HTML_CLASS_BASE}-punctuation', container)
+            add_span_tag(attribute.type, f'{HTML_CLASS_BASE}-vartype', container)
 
-        add_tag('br', None, attr_container)
+        add_tag('br', None, container)
 
-        add_text_tag(
-            'p',
-            md.convert(attribute.description or ''),
-            f'{HTML_CLASS_BASE}-description',
-            attr_container
-        )
+        description = self.md.convert(attribute.description or '')
+        add_text_tag('p', description, f'{HTML_CLASS_BASE}-description', container)
 
-    return container
-    
-def render_property(
-        property_descriptor: PropertyDescriptor,
-        md: Markdown,
-        parent: etree.Element
-) -> etree.Element:
-    container = add_tag('div', f'{HTML_CLASS_BASE}-function-raises',parent)
+        return container
 
-    render_title(property_descriptor.qual_name, "property", container)
-    # _render_meta_data_obj(klass, container)
+    def _render_attributes(
+            self,
+            attributes: List[ArgumentDescriptor],
+            parent: etree.Element
+    ) -> etree.Element:
+        container = add_tag('div', f'{HTML_CLASS_BASE}-attributes',parent)
 
-    render_summary(property_descriptor.summary, container, md)
+        if not attributes:
+            return container
 
-    code = add_tag('code', f'{HTML_CLASS_BASE}-function-signature', container)
+        add_text_tag('h3', 'Attributes', f'{HTML_CLASS_BASE}-description', container)
 
-    add_span_tag(
-        property_descriptor.qual_name,
-        f'{HTML_CLASS_BASE}-type',
-        code
-    )
-    add_span_tag(
-        ': ',
-        f'{HTML_CLASS_BASE}-punctuation',
-        code
-    )
-    add_span_tag(
-        property_descriptor.type or 'Any',
-        f'{HTML_CLASS_BASE}-type',
-        code
-    )
-    add_span_tag(
-        ' = ...\n',
-        f'{HTML_CLASS_BASE}-punctuation',
-        code
-    )
+        for attribute in attributes:
+            self._render_attribute(attribute, container)
 
-    if property_descriptor.is_settable:
+        return container
+        
+    def _render_property(
+            self,
+            property_descriptor: PropertyDescriptor,
+            parent: etree.Element
+    ) -> etree.Element:
+        container = add_tag('div', f'{HTML_CLASS_BASE}-function-raises',parent)
+
+        self._render_title(property_descriptor.qual_name, "property", container)
+        # _render_meta_data_obj(klass, container)
+
+        self._render_summary(property_descriptor.summary, container)
+
         code = add_tag('code', f'{HTML_CLASS_BASE}-function-signature', container)
+
         add_span_tag(
             property_descriptor.qual_name,
             f'{HTML_CLASS_BASE}-type',
             code
         )
         add_span_tag(
-            ' -> ',
+            ': ',
             f'{HTML_CLASS_BASE}-punctuation',
             code
         )
@@ -257,90 +189,149 @@ def render_property(
             code
         )
         add_span_tag(
-            '\n',
+            ' = ...\n',
             f'{HTML_CLASS_BASE}-punctuation',
             code
         )
 
-    if property_descriptor.is_deletable:
-        code = add_tag('code', f'{HTML_CLASS_BASE}-function-signature', container)
+        if property_descriptor.is_settable:
+            code = add_tag('code', f'{HTML_CLASS_BASE}-function-signature', container)
+            add_span_tag(
+                property_descriptor.qual_name,
+                f'{HTML_CLASS_BASE}-type',
+                code
+            )
+            add_span_tag(
+                ' -> ',
+                f'{HTML_CLASS_BASE}-punctuation',
+                code
+            )
+            add_span_tag(
+                property_descriptor.type or 'Any',
+                f'{HTML_CLASS_BASE}-type',
+                code
+            )
+            add_span_tag(
+                '\n',
+                f'{HTML_CLASS_BASE}-punctuation',
+                code
+            )
+
+        if property_descriptor.is_deletable:
+            code = add_tag('code', f'{HTML_CLASS_BASE}-function-signature', container)
+            add_span_tag(
+                'del ',
+                f'{HTML_CLASS_BASE}-punctuation',
+                code
+            )
+            add_span_tag(
+                property_descriptor.qual_name,
+                f'{HTML_CLASS_BASE}-type',
+                code
+            )
+            add_span_tag(
+                '\n',
+                f'{HTML_CLASS_BASE}-punctuation',
+                code
+            )
+
+        self._render_raises(property_descriptor.raises, container)
+        self._render_description(property_descriptor.description, container)
+        self._render_examples(property_descriptor.examples, container)
+
+        return container
+
+    def render_class(
+            self,
+            class_descriptor: ClassDescriptor,
+            parent: etree.Element
+    ) -> etree.Element:
+
+        container = add_tag('div', f'{HTML_CLASS_BASE}-class', parent)
+
+        self._render_title(class_descriptor.name, 'class', container)
+        self._render_meta_data(class_descriptor.module, class_descriptor.package, class_descriptor.file, container)
+        self._render_summary(class_descriptor.summary, container)
+        self._render_signature(class_descriptor.constructor, container)
+        self._render_parameters(class_descriptor.constructor.arguments, container)
+        self._render_attributes(class_descriptor.attributes, container)
+        self._render_raises(class_descriptor.constructor.raises, container)
+        self._render_description(class_descriptor.description, container)
+        self._render_examples(class_descriptor.examples, container)
+        for prop in class_descriptor.properties:
+            self._render_property(prop, container)
+        for method in class_descriptor.methods:
+            self._render_function_in_container(method, container)
+
+        return container
+
+    def _render_signature(
+            self,
+            function_descriptor: FunctionDescriptor,
+            parent: etree.Element
+    ) -> etree.Element:
+        container = add_tag('code', f'{HTML_CLASS_BASE}-function-signature', parent)
+
+        if function_descriptor.is_async:
+            add_span_tag(
+                "async ",
+                f'{HTML_CLASS_BASE}-function-punctuation',
+                container
+            )
+
         add_span_tag(
-            'del ',
-            f'{HTML_CLASS_BASE}-punctuation',
-            code
-        )
-        add_span_tag(
-            property_descriptor.qual_name,
-            f'{HTML_CLASS_BASE}-type',
-            code
-        )
-        add_span_tag(
-            '\n',
-            f'{HTML_CLASS_BASE}-punctuation',
-            code
-        )
-
-    render_raises(property_descriptor.raises, container, md)
-    render_description(property_descriptor.description, container, md)
-    render_examples(property_descriptor.examples, container, md)
-
-    return container
-
-def render_class(
-        class_descriptor: ClassDescriptor,
-        md: Markdown,
-        parent: etree.Element
-) -> etree.Element:
-
-    container = add_tag('div', f'{HTML_CLASS_BASE}-class', parent)
-
-    render_title(class_descriptor.name, 'class', container)
-    render_meta_data(class_descriptor.module, class_descriptor.package, class_descriptor.file, container)
-    render_summary(class_descriptor.summary, container, md)
-    render_signature(class_descriptor.constructor, container)
-    render_parameters(class_descriptor.constructor.arguments, container, md)
-    render_attributes(class_descriptor.attributes, md, container)
-    render_raises(class_descriptor.constructor.raises, container, md)
-    render_description(class_descriptor.description, container, md)
-    render_examples(class_descriptor.examples, container, md)
-    for prop in class_descriptor.properties:
-        render_property(prop, md, container)
-    for method in class_descriptor.methods:
-        render_function_in_container(method, md, container)
-
-    return container
-
-def render_signature(
-        function_descriptor: FunctionDescriptor,
-        parent: etree.Element
-) -> etree.Element:
-    container = add_tag('code', f'{HTML_CLASS_BASE}-function-signature', parent)
-
-    if function_descriptor.is_async:
-        add_span_tag(
-            "async ",
-            f'{HTML_CLASS_BASE}-function-punctuation',
+            function_descriptor.name,
+            f'{HTML_CLASS_BASE}-function-name',
             container
         )
 
-    add_span_tag(
-        function_descriptor.name,
-        f'{HTML_CLASS_BASE}-function-name',
-        container
-    )
+        add_span_tag('(', f'{HTML_CLASS_BASE}-punctuation', container)
 
-    add_span_tag('(', f'{HTML_CLASS_BASE}-punctuation', container)
+        is_first = True
+        for argument in function_descriptor.arguments:
+            if is_first:
+                is_first = False
+            else:
+                add_span_tag(
+                    ', ',
+                    f'{HTML_CLASS_BASE}-punctuation',
+                    container
+                )
 
-    is_first = True
-    for argument in function_descriptor.arguments:
-        if is_first:
-            is_first = False
-        else:
-            add_span_tag(
-                ', ',
-                f'{HTML_CLASS_BASE}-punctuation',
+            add_text_tag(
+                'var',
+                argument.name,
+                f'{HTML_CLASS_BASE}-function-var',
                 container
             )
+
+            if argument.type:
+                add_span_tag(
+                    ': ', f'{HTML_CLASS_BASE}-punctuation', container)
+                add_span_tag(
+                    argument.type,
+                    f'{HTML_CLASS_BASE}-variable-type',
+                    container
+                )
+
+        add_span_tag(')', f'{HTML_CLASS_BASE}-punctuation', container)
+
+        if function_descriptor.return_type:
+            add_span_tag(
+                ' -> ', f'{HTML_CLASS_BASE}-punctuation', container)
+            add_span_tag(
+                function_descriptor.return_type,
+                f'{HTML_CLASS_BASE}-variable-type',
+                container
+            )
+
+
+    def _render_parameter(
+            self,
+            argument: ArgumentDescriptor,
+            parent: etree.Element
+    ) -> etree.Element:
+        container = add_tag('div', f'{HTML_CLASS_BASE}-function-parameters', parent)
 
         add_text_tag(
             'var',
@@ -350,191 +341,174 @@ def render_signature(
         )
 
         if argument.type:
-            add_span_tag(
-                ': ', f'{HTML_CLASS_BASE}-punctuation', container)
-            add_span_tag(
-                argument.type,
-                f'{HTML_CLASS_BASE}-variable-type',
-                container
-            )
+            add_span_tag(': ', f'{HTML_CLASS_BASE}-punctuation', container)
+            add_span_tag(argument.type, f'{HTML_CLASS_BASE}-vartype', container)
 
-    add_span_tag(')', f'{HTML_CLASS_BASE}-punctuation', container)
+        if argument.is_optional:
+            add_span_tag(' (optional)', f'{HTML_CLASS_BASE}-punctuation', container)
 
-    if function_descriptor.return_type:
-        add_span_tag(
-            ' -> ', f'{HTML_CLASS_BASE}-punctuation', container)
+
+        add_tag('br', None, container)
+
+        description = self.md.convert(argument.description or '')
+        add_text_tag('p', description, f'{HTML_CLASS_BASE}-function-param', container)
+
+        return container
+
+    def _render_parameters(
+            self,
+            arguments: List[ArgumentDescriptor],
+            parent: etree.Element
+    ) -> etree.Element:
+
+        container = add_tag('div', f'{HTML_CLASS_BASE}-function-parameters', parent)
+        add_text_tag(
+            'h3',
+            'Parameters',
+            f'{HTML_CLASS_BASE}-function-header',
+            container
+        )
+
+        for argument in arguments:
+            self._render_parameter(argument, container)
+
+        return container
+
+
+    def _render_returns(
+            self,
+            function_descriptor: FunctionDescriptor,
+            parent: etree.Element
+    ) -> etree.Element:
+
+        container = add_tag('p', f'{HTML_CLASS_BASE}-function-returns', parent)
+
+        if not function_descriptor.return_type or function_descriptor.return_type in ('None', 'typing.None'):
+            return container
+
+        add_text_tag(
+            'h3',
+            'Yields' if function_descriptor.is_generator else 'Returns',
+            f'{HTML_CLASS_BASE}-function-header',
+            container
+        )
+
         add_span_tag(
             function_descriptor.return_type,
             f'{HTML_CLASS_BASE}-variable-type',
             container
         )
-
-
-def render_parameters(
-        arguments: List[ArgumentDescriptor],
-        parent: etree.Element,
-        md: Markdown
-) -> etree.Element:
-
-    container = add_tag('div', f'{HTML_CLASS_BASE}-function-parameters', parent)
-    add_text_tag(
-        'h3',
-        'Parameters',
-        f'{HTML_CLASS_BASE}-function-header',
-        container
-    )
-
-    for argument in arguments:
-
-        parameter_container = add_tag('div', f'{HTML_CLASS_BASE}-function-parameters', container)
-
-        add_text_tag(
-            'var',
-            argument.name,
-            f'{HTML_CLASS_BASE}-function-var',
-            parameter_container
+        add_span_tag(
+            ': ',
+            f'{HTML_CLASS_BASE}-punctuation',
+            container
         )
 
-        if argument.type:
-            add_span_tag(': ', f'{HTML_CLASS_BASE}-punctuation', parameter_container)
-            add_span_tag(argument.type, f'{HTML_CLASS_BASE}-vartype', parameter_container)
+        description = function_descriptor.return_description or ''
+        text = self.md.convert(description)
+        if text.startswith('<p>') and text.endswith('</p>'):
+            text = text[3:-4]
+        add_span_tag(
+            text,
+            f'{HTML_CLASS_BASE}-description',
+            container
+        )
 
-        if argument.is_optional:
-            add_span_tag(' (optional)', f'{HTML_CLASS_BASE}-punctuation', parameter_container)
-
-
-        add_tag('br', None, parameter_container)
-
-        add_text_tag('p', md.convert(argument.description or ''), f'{HTML_CLASS_BASE}-function-param', parameter_container)
-
-    return container
-
-
-def render_returns(
-        function_descriptor: FunctionDescriptor,
-        parent: etree.Element,
-        md: Markdown
-) -> etree.Element:
-
-    container = add_tag('p', f'{HTML_CLASS_BASE}-function-returns', parent)
-
-    if not function_descriptor.return_type or function_descriptor.return_type in ('None', 'typing.None'):
         return container
 
-    add_text_tag(
-        'h3',
-        'Yields' if function_descriptor.is_generator else 'Returns',
-        f'{HTML_CLASS_BASE}-function-header',
-        container
-    )
 
-    add_span_tag(
-        function_descriptor.return_type,
-        f'{HTML_CLASS_BASE}-variable-type',
-        container
-    )
-    add_span_tag(
-        ': ',
-        f'{HTML_CLASS_BASE}-punctuation',
-        container
-    )
-
-    description = function_descriptor.return_description or ''
-    text = md.convert(description)
-    if text.startswith('<p>') and text.endswith('</p>'):
-        text = text[3:-4]
-    add_span_tag(
-        text,
-        f'{HTML_CLASS_BASE}-description',
-        container
-    )
-
-    return container
-
-
-def render_raises(
-        raises: Optional[List[RaisesDescriptor]],
-        parent: etree.Element,
-        md: Markdown
-) -> etree.Element:
-
-    container = add_tag('div', f'{HTML_CLASS_BASE}-function-raises', parent)
-    if not raises:
-        return container
-
-    add_text_tag(
-        'h3',
-        'Raises',
-        f'{HTML_CLASS_BASE}-function-header',
-        container
-    )
-
-    for error in raises:
-        error_container = add_tag('p', f'{HTML_CLASS_BASE}-function-raises', container)
+    def _render_error(
+            self,
+            error: RaisesDescriptor,
+            parent: etree.Element
+    ) -> etree.Element:
+        container = add_tag('p', f'{HTML_CLASS_BASE}-function-raises', parent)
 
         add_span_tag(
             error.type,
             f'{HTML_CLASS_BASE}-variable-type',
-            error_container
+            container
         )
         add_span_tag(
             ': ',
             f'{HTML_CLASS_BASE}-punctuation',
-            error_container
+            container
         )
 
-        text = md.convert(error.description)
+        text = self.md.convert(error.description)
         if text.startswith('<p>') and text.endswith('</p>'):
             text = text[3:-4]
         add_span_tag(
             text,
             f'{HTML_CLASS_BASE}-function-raises',
-            error_container
+            container
         )
 
-    return container
+        return container
+
+    def _render_raises(
+            self,
+            raises: Optional[List[RaisesDescriptor]],
+            parent: etree.Element
+    ) -> etree.Element:
+
+        container = add_tag('div', f'{HTML_CLASS_BASE}-function-raises', parent)
+        if not raises:
+            return container
+
+        add_text_tag(
+            'h3',
+            'Raises',
+            f'{HTML_CLASS_BASE}-function-header',
+            container
+        )
+
+        for error in raises:
+            self._render_error(error, container)
+
+        return container
 
 
-def render_function_in_container(
-        function_descriptor: FunctionDescriptor,
-        md: Markdown,
-        container: etree.Element
-) -> etree.Element:
+    def _render_function_in_container(
+            self,
+            function_descriptor: FunctionDescriptor,
+            container: etree.Element
+    ) -> etree.Element:
 
-    render_title(function_descriptor.name, function_descriptor.function_type_name, container)
-    render_meta_data(function_descriptor.module, function_descriptor.package, function_descriptor.file, container)
-    render_summary(function_descriptor.summary, container, md)
-    render_signature(function_descriptor, container)
-    render_parameters(function_descriptor.arguments, container, md)
-    render_returns(function_descriptor, container, md)
-    render_raises(function_descriptor.raises, container, md)
-    render_description(function_descriptor.description, container, md)
-    render_examples(function_descriptor.examples, container, md)
+        self._render_title(function_descriptor.name, function_descriptor.function_type_name, container)
+        self._render_meta_data(function_descriptor.module, function_descriptor.package, function_descriptor.file, container)
+        self._render_summary(function_descriptor.summary, container)
+        self._render_signature(function_descriptor, container)
+        self._render_parameters(function_descriptor.arguments, container)
+        self._render_returns(function_descriptor, container)
+        self._render_raises(function_descriptor.raises, container)
+        self._render_description(function_descriptor.description, container)
+        self._render_examples(function_descriptor.examples, container)
 
-    return container
+        return container
 
-def render_function(
-        function_descriptor: FunctionDescriptor,
-        md: Markdown,
-        parent: etree.Element
-) -> etree.Element:
-    container = add_tag('p', f'{HTML_CLASS_BASE}-function', parent)
+    def render_function(
+            self,
+            function_descriptor: FunctionDescriptor,
+            parent: etree.Element
+    ) -> etree.Element:
+        container = add_tag('p', f'{HTML_CLASS_BASE}-function', parent)
 
-    return render_function_in_container(function_descriptor, md, container)
+        return self._render_function_in_container(function_descriptor, container)
 
 
-def render_module(
-        module_descriptor: ModuleDescriptor,
-        md,
-        parent: etree.Element
-) -> etree.Element:
-    container = add_tag('div', f'{HTML_CLASS_BASE}-module', parent)
+    def render_module(
+            self,
+            module_descriptor: ModuleDescriptor,
+            parent: etree.Element
+    ) -> etree.Element:
+        container = add_tag('div', f'{HTML_CLASS_BASE}-module', parent)
 
-    render_title(module_descriptor.name, 'module', container)
-    render_meta_data(None, module_descriptor.package, module_descriptor.file, container)
-    render_summary(module_descriptor.summary, container, md)
-    render_attributes(module_descriptor.attributes, md, container)
-    render_description(module_descriptor.description, container, md)
-    render_examples(module_descriptor.examples, container, md)
+        self._render_title(module_descriptor.name, 'module', container)
+        self._render_meta_data(None, module_descriptor.package, module_descriptor.file, container)
+        self._render_summary(module_descriptor.summary, container)
+        self._render_attributes(module_descriptor.attributes, container)
+        self._render_description(module_descriptor.description, container)
+        self._render_examples(module_descriptor.examples, container)
 
-    return container
+        return container

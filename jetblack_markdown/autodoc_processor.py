@@ -16,7 +16,7 @@ from markdown.util import etree
 
 from .constants import HTML_CLASS_BASE
 from .metadata import ModuleDescriptor, FunctionDescriptor, FunctionType, ClassDescriptor
-from .renderers import render_function, render_module, render_class
+from .renderers import Renderer
 from .utils import import_from_string
 
 DEFAULT_INSTRUCTION_SET = {'shallow'}
@@ -35,6 +35,7 @@ class AutodocInlineProcessor(InlineProcessor):
         self.class_from_init = class_from_init
         self.ignore_dunder = ignore_dunder
         self.ignore_private = ignore_private
+        self._renderer = Renderer(md)
         super().__init__(pattern, md=md)
 
     # pylint: disable=arguments-differ
@@ -77,7 +78,7 @@ class AutodocInlineProcessor(InlineProcessor):
 
     def _render_module(self, obj: Any, container: etree.Element) -> etree.Element:
         module_descriptor = ModuleDescriptor.create(obj)
-        return render_module(module_descriptor, self.md, container)
+        return self._renderer.render_module(module_descriptor, container)
 
     def _render_function(self, obj: Any, container: etree.Element) -> etree.Element:
         signature = inspect.signature(obj)
@@ -89,7 +90,7 @@ class AutodocInlineProcessor(InlineProcessor):
             docstring,
             FunctionType.FUNCTION
         )
-        return render_function(function_descriptor, self.md, container)
+        return self._renderer.render_function(function_descriptor, container)
 
     def _render_class(self, obj: Any, container: etree.Element) -> etree.Element:
         class_descriptor = ClassDescriptor.create(
@@ -98,4 +99,4 @@ class AutodocInlineProcessor(InlineProcessor):
             self.ignore_dunder,
             self.ignore_private
         )
-        return render_class(class_descriptor, self.md, container)    
+        return self._renderer.render_class(class_descriptor, container)    
