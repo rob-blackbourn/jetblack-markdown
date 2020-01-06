@@ -2,21 +2,15 @@
 """
 
 import inspect
-from inspect import Parameter
-import typing
 from typing import (
     Any,
     List,
-    Optional,
-    Set,
-    Union
+    Optional
 )
 
 import docstring_parser
 from docstring_parser import (
-    Docstring,
-    DocstringParam,
-    DocstringReturns
+    Docstring
 )
 from markdown import Markdown
 from markdown.util import etree
@@ -25,12 +19,8 @@ from .constants import HTML_CLASS_BASE
 from .utils import (
     create_subelement,
     create_span_subelement,
-    create_text_subelement,
-    find_docstring_param,
-    get_type_name
+    create_text_subelement
 )
-
-
 
 def render_title(name: str, object_type: str, parent: etree.Element) -> etree.Element:
     container = create_subelement(
@@ -65,25 +55,8 @@ def render_title(name: str, object_type: str, parent: etree.Element) -> etree.El
     return container
 
 
-def render_title_from_obj(obj: Any, parent: etree.Element) -> etree.Element:
-    name = obj.__qualname__ if hasattr(obj, '__qualname__') else obj.__name__
-    if inspect.ismodule(obj):
-        object_type = 'module'
-    elif inspect.isclass(obj):
-        object_type = 'class'
-    elif inspect.isgeneratorfunction(obj):
-        object_type = 'generator function'
-    elif inspect.isasyncgenfunction(obj):
-        object_type = 'async generator function'
-    else:
-        object_type = 'function'
-
-    return render_title(name, object_type, parent)
-
-
-
 def render_summary(
-        docstring: Optional[Docstring],
+        summary: Optional[str],
         parent: etree.Element,
         md: Markdown
 ) -> etree.Element:
@@ -93,25 +66,25 @@ def render_summary(
         parent
     )
 
-    if docstring and docstring.short_description:
+    if summary:
         create_text_subelement(
             'h3',
             'Summary',
             f'{HTML_CLASS_BASE}-summary',
             container
         )
-        summary = create_subelement(
+        paragraph = create_subelement(
             'p',
             [('class', f'{HTML_CLASS_BASE}-function-summary')],
             container
         )
-        summary.text = md.convert(docstring.short_description)
+        paragraph.text = md.convert(summary)
 
     return container
 
 
 def render_description(
-        docstring: Optional[docstring_parser.Docstring],
+        description: Optional[str],
         parent: etree.Element,
         md: Markdown
 ) -> etree.Element:
@@ -121,24 +94,23 @@ def render_description(
         parent
     )
 
-    if docstring and docstring.long_description:
+    if description:
         create_text_subelement(
             'h3',
             'Description',
             f'{HTML_CLASS_BASE}-description',
             container
         )
-        description = create_subelement(
+        paragraph = create_subelement(
             'p',
             [('class', f'{HTML_CLASS_BASE}-description')],
             container
         )
-        description.text = md.convert(docstring.long_description)
+        paragraph.text = md.convert(description)
 
-    return container
 
 def render_examples(
-        docstring: Optional[docstring_parser.Docstring],
+        examples: Optional[List[str]],
         parent: etree.Element,
         md: Markdown
 ) -> etree.Element:
@@ -148,13 +120,6 @@ def render_examples(
         parent
     )
 
-    if docstring is None:
-        return container
-    examples = [
-        meta.description
-        for meta in docstring.meta
-        if 'examples' in meta.args
-    ]
     if not examples:
         return container
 
@@ -169,6 +134,7 @@ def render_examples(
         paragraph = create_subelement('p', [], container)
         paragraph.text = md.convert(example)
 
+    return container
     return container
 
 def render_meta_data(
@@ -241,3 +207,47 @@ def render_meta_data(
         create_subelement('br', [], container)
 
     return container
+
+def render_summary_obj(
+        docstring: Optional[Docstring],
+        parent: etree.Element,
+        md: Markdown
+) -> etree.Element:
+    summary = docstring.short_description if docstring and docstring.short_description else None
+    return render_summary(summary, parent, md)
+
+def render_description_obj(
+        docstring: Optional[docstring_parser.Docstring],
+        parent: etree.Element,
+        md: Markdown
+) -> etree.Element:
+    description = docstring.long_description if docstring and docstring.long_description else None
+    return render_description(description, parent, md)
+
+
+def render_examples_obj(
+        docstring: Optional[docstring_parser.Docstring],
+        parent: etree.Element,
+        md: Markdown
+) -> etree.Element:
+    examples = [
+        meta.description
+        for meta in docstring.meta
+        if 'examples' in meta.args
+    ] if docstring is not None else None
+    return render_examples(examples, parent, md)
+
+def render_title_from_obj(obj: Any, parent: etree.Element) -> etree.Element:
+    name = obj.__qualname__ if hasattr(obj, '__qualname__') else obj.__name__
+    if inspect.ismodule(obj):
+        object_type = 'module'
+    elif inspect.isclass(obj):
+        object_type = 'class'
+    elif inspect.isgeneratorfunction(obj):
+        object_type = 'generator function'
+    elif inspect.isasyncgenfunction(obj):
+        object_type = 'async generator function'
+    else:
+        object_type = 'function'
+
+    return render_title(name, object_type, parent)

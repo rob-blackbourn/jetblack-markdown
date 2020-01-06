@@ -27,13 +27,13 @@ from .utils import (
 from .renderers import (
     render_title,
     render_title_from_obj,
-    render_summary,
-    render_description,
-    render_examples
+    render_summary_obj,
+    render_description_obj,
+    render_examples_obj
 )
 from .functions import (
     _render_meta_data_obj,
-    _render_signature,
+    _render_signature_obj,
     _render_parameters,
     _render_raises,
     create_function
@@ -57,7 +57,7 @@ def render_property(
 
     signature = inspect.signature(obj.fget)
     docstring = docstring_parser.parse(inspect.getdoc(obj))
-    render_summary(docstring, container, md)
+    render_summary_obj(docstring, container, md)
 
     members = {
         name: value
@@ -146,8 +146,8 @@ def render_property(
         # create_subelement('br', [], code)
 
     _render_raises(obj, signature, docstring, container, md)
-    render_description(docstring, container, md)
-    render_examples(docstring, container, md)
+    render_description_obj(docstring, container, md)
+    render_examples_obj(docstring, container, md)
 
     return container
 
@@ -246,13 +246,13 @@ def render_class(
 
     render_title_from_obj(obj, container)
     _render_meta_data_obj(obj, container)
-    render_summary(docstring, container, md)
-    _render_signature(obj, signature, docstring, container, 'constructor')
+    render_summary_obj(docstring, container, md)
+    _render_signature_obj(obj, signature, docstring, container, 'constructor')
     _render_parameters(obj, signature, docstring, container, md, 'constructor')
     render_class_attributes(docstring, md, container)
     _render_raises(obj, signature, docstring, container, md)
-    render_description(docstring, container, md)
-    render_examples(docstring, container, md)
+    render_description_obj(docstring, container, md)
+    render_examples_obj(docstring, container, md)
 
     for name, member in members.items():
         if name == '__init__' or (

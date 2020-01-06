@@ -30,9 +30,9 @@ from .utils import (
 )
 from .renderers import (
     render_title_from_obj,
-    render_summary,
-    render_description,
-    render_examples
+    render_summary_obj,
+    render_description_obj,
+    render_examples_obj
 )
 
 def _render_module_meta_data_obj(module: Any, parent: etree.Element) -> etree.Element:
@@ -165,10 +165,10 @@ def render_module(
 
     render_title_from_obj(obj, container)
     _render_module_meta_data_obj(obj, container)
-    render_summary(docstring, container, md)
+    render_summary_obj(docstring, container, md)
     render_module_attributes(docstring, md, container)
-    render_description(docstring, container, md)
-    render_examples(docstring, container, md)
+    render_description_obj(docstring, container, md)
+    render_examples_obj(docstring, container, md)
 
     members = {
         name: value

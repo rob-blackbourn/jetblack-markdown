@@ -5,7 +5,9 @@ import inspect
 from inspect import Parameter
 from typing import (
     Any,
-    Optional
+    List,
+    Optional,
+    Tuple
 )
 
 import docstring_parser
@@ -26,9 +28,9 @@ from .utils import (
 
 from .renderers import (
     render_title_from_obj,
-    render_summary,
-    render_description,
-    render_examples,
+    render_summary_obj,
+    render_description_obj,
+    render_examples_obj,
     render_meta_data
 )
 
@@ -44,13 +46,12 @@ def _render_meta_data_obj(obj: Any, parent: etree.Element) -> etree.Element:
         parent
     )
 
-
 def _render_signature(
-        obj: Any,
-        signature: inspect.Signature,
-        docstring: Docstring,
-        parent: etree.Element,
-        function_type: str
+        name: str,
+        is_async: bool,
+        parameters: List[Tuple[str, Optional[str]]],
+        return_type_name: Optional[str],
+        parent: etree.Element
 ) -> etree.Element:
     container = create_subelement(
         'code',
@@ -58,14 +59,13 @@ def _render_signature(
         parent
     )
 
-    if inspect.iscoroutinefunction(obj) or inspect.isasyncgenfunction(obj):
+    if is_async:
         create_span_subelement(
             "async ",
             f'{HTML_CLASS_BASE}-function-punctuation',
             container
         )
 
-    name = obj.__qualname__ if hasattr(obj, '__qualname__') else obj.__name__
     create_span_subelement(
         name,
         f'{HTML_CLASS_BASE}-function-name',
@@ -74,16 +74,8 @@ def _render_signature(
 
     create_span_subelement('(', f'{HTML_CLASS_BASE}-punctuation', container)
 
-    is_pos_only_rendered = False
-    is_kw_only_rendered = False
-
-    is_self = function_type in {'method', 'constructor'}
     is_first = True
-    for parameter in signature.parameters.values():
-        if is_self:
-            is_self = False
-            continue
-
+    for arg_name, type_name in parameters:
         if is_first:
             is_first = False
         else:
@@ -92,49 +84,6 @@ def _render_signature(
                 f'{HTML_CLASS_BASE}-punctuation',
                 container
             )
-
-        if parameter.kind is Parameter.VAR_POSITIONAL:
-            arg_name = '*' + parameter.name
-            type_name = None
-        elif parameter.kind is Parameter.VAR_KEYWORD:
-            arg_name = '**' + parameter.name
-            type_name = None
-        else:
-            if parameter.kind is Parameter.POSITIONAL_ONLY and not is_pos_only_rendered:
-                create_text_subelement(
-                    'var',
-                    '/',
-                    f'{HTML_CLASS_BASE}-function-var',
-                    container
-                )
-                create_span_subelement(
-                    ', ',
-                    f'{HTML_CLASS_BASE}-punctuation',
-                    container
-                )
-                is_pos_only_rendered = True
-            elif parameter.kind is Parameter.KEYWORD_ONLY and not is_kw_only_rendered:
-                create_text_subelement(
-                    'var',
-                    '*',
-                    f'{HTML_CLASS_BASE}-function-var',
-                    container
-                )
-                create_span_subelement(
-                    ', ',
-                    f'{HTML_CLASS_BASE}-punctuation',
-                    container
-                )
-                is_kw_only_rendered = True
-
-            arg_name = parameter.name
-
-            docstring_param = find_docstring_param(
-                parameter.name,
-                docstring
-            )
-
-            type_name = get_type_name(parameter.annotation, docstring_param)
 
         create_text_subelement(
             'var',
@@ -154,19 +103,68 @@ def _render_signature(
 
     create_span_subelement(')', f'{HTML_CLASS_BASE}-punctuation', container)
 
+    if return_type_name:
+        create_span_subelement(
+            ' -> ', f'{HTML_CLASS_BASE}-punctuation', container)
+        create_span_subelement(
+            return_type_name,
+            f'{HTML_CLASS_BASE}-variable-type',
+            container
+        )
+
+def _render_signature_obj(
+        obj: Any,
+        signature: inspect.Signature,
+        docstring: Docstring,
+        parent: etree.Element,
+        function_type: str
+) -> etree.Element:
+
+    is_async = inspect.iscoroutinefunction(obj) or inspect.isasyncgenfunction(obj)
+    name = obj.__qualname__ if hasattr(obj, '__qualname__') else obj.__name__
+
+    parameters: List[Tuple[str, Optional[str]]] = []
+    is_pos_only_rendered = False
+    is_kw_only_rendered = False
+    is_self = function_type in {'method', 'constructor'}
+    for parameter in signature.parameters.values():
+        if is_self:
+            is_self = False
+            continue
+
+        if parameter.kind is Parameter.VAR_POSITIONAL:
+            arg_name = '*' + parameter.name
+            type_name = None
+        elif parameter.kind is Parameter.VAR_KEYWORD:
+            arg_name = '**' + parameter.name
+            type_name = None
+        else:
+            if parameter.kind is Parameter.POSITIONAL_ONLY and not is_pos_only_rendered:
+                parameters.append(('/', None))
+                is_pos_only_rendered = True
+            elif parameter.kind is Parameter.KEYWORD_ONLY and not is_kw_only_rendered:
+                parameters.append(('*', None))
+                is_kw_only_rendered = True
+
+            arg_name = parameter.name
+
+            docstring_param = find_docstring_param(
+                parameter.name,
+                docstring
+            )
+
+            type_name = get_type_name(parameter.annotation, docstring_param)
+
+        parameters.append((arg_name, type_name))
+
+    return_type_name: Optional[str] = None
     if signature.return_annotation and function_type != 'constructor':
-        type_name = get_type_name(
+        return_type_name = get_type_name(
             signature.return_annotation,
             docstring.returns if docstring else None
         )
 
-        create_span_subelement(
-            ' -> ', f'{HTML_CLASS_BASE}-punctuation', container)
-        create_span_subelement(
-            type_name,
-            f'{HTML_CLASS_BASE}-variable-type',
-            container
-        )
+    return _render_signature(name, is_async, parameters, return_type_name, parent)    
 
 
 def _render_parameters(
@@ -419,8 +417,8 @@ def create_function(
 
     render_title_from_obj(obj, container)
     _render_meta_data_obj(obj, container)
-    render_summary(docstring, container, md)
-    _render_signature(obj, signature, docstring, container, function_type)
+    render_summary_obj(docstring, container, md)
+    _render_signature_obj(obj, signature, docstring, container, function_type)
     _render_parameters(obj, signature, docstring, container, md, function_type)
 
     if inspect.isgeneratorfunction(obj) or inspect.isasyncgenfunction(obj):
@@ -428,8 +426,8 @@ def create_function(
     else:
         _render_returns(obj, signature, docstring, container, md)
     _render_raises(obj, signature, docstring, container, md)
-    render_description(docstring, container, md)
-    render_examples(docstring, container, md)
+    render_description_obj(docstring, container, md)
+    render_examples_obj(docstring, container, md)
 
     return container
 
