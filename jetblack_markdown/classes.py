@@ -1,18 +1,10 @@
 """Module rendering"""
 
-import inspect
 from typing import (
     Any,
-    Dict,
-    Set
+    List
 )
 
-import docstring_parser
-from docstring_parser import (
-    Docstring,
-    DocstringParam,
-    DocstringReturns
-)
 from markdown import Markdown
 from markdown.util import etree
 
@@ -20,30 +12,29 @@ from .constants import HTML_CLASS_BASE
 from .utils import (
     create_subelement,
     create_span_subelement,
-    create_text_subelement,
-    find_docstring_param,
-    get_type_name
+    create_text_subelement
 )
 from .renderers import (
     render_title,
-    render_title_from_obj,
-    render_summary_obj,
-    render_description_obj,
-    render_examples_obj
+    render_summary,
+    render_meta_data,
+    render_description,
+    render_examples
 )
 from .functions import (
-    _render_meta_data_obj,
     _render_signature,
-    _render_parameters_obj,
+    _render_parameters,
     _render_raises,
     create_function
 )
-from .metadata import ArgumentDescriptor, FunctionType, FunctionDescriptor
+from .metadata import (
+    ArgumentDescriptor,
+    PropertyDescriptor,
+    ClassDescriptor
+)
 
 def render_property(
-        obj: Any,
-        klass: Any,
-        property_name: str,
+        property_descriptor: PropertyDescriptor,
         md: Markdown,
         parent: etree.Element
 ) -> etree.Element:
@@ -53,17 +44,10 @@ def render_property(
         parent
     )
 
-    render_title(f'{klass.__name__}.{property_name}', "property", container)
-    _render_meta_data_obj(klass, container)
+    render_title(property_descriptor.qual_name, "property", container)
+    # _render_meta_data_obj(klass, container)
 
-    signature = inspect.signature(obj.fget)
-    docstring = docstring_parser.parse(inspect.getdoc(obj))
-    render_summary_obj(docstring, container, md)
-
-    members = {
-        name: value
-        for name, value in inspect.getmembers(obj)
-    }
+    render_summary(property_descriptor.summary, container, md)
 
     code = create_subelement(
         'code',
@@ -72,7 +56,7 @@ def render_property(
     )
 
     create_span_subelement(
-        f'{klass.__name__}.{property_name}',
+        property_descriptor.qual_name,
         f'{HTML_CLASS_BASE}-type',
         code
     )
@@ -81,9 +65,8 @@ def render_property(
         f'{HTML_CLASS_BASE}-punctuation',
         code
     )
-    type_name = get_type_name(signature.return_annotation, docstring.returns)
     create_span_subelement(
-        type_name,
+        property_descriptor.type or 'Any',
         f'{HTML_CLASS_BASE}-type',
         code
     )
@@ -94,14 +77,14 @@ def render_property(
     )
     # create_subelement('br', [], code)
 
-    if members['fset']:
+    if property_descriptor.is_settable:
         code = create_subelement(
             'code',
             [('class', f'{HTML_CLASS_BASE}-function-signature')],
             container
         )
         create_span_subelement(
-            f'{klass.__name__}.{property_name}',
+            property_descriptor.qual_name,
             f'{HTML_CLASS_BASE}-type',
             code
         )
@@ -110,9 +93,8 @@ def render_property(
             f'{HTML_CLASS_BASE}-punctuation',
             code
         )
-        type_name = get_type_name(signature.return_annotation, docstring.returns)
         create_span_subelement(
-            type_name,
+            property_descriptor.type or 'Any',
             f'{HTML_CLASS_BASE}-type',
             code
         )
@@ -123,7 +105,7 @@ def render_property(
         )
         # create_subelement('br', [], code)
 
-    if members['fdel']:
+    if property_descriptor.is_deletable:
         code = create_subelement(
             'code',
             [('class', f'{HTML_CLASS_BASE}-function-signature')],
@@ -135,7 +117,7 @@ def render_property(
             code
         )
         create_span_subelement(
-            f'{klass.__name__}.{property_name}',
+            property_descriptor.qual_name,
             f'{HTML_CLASS_BASE}-type',
             code
         )
@@ -146,14 +128,14 @@ def render_property(
         )
         # create_subelement('br', [], code)
 
-    _render_raises(obj, signature, docstring, container, md)
-    render_description_obj(docstring, container, md)
-    render_examples_obj(docstring, container, md)
+    _render_raises(property_descriptor.raises, container, md)
+    render_description(property_descriptor.description, container, md)
+    render_examples(property_descriptor.examples, container, md)
 
     return container
 
 def render_class_attributes(
-        docstring: Docstring,
+        attributes: List[ArgumentDescriptor],
         md: Markdown,
         parent: etree.Element
 ) -> etree.Element:
@@ -163,13 +145,6 @@ def render_class_attributes(
         parent
     )
 
-    if docstring is None:
-        return container
-    attributes = [
-        (meta.args[1], meta.description)
-        for meta in docstring.meta
-        if 'attribute' in meta.args
-    ]
     if not attributes:
         return container
 
@@ -180,31 +155,28 @@ def render_class_attributes(
         container
     )
 
-    for attr_details, attr_desc in attributes:
+    for attribute in attributes:
         attr_container = create_subelement(
             'div',
             [('class', f'{HTML_CLASS_BASE}-class-attributes')],
             container
         )
 
-        attr_name, sep, attr_type = attr_details.partition(' ')
-        attr_type = attr_type.strip('()')
-
         create_text_subelement(
             'var',
-            attr_name,
+            attribute.name,
             f'{HTML_CLASS_BASE}-class-attr',
             attr_container
         )
 
-        if attr_type:
+        if attribute.type:
             create_span_subelement(
                 ': ',
                 f'{HTML_CLASS_BASE}-punctuation',
                 attr_container
             )
             create_span_subelement(
-                attr_type,
+                attribute.type,
                 f'{HTML_CLASS_BASE}-variable-type',
                 attr_container
             )
@@ -213,7 +185,7 @@ def render_class_attributes(
 
         create_text_subelement(
             'p',
-            md.convert(attr_desc),
+            md.convert(attribute.description or ''),
             f'{HTML_CLASS_BASE}-class-attr',
             attr_container
         )
@@ -228,22 +200,13 @@ def render_class(
         ignore_private: bool,
         parent: etree.Element
 ) -> etree.Element:
-    members: Dict[str, Any] = {
-        name: value
-        for name, value in inspect.getmembers(obj)
-    }
-    signature = inspect.signature(obj)
-    docstring = docstring_parser.parse(
-        inspect.getdoc(
-            members['__init__'] if class_from_init else obj
-        )
-    )
-    function_descriptor = FunctionDescriptor.create(
+
+    class_descriptor = ClassDescriptor.create(
         obj,
-        signature,
-        docstring,
-        FunctionType.CONSTRUCTOR
-    )    
+        class_from_init,
+        ignore_dunder,
+        ignore_private
+    )
 
     container = create_subelement(
         'div',
@@ -251,39 +214,19 @@ def render_class(
         parent
     )
 
-    render_title_from_obj(obj, container)
-    _render_meta_data_obj(obj, container)
-    render_summary_obj(docstring, container, md)
-    _render_signature(function_descriptor, container)
-    _render_parameters_obj(obj, signature, docstring, container, md, 'constructor')
-    render_class_attributes(docstring, md, container)
-    _render_raises(obj, signature, docstring, container, md)
-    render_description_obj(docstring, container, md)
-    render_examples_obj(docstring, container, md)
-
-    for name, member in members.items():
-        if name == '__init__' or (
-                ignore_dunder and
-                name.startswith('__') and
-                name.endswith('__')
-        ) or (ignore_private and name.startswith('_')):
-            continue
-
-        para = create_subelement(
-            'div',
-            [('class', f'{HTML_CLASS_BASE}-function')],
-            container
-        )
-        if member.__class__ is property:
-            render_property(
-                member,
-                obj,
-                name,
-                md,
-                para
-            )
-        elif inspect.isfunction(member):
-            create_function(member, md, para, FunctionType.METHOD)
+    render_title(class_descriptor.name, 'class', container)
+    render_meta_data(class_descriptor.module, class_descriptor.package, class_descriptor.file, container)
+    render_summary(class_descriptor.summary, container, md)
+    _render_signature(class_descriptor.constructor, container)
+    _render_parameters(class_descriptor.constructor.arguments, container, md)
+    render_class_attributes(class_descriptor.attributes, md, container)
+    _render_raises(class_descriptor.constructor.raises, container, md)
+    render_description(class_descriptor.description, container, md)
+    render_examples(class_descriptor.examples, container, md)
+    for prop in class_descriptor.properties:
+        render_property(prop, md, container)
+    for method in class_descriptor.methods:
+        create_function(method, md, container)
 
     return container
 

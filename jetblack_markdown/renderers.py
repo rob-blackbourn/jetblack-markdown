@@ -1,17 +1,11 @@
 """Rendering functions
 """
 
-import inspect
 from typing import (
-    Any,
     List,
     Optional
 )
 
-import docstring_parser
-from docstring_parser import (
-    Docstring
-)
 from markdown import Markdown
 from markdown.util import etree
 
@@ -135,7 +129,6 @@ def render_examples(
         paragraph.text = md.convert(example)
 
     return container
-    return container
 
 def render_meta_data(
         module_name: Optional[str],
@@ -207,47 +200,3 @@ def render_meta_data(
         create_subelement('br', [], container)
 
     return container
-
-def render_summary_obj(
-        docstring: Optional[Docstring],
-        parent: etree.Element,
-        md: Markdown
-) -> etree.Element:
-    summary = docstring.short_description if docstring and docstring.short_description else None
-    return render_summary(summary, parent, md)
-
-def render_description_obj(
-        docstring: Optional[docstring_parser.Docstring],
-        parent: etree.Element,
-        md: Markdown
-) -> etree.Element:
-    description = docstring.long_description if docstring and docstring.long_description else None
-    return render_description(description, parent, md)
-
-
-def render_examples_obj(
-        docstring: Optional[docstring_parser.Docstring],
-        parent: etree.Element,
-        md: Markdown
-) -> etree.Element:
-    examples = [
-        meta.description
-        for meta in docstring.meta
-        if 'examples' in meta.args
-    ] if docstring is not None else None
-    return render_examples(examples, parent, md)
-
-def render_title_from_obj(obj: Any, parent: etree.Element) -> etree.Element:
-    name = obj.__qualname__ if hasattr(obj, '__qualname__') else obj.__name__
-    if inspect.ismodule(obj):
-        object_type = 'module'
-    elif inspect.isclass(obj):
-        object_type = 'class'
-    elif inspect.isgeneratorfunction(obj):
-        object_type = 'generator function'
-    elif inspect.isasyncgenfunction(obj):
-        object_type = 'async generator function'
-    else:
-        object_type = 'function'
-
-    return render_title(name, object_type, parent)

@@ -1,22 +1,10 @@
 """Module rendering"""
 
-import inspect
-from inspect import Parameter
-import typing
 from typing import (
     Any,
-    List,
-    Optional,
-    Set,
-    Union
+    List
 )
 
-import docstring_parser
-from docstring_parser import (
-    Docstring,
-    DocstringParam,
-    DocstringReturns
-)
 from markdown import Markdown
 from markdown.util import etree
 
@@ -24,16 +12,17 @@ from .constants import HTML_CLASS_BASE
 from .utils import (
     create_subelement,
     create_span_subelement,
-    create_text_subelement,
-    find_docstring_param,
-    get_type_name
+    create_text_subelement
 )
 from .renderers import (
-    render_title_from_obj,
-    render_summary_obj,
-    render_description_obj,
-    render_examples_obj
+    render_title,
+    render_summary,
+    render_description,
+    render_examples,
+    render_meta_data
 )
+
+from .metadata import ModuleDescriptor, ArgumentDescriptor
 
 def _render_module_meta_data_obj(module: Any, parent: etree.Element) -> etree.Element:
     container = create_subelement(
@@ -83,7 +72,7 @@ def _render_module_meta_data_obj(module: Any, parent: etree.Element) -> etree.El
     return container
 
 def render_module_attributes(
-        docstring: Docstring,
+        attributes: List[ArgumentDescriptor],
         md: Markdown,
         parent: etree.Element
 ) -> etree.Element:
@@ -93,13 +82,6 @@ def render_module_attributes(
         parent
     )
 
-    if docstring is None:
-        return container
-    attributes = [
-        (meta.args[1], meta.description)
-        for meta in docstring.meta
-        if 'attribute' in meta.args
-    ]
     if not attributes:
         return container
 
@@ -110,31 +92,28 @@ def render_module_attributes(
         container
     )
 
-    for attr_details, attr_desc in attributes:
+    for attribute in attributes:
         attr_container = create_subelement(
             'div',
             [('class', f'{HTML_CLASS_BASE}-class-attributes')],
             container
         )
 
-        attr_name, sep, attr_type = attr_details.partition(' ')
-        attr_type = attr_type.strip('()')
-
         create_text_subelement(
             'var',
-            attr_name,
+            attribute.name,
             f'{HTML_CLASS_BASE}-class-attr',
             attr_container
         )
 
-        if attr_type:
+        if attribute.type:
             create_span_subelement(
                 ': ',
                 f'{HTML_CLASS_BASE}-punctuation',
                 attr_container
             )
             create_span_subelement(
-                attr_type,
+                attribute.type,
                 f'{HTML_CLASS_BASE}-variable-type',
                 attr_container
             )
@@ -143,7 +122,7 @@ def render_module_attributes(
 
         create_text_subelement(
             'p',
-            md.convert(attr_desc),
+            md.convert(attribute.description),
             f'{HTML_CLASS_BASE}-class-attr',
             attr_container
         )
@@ -155,25 +134,19 @@ def render_module(
         md,
         parent: etree.Element
 ) -> etree.Element:
-    docstring = docstring_parser.parse(inspect.getdoc(obj))
-
     container = create_subelement(
         'div',
         [('class', f'{HTML_CLASS_BASE}-module')],
         parent
     )
 
-    render_title_from_obj(obj, container)
-    _render_module_meta_data_obj(obj, container)
-    render_summary_obj(docstring, container, md)
-    render_module_attributes(docstring, md, container)
-    render_description_obj(docstring, container, md)
-    render_examples_obj(docstring, container, md)
+    module_descriptor = ModuleDescriptor.create(obj)
 
-    members = {
-        name: value
-        for name, value in  inspect.getmembers(obj)
-    }
+    render_title(module_descriptor.name, 'module', container)
+    render_meta_data(None, module_descriptor.package, module_descriptor.file, container)
+    render_summary(module_descriptor.summary, container, md)
+    render_module_attributes(module_descriptor.attributes, md, container)
+    render_description(module_descriptor.description, container, md)
+    render_examples(module_descriptor.examples, container, md)
 
     return container
-
