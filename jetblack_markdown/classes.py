@@ -33,11 +33,12 @@ from .renderers import (
 )
 from .functions import (
     _render_meta_data_obj,
-    _render_signature_obj,
-    _render_parameters,
+    _render_signature,
+    _render_parameters_obj,
     _render_raises,
     create_function
 )
+from .metadata import ArgumentDescriptor, FunctionType, FunctionDescriptor
 
 def render_property(
         obj: Any,
@@ -237,6 +238,12 @@ def render_class(
             members['__init__'] if class_from_init else obj
         )
     )
+    function_descriptor = FunctionDescriptor.create(
+        obj,
+        signature,
+        docstring,
+        FunctionType.CONSTRUCTOR
+    )    
 
     container = create_subelement(
         'div',
@@ -247,8 +254,8 @@ def render_class(
     render_title_from_obj(obj, container)
     _render_meta_data_obj(obj, container)
     render_summary_obj(docstring, container, md)
-    _render_signature_obj(obj, signature, docstring, container, 'constructor')
-    _render_parameters(obj, signature, docstring, container, md, 'constructor')
+    _render_signature(function_descriptor, container)
+    _render_parameters_obj(obj, signature, docstring, container, md, 'constructor')
     render_class_attributes(docstring, md, container)
     _render_raises(obj, signature, docstring, container, md)
     render_description_obj(docstring, container, md)
@@ -276,7 +283,7 @@ def render_class(
                 para
             )
         elif inspect.isfunction(member):
-            create_function(member, md, para, 'method')
+            create_function(member, md, para, FunctionType.METHOD)
 
     return container
 
