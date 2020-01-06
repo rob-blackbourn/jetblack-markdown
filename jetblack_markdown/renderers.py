@@ -21,7 +21,6 @@ from .metadata import (
     PropertyDescriptor,
     RaisesDescriptor,
     FunctionDescriptor,
-    FunctionType,
     ClassDescriptor,
     ModuleDescriptor
 )
@@ -269,6 +268,7 @@ def render_attributes(
         )
 
     return container
+    
 def render_property(
         property_descriptor: PropertyDescriptor,
         md: Markdown,
