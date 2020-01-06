@@ -32,7 +32,7 @@ from .renderers import (
     render_examples
 )
 from .functions import (
-    _render_meta_data,
+    _render_meta_data_obj,
     _render_signature,
     _render_parameters,
     _render_raises,
@@ -53,7 +53,7 @@ def render_property(
     )
 
     render_title(f'{klass.__name__}.{property_name}', "property", container)
-    _render_meta_data(klass, container)
+    _render_meta_data_obj(klass, container)
 
     signature = inspect.signature(obj.fget)
     docstring = docstring_parser.parse(inspect.getdoc(obj))
@@ -245,7 +245,7 @@ def render_class(
     )
 
     render_title_from_obj(obj, container)
-    _render_meta_data(obj, container)
+    _render_meta_data_obj(obj, container)
     render_summary(docstring, container, md)
     _render_signature(obj, signature, docstring, container, 'constructor')
     _render_parameters(obj, signature, docstring, container, md, 'constructor')

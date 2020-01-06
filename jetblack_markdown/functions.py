@@ -4,7 +4,8 @@
 import inspect
 from inspect import Parameter
 from typing import (
-    Any
+    Any,
+    Optional
 )
 
 import docstring_parser
@@ -27,76 +28,21 @@ from .renderers import (
     render_title_from_obj,
     render_summary,
     render_description,
-    render_examples
+    render_examples,
+    render_meta_data
 )
 
 
-def _render_meta_data(obj: Any, parent: etree.Element) -> etree.Element:
-    container = create_subelement(
-        'p',
-        [('class', f'{HTML_CLASS_BASE}-metadata')],
+
+
+def _render_meta_data_obj(obj: Any, parent: etree.Element) -> etree.Element:
+    module = inspect.getmodule(obj)
+    return render_meta_data(
+        obj.__module__,
+        module.__package__ if module else None,
+        module.__file__ if module else None,
         parent
     )
-
-    create_text_subelement(
-        'strong',
-        'Module:',
-        f'{HTML_CLASS_BASE}-metadata-header',
-        container
-    )
-    create_span_subelement(
-        ' ',
-        None,
-        container
-    )
-    create_span_subelement(
-        obj.__module__,
-        f'{HTML_CLASS_BASE}-metadata-value',
-        container
-    )
-    create_subelement('br', [], container)
-
-    module = inspect.getmodule(obj)
-    if module is not None:
-        if module.__package__:
-            create_text_subelement(
-                'strong',
-                'Package: ',
-                f'{HTML_CLASS_BASE}-metadata-header',
-                container
-            )
-            create_span_subelement(
-                ' ',
-                None,
-                container
-            )
-            create_span_subelement(
-                module.__package__,
-                f'{HTML_CLASS_BASE}-metadata-value',
-                container
-            )
-            create_subelement('br', [], container)
-
-        if module.__file__:
-            create_text_subelement(
-                'strong',
-                'File',
-                f'{HTML_CLASS_BASE}-metadata-header',
-                container
-            )
-            create_span_subelement(
-                ': ',
-                None,
-                container
-            )
-            create_span_subelement(
-                module.__file__,
-                f'{HTML_CLASS_BASE}-metadata-value',
-                container
-            )
-            create_subelement('br', [], container)
-
-    return container
 
 
 def _render_signature(
@@ -472,7 +418,7 @@ def create_function(
     docstring = docstring_parser.parse(inspect.getdoc(obj))
 
     render_title_from_obj(obj, container)
-    _render_meta_data(obj, container)
+    _render_meta_data_obj(obj, container)
     render_summary(docstring, container, md)
     _render_signature(obj, signature, docstring, container, function_type)
     _render_parameters(obj, signature, docstring, container, md, function_type)

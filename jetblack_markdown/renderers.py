@@ -170,3 +170,74 @@ def render_examples(
         paragraph.text = md.convert(example)
 
     return container
+
+def render_meta_data(
+        module_name: Optional[str],
+        package_name: Optional[str],
+        file_name: Optional[str],
+        parent: etree.Element
+) -> etree.Element:
+    container = create_subelement(
+        'p',
+        [('class', f'{HTML_CLASS_BASE}-metadata')],
+        parent
+    )
+
+    if module_name:
+        create_text_subelement(
+            'strong',
+            'Module:',
+            f'{HTML_CLASS_BASE}-metadata-header',
+            container
+        )
+        create_span_subelement(
+            ' ',
+            None,
+            container
+        )
+        create_span_subelement(
+            module_name,
+            f'{HTML_CLASS_BASE}-metadata-value',
+            container
+        )
+        create_subelement('br', [], container)
+
+    if package_name:
+        create_text_subelement(
+            'strong',
+            'Package: ',
+            f'{HTML_CLASS_BASE}-metadata-header',
+            container
+        )
+        create_span_subelement(
+            ' ',
+            None,
+            container
+        )
+        create_span_subelement(
+            package_name,
+            f'{HTML_CLASS_BASE}-metadata-value',
+            container
+        )
+        create_subelement('br', [], container)
+
+    if file_name:
+        create_text_subelement(
+            'strong',
+            'File',
+            f'{HTML_CLASS_BASE}-metadata-header',
+            container
+        )
+        create_span_subelement(
+            ': ',
+            None,
+            container
+        )
+        create_span_subelement(
+            file_name,
+            f'{HTML_CLASS_BASE}-metadata-value',
+            container
+        )
+        create_subelement('br', [], container)
+
+    return container

@@ -1,5 +1,6 @@
 """Utilities"""
 
+import importlib
 from inspect import Parameter
 import re
 from typing import (
@@ -12,7 +13,37 @@ from typing import (
 from docstring_parser import Docstring, DocstringParam, DocstringReturns
 from markdown.util import etree
 
-from .constants import HTML_CLASS_BASE
+def import_from_string(import_str: str) -> Any:
+    """Import some python object from a given string
+
+    Args:
+        import_str (str): The import string
+
+    Raises:
+        ImportError: If the module could not be imported.
+        ValueError: If the module could not be imported.
+
+    Returns:
+        Any: The imported object
+    """
+    module_str, _, attr_str = import_str.partition(":")
+
+    try:
+        module = importlib.import_module(module_str)
+    except ImportError as exc:
+        module_name = module_str.split(".", 1)[0]
+        if exc.name != module_name:
+            raise exc from None
+        raise ValueError(f"Could not import module {module_str!r}.")
+
+    if not attr_str:
+        return module
+
+    try:
+        return getattr(module, attr_str)
+    except AttributeError as exc:
+        raise ValueError(
+            f"Attribute {attr_str!r} not found in module {module_str!r}.")
 
 
 def create_subelement(tag: str, attrs: Iterable[Tuple[str, str]], parent: etree.Element) -> etree.Element:
