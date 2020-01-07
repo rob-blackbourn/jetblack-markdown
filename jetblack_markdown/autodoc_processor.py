@@ -15,7 +15,7 @@ from markdown.inlinepatterns import InlineProcessor
 from markdown.util import etree
 
 from .constants import HTML_CLASS_BASE
-from .metadata import ModuleDescriptor, FunctionDescriptor, FunctionType, ClassDescriptor
+from .metadata import ModuleDescriptor, CallableDescriptor, CallableType, ClassDescriptor
 from .renderers import Renderer
 from .utils import import_from_string
 
@@ -77,26 +77,26 @@ class AutodocInlineProcessor(InlineProcessor):
         return container
 
     def _render_module(self, obj: Any, container: etree.Element) -> etree.Element:
-        module_descriptor = ModuleDescriptor.create(obj)
-        return self._renderer.render_module(module_descriptor, container)
+        descriptor = ModuleDescriptor.create(obj)
+        return self._renderer.render_module(descriptor, container)
 
     def _render_function(self, obj: Any, container: etree.Element) -> etree.Element:
         signature = inspect.signature(obj)
         docstring = docstring_parser.parse(inspect.getdoc(obj))
 
-        function_descriptor = FunctionDescriptor.create(
+        descriptor = CallableDescriptor.create(
             obj,
             signature,
             docstring,
-            FunctionType.FUNCTION
+            CallableType.FUNCTION
         )
-        return self._renderer.render_function(function_descriptor, container)
+        return self._renderer.render_function(descriptor, container)
 
     def _render_class(self, obj: Any, container: etree.Element) -> etree.Element:
-        class_descriptor = ClassDescriptor.create(
+        descriptor = ClassDescriptor.create(
             obj,
             self.class_from_init,
             self.ignore_dunder,
             self.ignore_private
         )
-        return self._renderer.render_class(class_descriptor, container)    
+        return self._renderer.render_class(descriptor, container)    

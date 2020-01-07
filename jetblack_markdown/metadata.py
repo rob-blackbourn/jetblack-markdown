@@ -52,12 +52,12 @@ class RaisesDescriptor:
         self.type = type_
         self.description = description
 
-class FunctionType(Enum):
+class CallableType(Enum):
     FUNCTION = auto()
     METHOD = auto()
     CONSTRUCTOR = auto()
 
-class FunctionDescriptor:
+class CallableDescriptor:
 
     POSITIONAL_ONLY = '/'
     KEYWORD_ONLY = '*'
@@ -70,7 +70,7 @@ class FunctionDescriptor:
             arguments: List[ArgumentDescriptor],
             return_type: Optional[str],
             return_description: Optional[str],
-            function_type: FunctionType,
+            function_type: CallableType,
             is_async: bool,
             is_generator: bool,
             raises: Optional[List[RaisesDescriptor]],
@@ -96,9 +96,9 @@ class FunctionDescriptor:
 
     @property
     def function_type_name(self) -> str:
-        if self.function_type == FunctionType.CONSTRUCTOR:
+        if self.function_type == CallableType.CONSTRUCTOR:
             return 'class'
-        elif self.function_type == FunctionType.METHOD:
+        elif self.function_type == CallableType.METHOD:
             return 'method'
         elif self.is_generator:
             if self.is_async:
@@ -114,8 +114,8 @@ class FunctionDescriptor:
             obj: Any,
             signature: inspect.Signature,
             docstring: Docstring,
-            function_type: FunctionType
-    ) -> FunctionDescriptor:
+            function_type: CallableType
+    ) -> CallableDescriptor:
 
         name = obj.__qualname__ if hasattr(obj, '__qualname__') else obj.__name__
         is_async = inspect.iscoroutinefunction(obj) or inspect.isasyncgenfunction(obj)
@@ -142,7 +142,7 @@ class FunctionDescriptor:
                 if parameter.kind is Parameter.POSITIONAL_ONLY and not is_pos_only_rendered:
                     arguments.append(
                         ArgumentDescriptor(
-                            FunctionDescriptor.POSITIONAL_ONLY,
+                            CallableDescriptor.POSITIONAL_ONLY,
                             None,
                             None
                         )
@@ -151,7 +151,7 @@ class FunctionDescriptor:
                 elif parameter.kind is Parameter.KEYWORD_ONLY and not is_kw_only_rendered:
                     arguments.append(
                         ArgumentDescriptor(
-                            FunctionDescriptor.KEYWORD_ONLY,
+                            CallableDescriptor.KEYWORD_ONLY,
                             None,
                             None
                         )
@@ -177,7 +177,7 @@ class FunctionDescriptor:
 
         return_type: Optional[str] = None
         return_description: Optional[str] = None
-        if signature.return_annotation and function_type != FunctionType.CONSTRUCTOR:
+        if signature.return_annotation and function_type != CallableType.CONSTRUCTOR:
             return_type = get_type_name(
                 signature.return_annotation,
                 docstring.returns if docstring else None
@@ -204,7 +204,7 @@ class FunctionDescriptor:
         package = module_obj.__package__ if module_obj else None
         file = module_obj.__file__ if module_obj else None
 
-        return FunctionDescriptor(
+        return CallableDescriptor(
             name,
             summary,
             description,
@@ -295,10 +295,10 @@ class ClassDescriptor:
             name: str,
             summary: Optional[str],
             description: Optional[str],
-            constructor: FunctionDescriptor,
+            constructor: CallableDescriptor,
             attributes: List[ArgumentDescriptor],
             properties: List[PropertyDescriptor],
-            methods: List[FunctionDescriptor],
+            methods: List[CallableDescriptor],
             examples: Optional[List[str]],
             module: str,
             package: Optional[str],
@@ -337,11 +337,11 @@ class ClassDescriptor:
         name = obj.__qualname__ if hasattr(obj, '__qualname__') else obj.__name__
         summary = docstring.short_description if docstring else None
         description = docstring.long_description if docstring else None
-        constructor = FunctionDescriptor.create(
+        constructor = CallableDescriptor.create(
             obj,
             signature,
             docstring,
-            FunctionType.CONSTRUCTOR
+            CallableType.CONSTRUCTOR
         )
         attributes: List[ArgumentDescriptor] = []
         if docstring:
@@ -357,7 +357,7 @@ class ClassDescriptor:
                     ArgumentDescriptor(attr_name, attr_type, attr_desc)
                 )
         properties: List[PropertyDescriptor] = []
-        methods: List[FunctionDescriptor] = []
+        methods: List[CallableDescriptor] = []
         for name, member in members.items():
             if name == '__init__' or (
                     ignore_dunder and
@@ -378,11 +378,11 @@ class ClassDescriptor:
                 method_signature = inspect.signature(member)
                 method_docstring = docstring_parser.parse(inspect.getdoc(member))
                 methods.append(
-                    FunctionDescriptor.create(
+                    CallableDescriptor.create(
                         member,
                         method_signature,
                         method_docstring,
-                        FunctionType.METHOD
+                        CallableType.METHOD
                     )
                 )
         examples: Optional[List[str]] = [
