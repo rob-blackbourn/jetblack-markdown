@@ -11,9 +11,9 @@ Render the title
     object_type (str): The object type
 #}
 {% macro render_title(name, object_type) -%}
-<p class="{{ CLASS_BASE }}-title">
+<div class="{{ CLASS_BASE }}-title">
   <h2><span class="{{ CLASS_BASE }}-title-name">{{ name }}</span><span class="{{ CLASS_BASE }}-title-type"> ({{ object_type }})</span></h2>
-</p>
+</div>
 {%- endmacro %}
 
 
@@ -26,17 +26,17 @@ Render the metadata
         file (Optional[str]): The file naame
 #}
 {% macro render_metadata(module, package, file) -%}
-<p class="{{ CLASS_BASE }}-metadata">
-  {%- if module %}
-  <strong class="{{ CLASS_BASE }}-metadata-header">Module: </strong><span class="{{ CLASS_BASE }}-metadata-value">{{ module }}</span><br />
-  {%- endif -%}
-  {%- if package %}
-  <strong class="{{ CLASS_BASE }}-metadata-header">Package: </strong><span class="{{ CLASS_BASE }}-metadata-value">{{ package }}</span><br />
-  {%- endif -%}
-  {%- if file %}
-  <strong class="{{ CLASS_BASE }}-metadata-header">File: </strong><span class="{{ CLASS_BASE }}-metadata-value">{{ file }}</span><br />
-  {%- endif %}
-</p>
+<div class="{{ CLASS_BASE }}-metadata">
+{%- if module %}
+  <strong class="{{ CLASS_BASE }}-metadata-header">Module: </strong><span class="{{ CLASS_BASE }}-metadata-value">{{ module }}</span>
+{%- endif -%}
+{%- if package %}
+  <br /><strong class="{{ CLASS_BASE }}-metadata-header">Package: </strong><span class="{{ CLASS_BASE }}-metadata-value">{{ package }}</span>
+{%- endif -%}
+{%- if file %}
+  <br /><strong class="{{ CLASS_BASE }}-metadata-header">File: </strong><span class="{{ CLASS_BASE }}-metadata-value">{{ file }}</span>
+{%- endif %}
+</div>
 {%- endmacro %}
 
 
@@ -47,12 +47,12 @@ Render the summary
         summary (str): The summary
 #}
 {% macro render_summary(summary) -%}
-<p class="{{ CLASS_BASE }}-summary">
-    {% if summary -%}
+<div class="{{ CLASS_BASE }}-summary">
+{% if summary -%}
     <h3>Summary</h3>
     <p>{{ summary  }}</p>
-    {%- endif %}
-</p>
+{%- endif %}
+</div>
 {%- endmacro %}
 
 
@@ -95,21 +95,20 @@ Render parameters
 <div class="{{ CLASS_BASE }}-parameters">
   <h3>Parameters</h3>
 
-  {% for argument in arguments %}
+{% for argument in arguments %}
     <var class="{{ CLASS_BASE }}-varname">{{ argument.name }}</var>
-    {%- if argument.type -%}
+{%- if argument.type -%}
       <span class="{{ CLASS_BASE }}-punctuation">: </span><span class="{{ CLASS_BASE }}-vartype">{{ argument.type }}</span>
-    {%- endif -%}
-    {%- if argument.is_optional -%}
+{%- endif -%}
+{%- if argument.is_optional -%}
       <span class="{{ CLASS_BASE }}-punctuation"> (optional)</span>
-    {%- endif -%}
-    <br />
-    {% if argument.description -%}
+{%- endif -%}
+{% if argument.description -%}
       <p>{{ argument.description }}</p>
-    {%- else -%}
-      <p></p>
-    {%- endif %}
-  {% endfor %}
+{%- else -%}
+      <p />
+{%- endif %}
+{% endfor %}
 </div>
 {%- endmacro %}
 
@@ -121,26 +120,25 @@ Render attributes
         attributes (List[ArgumentDescription]): The attributes
 #}
 {% macro render_attributes(atttributes) -%}
-<p class="{{ CLASS_BASE }}-atttributes">
-  {% if attributes -%}
+<div class="{{ CLASS_BASE }}-attributes">
+{% if attributes -%}
   <h3>Attributes</h3>
-  {% for attribute in attributes -%}
+{% for attribute in attributes -%}
   <var class="{{ CLASS_BASE }}-varname">{{ attribute.name }}</var>
-  {%- if attribute.type -%}
+{%- if attribute.type -%}
   <span class="{{ CLASS_BASE }}-punctuation">: </span><span class="{{ CLASS_BASE }}-vartype">{{ attribute.type }}</span>
-  {%- endif %}
-  {%- if attribute.is_optional -%}
+{%- endif %}
+{%- if attribute.is_optional -%}
   <span class="{{ CLASS_BASE }}-punctuation"> (optional)</span>
-  {%- endif -%}
-  <br />
-  {% if attribute.description -%}
+{%- endif -%}
+{% if attribute.description -%}
   <p>{{ attribute.description }}</p>
-  {% else %}
+{% else %}
   <p></p>
-  {% endif %}
-  {%- endfor -%}
-  {%- endif %}
-</p>
+{% endif %}
+{%- endfor -%}
+{%- endif %}
+</div>
 {%- endmacro %}
 
 
@@ -162,12 +160,12 @@ Render the description
         description (Optional[str]): The description
 #}
 {% macro render_description(description) -%}
-<p class="{{ CLASS_BASE }}-description">
-    {% if description -%}
+<div class="{{ CLASS_BASE }}-description">
+{% if description -%}
     <h3>Description</h3>
     <p>{{ description }}</p>
-    {%- endif %}
-</p>
+{%- endif %}
+</div>
 {%- endmacro %}
 
 
@@ -177,14 +175,14 @@ Render examples
         examples (Optional[List[str]]): A list of examples
 #}
 {% macro render_examples(examples) -%}
-<p class="{{ CLASS_BASE }}-examples">
-    {% if examples -%}
+<div class="{{ CLASS_BASE }}-examples">
+{% if examples -%}
     <h3>Examples</h3>
-    {% for example in examples -%}
+{% for example in examples -%}
     <p class="{{ CLASS_BASE }}-example">{{ example }}</p>
-    {%- endfor %}
-    {%- endif %}
-</p>
+{%- endfor %}
+{%- endif %}
+</div>
 {%- endmacro %}
 
 
@@ -194,7 +192,7 @@ Render methods
     Args:
         methods (List[CallableDescriptor]): The methods
 #}
-{% macro render_methods(examples) -%}
+{% macro render_methods(methods) -%}
 <div class="{{ CLASS_BASE }}-methods">
 {%- for method in methods %}
 {{ render_signature(method) }}
@@ -211,16 +209,16 @@ Render raises
         raises (List[RaiseDescriptor]): Raises descriptors
 #}
 {% macro render_raises(raises) -%}
-<p class="{{ CLASS_BASE }}-raises">
-    {% if descriptors -%}
+<div class="{{ CLASS_BASE }}-raises">
+{% if descriptors -%}
     <h3>Raises</h3>
-    {% for raises_descriptor in raises -%}
+{% for raises_descriptor in raises -%}
     <p>
       <span class="{{ CLASS_BASE }}-vartype">raises_descriptor.type</span><span class="{{ CLASS_BASE }}-punctuation">: </span><span class="{{ CLASS_BASE }}-raises">{{ raises_descriptor.description  }}</span>
     </p>
-    {%- endfor %}
-    {%- endif %}
-</p>
+{%- endfor %}
+{%- endif %}
+</div>
 {%- endmacro %}
 
 
@@ -231,22 +229,22 @@ Render returns
         callable (CallableDescriptor): The callable
 #}
 {% macro render_returns(callable) -%}
-<p class="{{ CLASS_BASE }}-returns">
-    {% if callable.return_type not in ['None', 'typing.None'] -%}
-      {% if callable.is_generator -%}
+<div class="{{ CLASS_BASE }}-returns">
+{% if callable.return_type not in ['None', 'typing.None'] -%}
+{% if callable.is_generator -%}
         <h3>Yields</h3>
-      {%- else %}
+{%- else %}
         <h3>Returns</h3>
-      {%- endif %}
+{%- endif %}
       <span class="{{ CLASS_BASE }}-vartype">{{ callable.return_type }}</span><span class="{{ CLASS_BASE }}-punctuation">: </span>
       <p>
-        {% if callable.return_description -%}
+{% if callable.return_description -%}
           {{ callable.return_description }}
-        {%- endif %}
+{%- endif %}
       </p>
 
-    {%- endif %}
-</p>
+{%- endif %}
+</div>
 {%- endmacro %}
 
 
@@ -263,12 +261,12 @@ Render properties
     {{ render_title(property.qual_name, "property") }}
     {{ render_summary(property.summary) }}
     <code><span class="{{ CLASS_BASE }}-vartype">{{ property.qual_name }}</span><span class="{{ CLASS_BASE }}-punctuation"> -> </span><span class="{{ CLASS_BASE }}-vartype">{{ property.type }}</span></code>
-    {%- if property.is_settable %}
+{%- if property.is_settable %}
     <br /><code><span class="{{ CLASS_BASE }}-vartype">{{ property.qual_name }}</span><span class="{{ CLASS_BASE }}-punctuation">: </span><span class="{{ CLASS_BASE }}-vartype">{{ property.type }}</span><span class="{{ CLASS_BASE }}-punctuation"> = ...</span></code>
-    {%- endif -%}
-    {%- if property.is_deletable %}
+{%- endif -%}
+{%- if property.is_deletable %}
     <br /><code><span class="{{ CLASS_BASE }}-keyword">del</span><span class="{{ CLASS_BASE }}-punctuation"> </span><span class="{{ CLASS_BASE }}-vartype">{{ property.qual_name }}</span></code>
-    {%- endif -%}
+{%- endif -%}
     {{ render_raises(property.raises) }}
     {{ render_description(property.description) }}
     {{ render_examples(property.examples) }}
@@ -328,12 +326,12 @@ Render a module
         module (ModuleDescriptor): The module
 #}
 {% macro render_module(module) -%}
-<p class="{{ CLASS_BASE }}-module">
+<div class="{{ CLASS_BASE }}-module">
   {{ render_title(module.name, "module") }}
   {{ render_metadata(None, module.package, module.file)}}
   {{ render_summary(module.summary) }}
   {{ render_attributes(module.attributes) }}
   {{ render_description(module.description) }}
   {{ render_examples(module.examples) }}
-</p>
+</div>
 {%- endmacro %}
