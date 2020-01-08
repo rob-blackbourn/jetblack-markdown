@@ -80,8 +80,8 @@ class PropertyDescriptor(Descriptor):
         signature = inspect.signature(obj.fget)
         docstring = docstring_parser.parse(inspect.getdoc(obj))
         members = {
-            name
-            for name, _value in inspect.getmembers(obj)
+            name: value
+            for name, value in inspect.getmembers(obj)
         }
 
         name = property_name
@@ -90,8 +90,8 @@ class PropertyDescriptor(Descriptor):
         description = docstring.long_description if docstring else None
         type_name = get_type_name(
             signature.return_annotation, docstring.returns)
-        is_settable = 'fset' in members
-        is_deletable = 'fdel' in members
+        is_settable = 'fset' in members and members['fset']
+        is_deletable = 'fdel' in members and members['fdel']
         raises: Optional[List[RaisesDescriptor]] = [
             RaisesDescriptor(error.type_name, error.description)
             for error in docstring.raises

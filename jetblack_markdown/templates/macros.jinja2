@@ -262,12 +262,12 @@ Render properties
   <div class="{{ CLASS_BASE }}-property">
     {{ render_title(property.qual_name, "property") }}
     {{ render_summary(property.summary) }}
-    <code><span class="{{ CLASS_BASE }}-vartype">property.qual_name</span><span class="{{ CLASS_BASE }}-punctuation"> -> </span><span class="{{ CLASS_BASE }}-vartype">property.type</span></code>
+    <code><span class="{{ CLASS_BASE }}-vartype">{{ property.qual_name }}</span><span class="{{ CLASS_BASE }}-punctuation"> -> </span><span class="{{ CLASS_BASE }}-vartype">{{ property.type }}</span></code>
     {%- if property.is_settable %}
-    <br /><code><span class="{{ CLASS_BASE }}-vartype">property.qual_name</span><span class="{{ CLASS_BASE }}-punctuation">: </span><span class="{{ CLASS_BASE }}-vartype">property.type</span><span class="{{ CLASS_BASE }}-punctuation"> = ...</span></code>
+    <br /><code><span class="{{ CLASS_BASE }}-vartype">{{ property.qual_name }}</span><span class="{{ CLASS_BASE }}-punctuation">: </span><span class="{{ CLASS_BASE }}-vartype">{{ property.type }}</span><span class="{{ CLASS_BASE }}-punctuation"> = ...</span></code>
     {%- endif -%}
     {%- if property.is_deletable %}
-    <br /><code><span class="{{ CLASS_BASE }}-keyword">del</span><span class="{{ CLASS_BASE }}-punctuation"> </span><span class="{{ CLASS_BASE }}-vartype">property.qual_name</span></code>
+    <br /><code><span class="{{ CLASS_BASE }}-keyword">del</span><span class="{{ CLASS_BASE }}-punctuation"> </span><span class="{{ CLASS_BASE }}-vartype">{{ property.qual_name }}</span></code>
     {%- endif -%}
     {{ render_raises(property.raises) }}
     {{ render_description(property.description) }}
