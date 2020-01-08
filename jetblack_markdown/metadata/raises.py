@@ -1,6 +1,9 @@
 """Raises"""
 
-class RaisesDescriptor:
+from .common import Descriptor
+
+
+class RaisesDescriptor(Descriptor):
 
     def __init__(
             self,
@@ -9,3 +12,7 @@ class RaisesDescriptor:
     ) -> None:
         self.type = type_
         self.description = description
+
+    @property
+    def descriptor_type(self) -> str:
+        return "raises"

@@ -49,4 +49,3 @@ def makeExtension(*args, **kwargs) -> Extension:
         Extension: The extension
     """
     return AutodocExtension(*args, **kwargs)
-

@@ -1,25 +1,30 @@
 """A sample extension"""
 
-import importlib
 import inspect
 import re
 from typing import (
     Any,
-    Set,
     Tuple
 )
 
 import docstring_parser
+from jinja2 import Environment, PackageLoader, select_autoescape
 from markdown import Markdown
 from markdown.inlinepatterns import InlineProcessor
 from markdown.util import etree
 
 from .constants import HTML_CLASS_BASE
-from .metadata import ModuleDescriptor, CallableDescriptor, CallableType, ClassDescriptor
-from .renderers import Renderer
+from .metadata import (
+    Descriptor,
+    ModuleDescriptor,
+    CallableDescriptor,
+    CallableType,
+    ClassDescriptor
+)
 from .utils import import_from_string
 
-DEFAULT_INSTRUCTION_SET = {'shallow'}
+
+
 
 class AutodocInlineProcessor(InlineProcessor):
     """An inline processort for Python documentation"""
@@ -35,7 +40,11 @@ class AutodocInlineProcessor(InlineProcessor):
         self.class_from_init = class_from_init
         self.ignore_dunder = ignore_dunder
         self.ignore_private = ignore_private
-        self._renderer = Renderer(md)
+        self.env = Environment(
+            loader=PackageLoader('jetblack_markdown', 'templates'),
+            autoescape=select_autoescape(['html', 'xml'])
+        )
+        self.template = self.env.get_template("render.jinja2")
         super().__init__(pattern, md=md)
 
     # pylint: disable=arguments-differ
@@ -64,39 +73,35 @@ class AutodocInlineProcessor(InlineProcessor):
 
     def _render(self, obj: Any) -> etree.Element:
 
-        container = etree.Element('div')
-        container.set('class', f'{HTML_CLASS_BASE}-documentation')
+        parent = etree.Element('div')
+        parent.set('class', f'{HTML_CLASS_BASE}-documentation')
 
-        if inspect.ismodule(obj):
-            self._render_module(obj, container)
-        elif inspect.isclass(obj):
-            self._render_class(obj, container)
-        elif inspect.isfunction(obj):
-            self._render_function(obj, container)
+        descriptor = self.make_descriptor(obj)
 
+        html = self.template.render(
+            CLASS_BASE=HTML_CLASS_BASE,
+            obj=descriptor
+        )
+        container = etree.fromstring(html)
+        parent.append(container)
         return container
 
-    def _render_module(self, obj: Any, container: etree.Element) -> etree.Element:
-        descriptor = ModuleDescriptor.create(obj)
-        return self._renderer.render_module(descriptor, container)
-
-    def _render_function(self, obj: Any, container: etree.Element) -> etree.Element:
-        signature = inspect.signature(obj)
-        docstring = docstring_parser.parse(inspect.getdoc(obj))
-
-        descriptor = CallableDescriptor.create(
-            obj,
-            signature,
-            docstring,
-            CallableType.FUNCTION
-        )
-        return self._renderer.render_function(descriptor, container)
-
-    def _render_class(self, obj: Any, container: etree.Element) -> etree.Element:
-        descriptor = ClassDescriptor.create(
-            obj,
-            self.class_from_init,
-            self.ignore_dunder,
-            self.ignore_private
-        )
-        return self._renderer.render_class(descriptor, container)    
+    def make_descriptor(self, obj: Any) -> Descriptor:
+        if inspect.ismodule(obj):
+            return ModuleDescriptor.create(obj)
+        elif inspect.isclass(obj):
+            return ClassDescriptor.create(
+                obj,
+                self.class_from_init,
+                self.ignore_dunder,
+                self.ignore_private
+            )
+        elif inspect.isfunction(obj):
+            return CallableDescriptor.create(
+                obj,
+                inspect.signature(obj),
+                docstring_parser.parse(inspect.getdoc(obj)),
+                CallableType.FUNCTION
+            )
+        else:
+            raise RuntimeError("Unhandled descriptor")

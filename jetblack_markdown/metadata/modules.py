@@ -12,8 +12,10 @@ from typing import (
 import docstring_parser
 
 from .arguments import ArgumentDescriptor
+from .common import Descriptor
 
-class ModuleDescriptor:
+
+class ModuleDescriptor(Descriptor):
 
     def __init__(
             self,
@@ -32,6 +34,11 @@ class ModuleDescriptor:
         self.examples = examples
         self.package = package
         self.file = file
+
+    @property
+    def descriptor_type(self) -> str:
+        return "module"
+
 
     @classmethod
     def create(

@@ -12,9 +12,11 @@ import docstring_parser
 
 from ..utils import get_type_name
 
+from .common import Descriptor
 from .raises import RaisesDescriptor
 
-class PropertyDescriptor:
+
+class PropertyDescriptor(Descriptor):
 
     def __init__(
             self,
@@ -37,6 +39,11 @@ class PropertyDescriptor:
         self.is_deletable = is_deletable
         self.raises = raises
         self.examples = examples
+
+    @property
+    def descriptor_type(self) -> str:
+        return "property"
+
 
     @classmethod
     def create(

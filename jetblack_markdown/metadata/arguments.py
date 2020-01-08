@@ -2,9 +2,11 @@
 
 from typing import Optional
 
+from .common import Descriptor
+
 ARG_DESCRIPTOR_EMPTY = '#EMPTY#'
 
-class ArgumentDescriptor:
+class ArgumentDescriptor(Descriptor):
 
     EMPTY = ARG_DESCRIPTOR_EMPTY
 
@@ -23,3 +25,7 @@ class ArgumentDescriptor:
     @property
     def is_optional(self) -> bool:
         return self.default is ArgumentDescriptor.EMPTY
+
+    @property
+    def descriptor_type(self) -> str:
+        return "argument"

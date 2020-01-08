@@ -13,9 +13,10 @@ import docstring_parser
 
 from .arguments import ArgumentDescriptor
 from .callables import CallableDescriptor, CallableType
+from .common import Descriptor
 from .properties import PropertyDescriptor
 
-class ClassDescriptor:
+class ClassDescriptor(Descriptor):
 
     def __init__(
             self,
@@ -42,6 +43,10 @@ class ClassDescriptor:
         self.module = module
         self.package = package
         self.file = file
+
+    @property
+    def descriptor_type(self) -> str:
+        return "class"
 
     @classmethod
     def create(

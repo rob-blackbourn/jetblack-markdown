@@ -18,6 +18,7 @@ from ..utils import (
 )
 
 from .arguments import ArgumentDescriptor
+from .common import Descriptor
 from .raises import RaisesDescriptor
 
 class CallableType(Enum):
@@ -25,7 +26,8 @@ class CallableType(Enum):
     METHOD = auto()
     CONSTRUCTOR = auto()
 
-class CallableDescriptor:
+
+class CallableDescriptor(Descriptor):
 
     POSITIONAL_ONLY = '/'
     KEYWORD_ONLY = '*'
@@ -62,6 +64,10 @@ class CallableDescriptor:
         self.package = package
         self.file = file
 
+    @property
+    def descriptor_type(self) -> str:
+        return "callable"
+        
     @property
     def function_type_name(self) -> str:
         if self.function_type == CallableType.CONSTRUCTOR:
