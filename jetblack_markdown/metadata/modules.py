@@ -16,6 +16,7 @@ from .common import Descriptor
 
 
 class ModuleDescriptor(Descriptor):
+    """A module descriptor"""
 
     def __init__(
             self,
@@ -27,6 +28,17 @@ class ModuleDescriptor(Descriptor):
             package: str,
             file: str
     ) -> None:
+        """A module descriptor
+
+        Args:
+            name (str): The module name
+            summary (Optional[str]): The module summary
+            description (Optional[str]): The module description
+            attributes (List[ArgumentDescriptor]): The attribute list
+            examples (Optional[List[str]]): Examples from the docstring
+            package (str): The package name
+            file (str): The file name
+        """
         self.name = name
         self.summary = summary
         self.description = description
@@ -39,15 +51,20 @@ class ModuleDescriptor(Descriptor):
     def descriptor_type(self) -> str:
         return "module"
 
-
     @classmethod
-    def create(
-        cls,
-        obj: Any
-    ) -> ModuleDescriptor:
+    def create(cls, obj: Any) -> ModuleDescriptor:
+        """Create a module descriptor
+
+        Args:
+            obj (Any): The module object
+
+        Returns:
+            ModuleDescriptor: A module descriptor
+        """
         docstring = docstring_parser.parse(inspect.getdoc(obj))
 
-        name = obj.__qualname__ if hasattr(obj, '__qualname__') else obj.__name__
+        name = obj.__qualname__ if hasattr(
+            obj, '__qualname__') else obj.__name__
         summary = docstring.short_description if docstring else None
         description = docstring.short_description if docstring else None
         attrs: List[Tuple[str, str]] = [

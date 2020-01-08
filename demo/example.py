@@ -4,7 +4,7 @@ from jetblack_markdown import AutodocExtension
 if __name__ == "__main__":
     content = """
 
-@[jetblack_markdown.example_google:ExampleClass]
+@[jetblack_markdown.autodoc]
 
 Something else
 """

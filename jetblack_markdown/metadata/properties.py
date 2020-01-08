@@ -17,6 +17,7 @@ from .raises import RaisesDescriptor
 
 
 class PropertyDescriptor(Descriptor):
+    """A properties descriptor"""
 
     def __init__(
             self,
@@ -30,6 +31,21 @@ class PropertyDescriptor(Descriptor):
             raises: Optional[List[RaisesDescriptor]],
             examples: Optional[List[str]]
     ) -> None:
+        """A properties descriptor
+
+        Args:
+            name (str): The property name
+            qual_name (str): The property qualified name
+            summary (Optional[str]): The summary from the docstring
+            description (Optional[str]): The description from the docstring
+            type_ (Optional[str]): The property type
+            is_settable (bool): If True the property can be set
+            is_deletable (bool): If True the property can be deleted
+            raises (Optional[List[RaisesDescriptor]]): A list of the exceptions
+                the property might raise.
+            examples (Optional[List[str]]): A list of examples from the
+                docstring
+        """
         self.name = name
         self.qual_name = qual_name
         self.summary = summary
@@ -44,7 +60,6 @@ class PropertyDescriptor(Descriptor):
     def descriptor_type(self) -> str:
         return "property"
 
-
     @classmethod
     def create(
             cls,
@@ -52,6 +67,16 @@ class PropertyDescriptor(Descriptor):
             klass: Any,
             property_name: str
     ) -> PropertyDescriptor:
+        """Create a property descriptor from
+
+        Args:
+            obj (Any): The property object
+            klass (Any): The class object
+            property_name (str): The name of the property
+
+        Returns:
+            PropertyDescriptor: A property descriptor
+        """
         signature = inspect.signature(obj.fget)
         docstring = docstring_parser.parse(inspect.getdoc(obj))
         members = {
@@ -63,7 +88,8 @@ class PropertyDescriptor(Descriptor):
         qual_name = klass.__name__ + '.' + property_name
         summary = docstring.short_description if docstring else None
         description = docstring.long_description if docstring else None
-        type_name = get_type_name(signature.return_annotation, docstring.returns)
+        type_name = get_type_name(
+            signature.return_annotation, docstring.returns)
         is_settable = 'fset' in members
         is_deletable = 'fdel' in members
         raises: Optional[List[RaisesDescriptor]] = [
@@ -75,7 +101,7 @@ class PropertyDescriptor(Descriptor):
             for meta in docstring.meta
             if 'examples' in meta.args
         ] if docstring is not None else None
-        
+
         return PropertyDescriptor(
             name,
             qual_name,

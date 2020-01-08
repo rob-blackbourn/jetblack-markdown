@@ -2,6 +2,7 @@
 
 from abc import ABCMeta, abstractmethod
 
+
 class Descriptor(metaclass=ABCMeta):
     """The descriptor base class"""
 
@@ -9,7 +10,7 @@ class Descriptor(metaclass=ABCMeta):
     @abstractmethod
     def descriptor_type(self) -> str:
         """The descriptor type
-        
+
         Returns:
             str: The type of the descriptor
         """

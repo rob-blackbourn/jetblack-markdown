@@ -7,7 +7,6 @@ from typing import (
     Tuple
 )
 
-import docstring_parser
 from jinja2 import Environment, PackageLoader, select_autoescape
 from markdown import Markdown
 from markdown.inlinepatterns import InlineProcessor
@@ -18,12 +17,9 @@ from .metadata import (
     Descriptor,
     ModuleDescriptor,
     CallableDescriptor,
-    CallableType,
     ClassDescriptor
 )
 from .utils import import_from_string
-
-
 
 
 class AutodocInlineProcessor(InlineProcessor):
@@ -37,6 +33,20 @@ class AutodocInlineProcessor(InlineProcessor):
             ignore_dunder: bool = True,
             ignore_private: bool = True
     ) -> None:
+        """An inline processor for Python documentation
+
+        Args:
+            pattern ([type]): The regular expression to match
+            md (Markdown, optional): The markdown object provided by the
+                extension. Defaults to None.
+            class_from_init (bool, optional): If True use the docstring from
+                the &#95;&#95;init&#95;&#95; function for classes. Defaults to
+                True.
+            ignore_dunder (bool, optional): If True ignore
+                &#95;&#95;XXX&#95;&#95; functions. Defaults to True.
+            ignore_private (bool, optional): If True ignore private methods
+                (those prefixed &#95;XXX). Defaults to True.
+        """
         self.class_from_init = class_from_init
         self.ignore_dunder = ignore_dunder
         self.ignore_private = ignore_private
@@ -76,7 +86,7 @@ class AutodocInlineProcessor(InlineProcessor):
         parent = etree.Element('div')
         parent.set('class', f'{HTML_CLASS_BASE}-documentation')
 
-        descriptor = self.make_descriptor(obj)
+        descriptor = self._make_descriptor(obj)
 
         html = self.template.render(
             CLASS_BASE=HTML_CLASS_BASE,
@@ -86,7 +96,7 @@ class AutodocInlineProcessor(InlineProcessor):
         parent.append(container)
         return container
 
-    def make_descriptor(self, obj: Any) -> Descriptor:
+    def _make_descriptor(self, obj: Any) -> Descriptor:
         if inspect.ismodule(obj):
             return ModuleDescriptor.create(obj)
         elif inspect.isclass(obj):
@@ -97,11 +107,6 @@ class AutodocInlineProcessor(InlineProcessor):
                 self.ignore_private
             )
         elif inspect.isfunction(obj):
-            return CallableDescriptor.create(
-                obj,
-                inspect.signature(obj),
-                docstring_parser.parse(inspect.getdoc(obj)),
-                CallableType.FUNCTION
-            )
+            return CallableDescriptor.create(obj)
         else:
             raise RuntimeError("Unhandled descriptor")

@@ -16,7 +16,9 @@ from .callables import CallableDescriptor, CallableType
 from .common import Descriptor
 from .properties import PropertyDescriptor
 
+
 class ClassDescriptor(Descriptor):
+    """A class descriptor"""
 
     def __init__(
             self,
@@ -32,6 +34,21 @@ class ClassDescriptor(Descriptor):
             package: Optional[str],
             file: Optional[str]
     ) -> None:
+        """A class descriptor
+
+        Args:
+            name (str): The class name
+            summary (Optional[str]): The docstring summary
+            description (Optional[str]): The docstring description
+            constructor (CallableDescriptor): The constructor
+            attributes (List[ArgumentDescriptor]): The class attributes
+            properties (List[PropertyDescriptor]): The class properties
+            methods (List[CallableDescriptor]): The class methods
+            examples (Optional[List[str]]): Examples from the docstring
+            module (str): The module
+            package (Optional[str]): The package
+            file (Optional[str]): The file
+        """
         self.name = name
         self.summary = summary
         self.description = description
@@ -56,6 +73,17 @@ class ClassDescriptor(Descriptor):
             ignore_dunder: bool,
             ignore_private: bool,
     ) -> ClassDescriptor:
+        """Create a class
+
+        Args:
+            obj (Any): The class
+            class_from_init (bool): If True take the docstring from the init function
+            ignore_dunder (bool): If True ignore &#95;&#95;XXX&#95;&#95; functions
+            ignore_private (bool): If True ignore private methods (those prefixed &#95;XXX)
+
+        Returns:
+            ClassDescriptor: The class descriptor
+        """
         members: Dict[str, Any] = {
             name: value
             for name, value in inspect.getmembers(obj)
@@ -66,7 +94,8 @@ class ClassDescriptor(Descriptor):
                 members['__init__'] if class_from_init else obj
             )
         )
-        name = obj.__qualname__ if hasattr(obj, '__qualname__') else obj.__name__
+        name = obj.__qualname__ if hasattr(
+            obj, '__qualname__') else obj.__name__
         summary = docstring.short_description if docstring else None
         description = docstring.long_description if docstring else None
         constructor = CallableDescriptor.create(
@@ -108,7 +137,8 @@ class ClassDescriptor(Descriptor):
                 )
             elif inspect.isfunction(member):
                 method_signature = inspect.signature(member)
-                method_docstring = docstring_parser.parse(inspect.getdoc(member))
+                method_docstring = docstring_parser.parse(
+                    inspect.getdoc(member))
                 methods.append(
                     CallableDescriptor.create(
                         member,

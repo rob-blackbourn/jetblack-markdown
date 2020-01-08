@@ -10,7 +10,7 @@ Render the title
     name (str): The name
     object_type (str): The object type
 #}
-{% macro render_title(title_name, title_object_type) -%}
+{% macro render_title(name, object_type) -%}
 <p class="{{ CLASS_BASE }}-title">
   <h2><span class="{{ CLASS_BASE }}-title-name">{{ name }}</span><span class="{{ CLASS_BASE }}-title-type"> ({{ object_type }})</span></h2>
 </p>
