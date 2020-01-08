@@ -178,11 +178,11 @@ class ExampleError(Exception):
     def __init__(self, msg, code):
         """Exceptions are documented in the same way as classes.
 
-        The &lowbar;&lowbar;init&lowbar;&lowbar; method may be documented in either the class level
-        docstring, or as a docstring on the &lowbar;&lowbar;init&lowbar;&lowbar; method itself.
+        The &#95;&#95;init&#95;&#95; method may be documented in either the class level
+        docstring, or as a docstring on the &#95;&#95;init&#95;&#95; method itself.
 
         Either form is acceptable, but the two should not be mixed. Choose one
-        convention to document the &lowbar;&lowbar;init&lowbar;&lowbar; method and be consistent with it.
+        convention to document the &#95;&#95;init&#95;&#95; method and be consistent with it.
 
         Note:
             Do not include the `self` parameter in the ``Args`` section.
@@ -202,18 +202,18 @@ class ExampleError(Exception):
 class ExampleClass(object):
 
     def __init__(self, param1, param2, param3):
-        """Example of docstring on the &lowbar;&lowbar;initlowbar;&lowbar method.
+        """Example of docstring on the &#95;&#95;init&#95;&#95; method.
 
-        The &lowbar;&lowbar;init&lowbar;&lowbar; method may be documented in either the class level
-        docstring, or as a docstring on the &lowbar;&lowbar;init&lowbar;&lowbar; method itself.
+        The &#95;&#95;init&#95;&#95; method may be documented in either the class level
+        docstring, or as a docstring on the &#95;&#95;init&#95;&#95; method itself.
 
         Either form is acceptable, but the two should not be mixed. Choose one
-        convention to document the &lowbar;&lowbar;init&lowbar;&lowbar; method and be consistent with it.
+        convention to document the &#95;&#95;init&#95;&#95; method and be consistent with it.
 
         If the class has public attributes, they may be documented here
         in an `Attributes` section and follow the same formatting as a
         function's `Args` section. Alternatively, attributes may be documented
-        inline with the attribute's declaration (see &lowbar;&lowbar;init&lowbar;&lowbar; method below).
+        inline with the attribute's declaration (see &#95;&#95;init&#95;&#95; method below).
 
         Properties created with the ``@property`` decorator should be documented
         in the property's getter method.

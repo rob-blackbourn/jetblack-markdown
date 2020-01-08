@@ -14,7 +14,8 @@ def test_placeholder():
 
 Something else
 """
-    output = markdown.markdown(content, extensions=[AutodocExtension(class_from_init=True)])
+    extension = AutodocExtension(class_from_init=True)
+    output = markdown.markdown(content, extensions=[extension])
     assert output is not None
 
 def test_etree():

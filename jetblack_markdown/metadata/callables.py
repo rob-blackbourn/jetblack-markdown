@@ -36,7 +36,7 @@ class CallableDescriptor:
             summary: Optional[str],
             description: Optional[str],
             arguments: List[ArgumentDescriptor],
-            return_type: Optional[str],
+            return_type: str,
             return_description: Optional[str],
             function_type: CallableType,
             is_async: bool,
@@ -143,9 +143,12 @@ class CallableDescriptor:
                 ArgumentDescriptor(arg_name, type_name, description, default)
             )
 
-        return_type: Optional[str] = None
         return_description: Optional[str] = None
-        if signature.return_annotation and function_type != CallableType.CONSTRUCTOR:
+        if function_type == CallableType.CONSTRUCTOR:
+            return_type = 'None'
+        elif not signature.return_annotation:
+            return_type = 'Any'
+        else:
             return_type = get_type_name(
                 signature.return_annotation,
                 docstring.returns if docstring else None

@@ -1,0 +1,20 @@
+{#
+    Args:
+        title_name (str): The name for the title
+        title_object_type (str): The object type for the title
+        metadata_module_name (Optional[str]):  The module name for metadata
+        metadata_package_name (Optional[str]): The package name for metadata
+        metadata_file_name (Optional[str]): The file name for metadata
+        summary (str): The callable summary
+        description (str): The callable description
+        attributes (List[ArgumentDescriptor]): The list of arguments
+        examples (Optional[List[str]]): Examples
+#}
+<p class="{{ CLASS_BASE }}-module">
+  {% include "title.j2" %}
+  {% include "metadata.j2" %}
+  {% include "summary.j2" %}
+  {% include "attributes.j2" %}
+  {% include "description.j2" %}
+  {% include "examples.j2" %}
+</p>

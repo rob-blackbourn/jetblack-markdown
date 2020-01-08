@@ -1,0 +1,10 @@
+{#
+    Args:
+        description (Optional[str]): The description
+#}
+<p class="{{ CLASS_BASE }}-description">
+    {% if description -%}
+    <h3>Description</h3>
+    <p>{{ description }}</p>
+    {%- endif %}
+</p>

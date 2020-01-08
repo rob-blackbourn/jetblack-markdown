@@ -1,0 +1,18 @@
+{#
+    Args:
+        metadata_module_name (Optional[str]): The module name
+        metadata_package_name (Optional[str]): The package name
+        metadata_file_name (Optional[str]): The file naame
+#}
+
+<p class="{{ CLASS_BASE }}-metadata">
+  {%- if metadata_module_name %}
+  <strong class="{{ CLASS_BASE }}-metadata-header">Module: </strong><span class="{{ CLASS_BASE }}-metadata-value">{{ metadata_module_name }}</span><br />
+  {%- endif -%}
+  {%- if metadata_package_name %}
+  <strong class="{{ CLASS_BASE }}-metadata-header">Package: </strong><span class="{{ CLASS_BASE }}-metadata-value">{{ metadata_package_name }}</span><br />
+  {%- endif -%}
+  {%- if metadata_file_name %}
+  <strong class="{{ CLASS_BASE }}-metadata-header">File: </strong><span class="{{ CLASS_BASE }}-metadata-value">{{ metadata_file_name }}</span><br />
+  {%- endif %}
+</p>

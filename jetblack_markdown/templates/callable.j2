@@ -1,0 +1,28 @@
+{#
+    Args:
+        title_name (str): The name for the title
+        title_object_type (str): The object type for the title
+        metadata_module_name (Optional[str]):  The module name for metadata
+        metadata_package_name (Optional[str]): The package name for metadata
+        metadata_file_name (Optional[str]): The file name for metadata
+        summary (str): The callable summary
+        description (str): The callable description
+        arguments (List[ArgumentDescriptor]): The list of arguments
+        is_async (bool): True if the callable is async
+        is_generator (bool): True if the callable is a generator
+        return_type (str): The return type
+        return_description (IOptional[str]): The return description
+        raises (List[RaiseDescriptor]): The raised exceptions
+        examples (Optional[List[str]]): Examples
+#}
+<div class="{{ CLASS_BASE }}-callable">
+  {% include "title.j2" %}
+  {% include "metadata.j2" %}
+  {% include "summary.j2" %}
+  {% include "signature.j2" %}
+  {% include "parameters.j2" %}
+  {% include "returns.j2" %}
+  {% include "raises.j2" %}
+  {% include "description.j2" %}
+  {% include "examples.j2" %}
+</div>

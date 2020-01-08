@@ -32,7 +32,7 @@ class PropertyDescriptor:
         self.qual_name = qual_name
         self.summary = summary
         self.description = description
-        self.type = type_
+        self.type = type_ or 'Any'
         self.is_settable = is_settable
         self.is_deletable = is_deletable
         self.raises = raises

@@ -85,12 +85,12 @@ class ClassDescriptor:
                 )
         properties: List[PropertyDescriptor] = []
         methods: List[CallableDescriptor] = []
-        for name, member in members.items():
-            if name == '__init__' or (
+        for member_name, member in members.items():
+            if member_name == '__init__' or (
                     ignore_dunder and
-                    name.startswith('__') and
-                    name.endswith('__')
-            ) or (ignore_private and name.startswith('_')):
+                    member_name.startswith('__') and
+                    member_name.endswith('__')
+            ) or (ignore_private and member_name.startswith('_')):
                 continue
 
             if member.__class__ is property:
@@ -98,7 +98,7 @@ class ClassDescriptor:
                     PropertyDescriptor.create(
                         member,
                         obj,
-                        name
+                        member_name
                     )
                 )
             elif inspect.isfunction(member):

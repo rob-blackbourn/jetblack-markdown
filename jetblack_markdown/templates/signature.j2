@@ -1,0 +1,26 @@
+{#
+    Args:
+        callable_name (str): The name of the callable
+        is_async (bool): True if the function is async
+        arguments (List[ArgumentDescriptor]): The arguments
+        return_type (str): The return type
+#}
+<code class="{{ CLASS_BASE }}-signature">
+    {%- if is_async -%}
+    <span class="{{ CLASS_BASE }}-keyword">async</span><span> </span>
+    {%- endif -%}
+    <var class="{{ CLASS_BASE }}-varname">{{ callable_name }}</var><span class="{{ CLASS_BASE }}-punctuation">(</span>
+    {%- for arg in arguments -%}
+      {%- if not loop.first -%}
+        <span class="{{ CLASS_BASE }}-punctuation">, </span>
+      {%- endif -%}
+      <var class="{{ CLASS_BASE }}-varname">{{ arg.name }}</var>
+      {%- if arg.type -%}
+        <span class="{{ CLASS_BASE }}-punctuation">: </span><span class="{{ CLASS_BASE }}-vartype">{{ arg.type }}</span>
+      {%- endif -%}
+    {%- endfor -%}
+    <span class="{{ CLASS_BASE }}-punctuation">)</span>
+    {%- if return_type -%}
+      <span class="{{ CLASS_BASE }}-punctuation"> -&gt; </span><span class="{{ CLASS_BASE }}-vartype">{{ return_type }}</span>
+    {%- endif -%}
+</code>

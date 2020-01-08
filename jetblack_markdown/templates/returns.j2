@@ -1,0 +1,22 @@
+{#
+    Args:
+        return_type (str): The return type
+        is_generator (bool): Ture if the function is a generator
+        return_description (Optional[str]): The return description
+#}
+<p class="{{ CLASS_BASE }}-returns">
+    {% if return_type not in ['None', 'typing.None'] -%}
+      {% if is_generator -%}
+        <h3>Yields</h3>
+      {%- else %}
+        <h3>Returns</h3>
+      {%- endif %}
+      <span class="{{ CLASS_BASE }}-vartype">{{ return_type }}</span><span class="{{ CLASS_BASE }}-punctuation">: </span>
+      <p>
+        {% if return_description -%}
+          {{ return_description }}
+        {%- endif %}
+      </p>
+
+    {%- endif %}
+</p>
