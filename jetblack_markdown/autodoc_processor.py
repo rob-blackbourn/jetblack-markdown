@@ -74,27 +74,20 @@ class AutodocInlineProcessor(InlineProcessor):
                 and end index
         """
         import_str = matches.group(1)
-        obj = import_from_string(import_str)
 
-        element = self._render(obj)
+        element = self._render(import_str)
         start = matches.start(0)
         end = matches.end(0)
         return element, start, end
 
-    def _render(self, obj: Any) -> etree.Element:
-
-        parent = etree.Element('div')
-        parent.set('class', f'{HTML_CLASS_BASE}-documentation')
-
+    def _render(self, import_str: str) -> etree.Element:
+        obj = import_from_string(import_str)
         descriptor = self._make_descriptor(obj)
-
         html = self.template.render(
             CLASS_BASE=HTML_CLASS_BASE,
             obj=descriptor
         )
-        container = etree.fromstring(html)
-        parent.append(container)
-        return container
+        return etree.fromstring(html)
 
     def _make_descriptor(self, obj: Any) -> Descriptor:
         if inspect.ismodule(obj):
