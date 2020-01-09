@@ -26,9 +26,16 @@ from .raises import RaisesDescriptor
 class CallableType(Enum):
     """An enum indicating the type of a callable"""
     FUNCTION = auto()
-    METHOD = auto()
     CONSTRUCTOR = auto()
+    METHOD = auto()
+    CLASS_METHOD = auto()
 
+
+CLASS_FUNCTIONS = {
+    CallableType.CONSTRUCTOR,
+    CallableType.CLASS_METHOD,
+    CallableType.METHOD
+}
 
 class CallableDescriptor(Descriptor):
     """A descriptor for a callable"""
@@ -105,6 +112,8 @@ class CallableDescriptor(Descriptor):
             return 'class'
         elif self.function_type == CallableType.METHOD:
             return 'method'
+        elif self.function_type == CallableType.CLASS_METHOD:
+            return 'class method'
         elif self.is_generator:
             if self.is_async:
                 return 'async generator function'
@@ -150,7 +159,7 @@ class CallableDescriptor(Descriptor):
         arguments: List[ArgumentDescriptor] = []
         is_pos_only_rendered = False
         is_kw_only_rendered = False
-        is_self = function_type in {'method', 'constructor'}
+        is_self = function_type in CLASS_FUNCTIONS
         for parameter in signature.parameters.values():
             if is_self:
                 is_self = False

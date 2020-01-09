@@ -28,6 +28,7 @@ class ClassDescriptor(Descriptor):
             constructor: CallableDescriptor,
             attributes: List[ArgumentDescriptor],
             properties: List[PropertyDescriptor],
+            class_methods: List[CallableDescriptor],
             methods: List[CallableDescriptor],
             examples: Optional[List[str]],
             module: str,
@@ -43,6 +44,7 @@ class ClassDescriptor(Descriptor):
             constructor (CallableDescriptor): The constructor
             attributes (List[ArgumentDescriptor]): The class attributes
             properties (List[PropertyDescriptor]): The class properties
+            class_methods (List[CallableDescriptor]): The class methods
             methods (List[CallableDescriptor]): The class methods
             examples (Optional[List[str]]): Examples from the docstring
             module (str): The module
@@ -55,6 +57,7 @@ class ClassDescriptor(Descriptor):
         self.constructor = constructor
         self.attributes = attributes
         self.properties = properties
+        self.class_methods = class_methods
         self.methods = methods
         self.examples = examples
         self.module = module
@@ -119,6 +122,7 @@ class ClassDescriptor(Descriptor):
                 )
         properties: List[PropertyDescriptor] = []
         methods: List[CallableDescriptor] = []
+        class_methods: List[CallableDescriptor] = []
         for member_name, member in members.items():
             if member_name == '__init__' or (
                     ignore_dunder and
@@ -136,17 +140,22 @@ class ClassDescriptor(Descriptor):
                     )
                 )
             elif inspect.isfunction(member):
-                method_signature = inspect.signature(member)
-                method_docstring = docstring_parser.parse(
-                    inspect.getdoc(member))
+                # Instance methods
                 methods.append(
                     CallableDescriptor.create(
                         member,
-                        method_signature,
-                        method_docstring,
-                        CallableType.METHOD
+                        function_type=CallableType.METHOD
                     )
                 )
+            elif inspect.ismethod(member):
+                # Class methods
+                class_methods.append(
+                    CallableDescriptor.create(
+                        member,
+                        function_type=CallableType.CLASS_METHOD
+                    )
+                )
+
         examples: Optional[List[str]] = [
             meta.description
             for meta in docstring.meta
@@ -165,6 +174,7 @@ class ClassDescriptor(Descriptor):
             constructor,
             attributes,
             properties,
+            class_methods,
             methods,
             examples,
             module,

@@ -187,22 +187,6 @@ Render examples
 
 
 {#
-Render methods
-
-    Args:
-        methods (List[CallableDescriptor]): The methods
-#}
-{% macro render_methods(methods) -%}
-<div class="{{ CLASS_BASE }}-methods">
-{%- for method in methods %}
-{{ render_signature(method) }}
-{{ render_parameters(method.arguments) }}
-{% endfor -%}
-</div>
-{%- endmacro %}
-
-
-{#
 Render raises
 
     Args:
@@ -298,6 +282,36 @@ Render callable
 
 
 {#
+Render methods
+
+    Args:
+        methods (List[CallableDescriptor]): The methods
+#}
+{% macro render_methods(methods) -%}
+<div class="{{ CLASS_BASE }}-methods">
+{%- for method in methods %}
+{{ render_callable(method) }}
+{% endfor -%}
+</div>
+{%- endmacro %}
+
+
+{#
+Render class methods
+
+    Args:
+        methods (List[CallableDescriptor]): The methods
+#}
+{% macro render_class_methods(methods) -%}
+<div class="{{ CLASS_BASE }}-classmethods">
+{%- for method in methods %}
+{{ render_callable(method) }}
+{% endfor -%}
+</div>
+{%- endmacro %}
+
+
+{#
 Render class
 
     Args:
@@ -313,6 +327,7 @@ Render class
   {{ render_description(class.description) }}
   {{ render_attributes(class.attributes) }}
   {{ render_properties(class.properties) }}
+  {{ render_class_methods(class.class_methods) }}
   {{ render_methods(class.methods) }}
   {{ render_examples(class.examples) }}
 </div>
