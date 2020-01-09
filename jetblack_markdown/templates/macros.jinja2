@@ -268,7 +268,7 @@ Render callable
 #}
 {% macro render_callable(callable) -%}
 <div class="{{ CLASS_BASE }}-callable">
-  {{ render_title(callable.name, callable.function_type_name) }}
+  {{ render_title(callable.name, callable.callable_type_description) }}
   {{ render_metadata(callable.module, callable.package, callable.file)}}
   {{ render_summary(callable.summary) }}
   {{ render_signature(callable) }}

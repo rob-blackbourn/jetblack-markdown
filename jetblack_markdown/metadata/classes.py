@@ -144,7 +144,7 @@ class ClassDescriptor(Descriptor):
                 methods.append(
                     CallableDescriptor.create(
                         member,
-                        function_type=CallableType.METHOD
+                        callable_type=CallableType.METHOD
                     )
                 )
             elif inspect.ismethod(member):
@@ -152,7 +152,7 @@ class ClassDescriptor(Descriptor):
                 class_methods.append(
                     CallableDescriptor.create(
                         member,
-                        function_type=CallableType.CLASS_METHOD
+                        callable_type=CallableType.CLASS_METHOD
                     )
                 )
 

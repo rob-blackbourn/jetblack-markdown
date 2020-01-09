@@ -51,7 +51,7 @@ class CallableDescriptor(Descriptor):
             arguments: List[ArgumentDescriptor],
             return_type: str,
             return_description: Optional[str],
-            function_type: CallableType,
+            callable_type: CallableType,
             is_async: bool,
             is_generator: bool,
             raises: Optional[List[RaisesDescriptor]],
@@ -69,7 +69,7 @@ class CallableDescriptor(Descriptor):
             arguments (List[ArgumentDescriptor]): The callables arguments
             return_type (str): The callables return type
             return_description (Optional[str]): The callables return description
-            function_type (CallableType): The type of callable
+            callable_type (CallableType): The type of callable
             is_async (bool): True if the callable is async
             is_generator (bool): True if the callable is a generator
             raises (Optional[List[RaisesDescriptor]]): A list of the exceptions
@@ -85,7 +85,7 @@ class CallableDescriptor(Descriptor):
         self.arguments = arguments
         self.return_type = return_type
         self.return_description = return_description
-        self.function_type = function_type
+        self.callable_type = callable_type
         self.is_async = is_async
         self.is_generator = is_generator
         self.raises = raises
@@ -99,7 +99,7 @@ class CallableDescriptor(Descriptor):
         return "callable"
 
     @property
-    def function_type_name(self) -> str:
+    def callable_type_description(self) -> str:
         """The function type name.
 
         One of: 'class', 'method', 'async generator function'
@@ -108,19 +108,20 @@ class CallableDescriptor(Descriptor):
         Returns:
             str: The function type name
         """
-        if self.function_type == CallableType.CONSTRUCTOR:
+        if self.callable_type == CallableType.CONSTRUCTOR:
             return 'class'
-        elif self.function_type == CallableType.METHOD:
-            return 'method'
-        elif self.function_type == CallableType.CLASS_METHOD:
-            return 'class method'
-        elif self.is_generator:
-            if self.is_async:
-                return 'async generator function'
-            else:
-                return 'generator function'
+        
+        description = 'async ' if self.is_async else ''
+        description += 'generator ' if self.is_generator else ''
+
+        if self.callable_type == CallableType.METHOD:
+            description += 'method'
+        elif self.callable_type == CallableType.CLASS_METHOD:
+            description += 'class method'
         else:
-            return 'function'
+            description += 'function'
+            
+        return description
 
     @classmethod
     def create(
@@ -128,7 +129,7 @@ class CallableDescriptor(Descriptor):
             obj: Any,
             signature: Optional[Signature] = None,
             docstring: Optional[Docstring] = None,
-            function_type: CallableType = CallableType.FUNCTION
+            callable_type: CallableType = CallableType.FUNCTION
     ) -> CallableDescriptor:
         """Create a callable descriptor from a callable
 
@@ -138,7 +139,7 @@ class CallableDescriptor(Descriptor):
                 to None.
             docstring (Optional[Docstring], optional): The docstring. Defaults
                 to None.
-            function_type (CallableType, optional): The function type. Defaults
+            callable_type (CallableType, optional): The function type. Defaults
                 to CallableType.FUNCTION.
 
         Returns:
@@ -159,7 +160,7 @@ class CallableDescriptor(Descriptor):
         arguments: List[ArgumentDescriptor] = []
         is_pos_only_rendered = False
         is_kw_only_rendered = False
-        is_self = function_type in CLASS_FUNCTIONS
+        is_self = callable_type in CLASS_FUNCTIONS
         for parameter in signature.parameters.values():
             if is_self:
                 is_self = False
@@ -222,7 +223,7 @@ class CallableDescriptor(Descriptor):
             )
 
         return_description: Optional[str] = None
-        if function_type == CallableType.CONSTRUCTOR:
+        if callable_type == CallableType.CONSTRUCTOR:
             return_type = 'None'
         elif not signature.return_annotation:
             return_type = 'Any'
@@ -263,7 +264,7 @@ class CallableDescriptor(Descriptor):
             arguments,
             return_type,
             return_description,
-            function_type,
+            callable_type,
             is_async,
             is_generator,
             raises,
