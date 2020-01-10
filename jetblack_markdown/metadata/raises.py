@@ -23,3 +23,6 @@ class RaisesDescriptor(Descriptor):
     @property
     def descriptor_type(self) -> str:
         return "raises"
+
+    def __repr__(self) -> str:
+        return f'{self.type} - {self.description}'

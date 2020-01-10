@@ -47,3 +47,6 @@ class ArgumentDescriptor(Descriptor):
     @property
     def descriptor_type(self) -> str:
         return "argument"
+
+    def __repr__(self):
+        return f'{self.name}: {self.type} - {self.description}'

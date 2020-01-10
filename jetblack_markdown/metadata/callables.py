@@ -37,6 +37,7 @@ CLASS_FUNCTIONS = {
     CallableType.METHOD
 }
 
+
 class CallableDescriptor(Descriptor):
     """A descriptor for a callable"""
 
@@ -98,6 +99,9 @@ class CallableDescriptor(Descriptor):
     def descriptor_type(self) -> str:
         return "callable"
 
+    def __repr__(self) -> str:
+        return f'{self.name} - {self.summary}'
+
     @property
     def callable_type_description(self) -> str:
         """The function type name.
@@ -110,7 +114,7 @@ class CallableDescriptor(Descriptor):
         """
         if self.callable_type == CallableType.CONSTRUCTOR:
             return 'class'
-        
+
         description = 'async ' if self.is_async else ''
         description += 'generator ' if self.is_generator else ''
 
@@ -120,7 +124,7 @@ class CallableDescriptor(Descriptor):
             description += 'class method'
         else:
             description += 'function'
-            
+
         return description
 
     @classmethod

@@ -29,9 +29,11 @@ class AutodocInlineProcessor(InlineProcessor):
             self,
             pattern,
             md: Markdown = None,
+            *,
             class_from_init: bool = True,
             ignore_dunder: bool = True,
-            ignore_private: bool = True
+            ignore_private: bool = True,
+            ignore_all: bool = False
     ) -> None:
         """An inline processor for Python documentation
 
@@ -44,12 +46,14 @@ class AutodocInlineProcessor(InlineProcessor):
                 True.
             ignore_dunder (bool, optional): If True ignore
                 &#95;&#95;XXX&#95;&#95; functions. Defaults to True.
-            ignore_private (bool, optional): If True ignore private methods
+            ignore_private (bool, optional): If True ignore methods
                 (those prefixed &#95;XXX). Defaults to True.
+            ignore_all (bool): If True ignore the &#95;&#95;all&#95;&#95; member.
         """
         self.class_from_init = class_from_init
         self.ignore_dunder = ignore_dunder
         self.ignore_private = ignore_private
+        self.ignore_all = ignore_all
         self.env = Environment(
             loader=PackageLoader('jetblack_markdown', 'templates'),
             autoescape=select_autoescape(['html', 'xml'])
@@ -91,7 +95,13 @@ class AutodocInlineProcessor(InlineProcessor):
 
     def _make_descriptor(self, obj: Any) -> Descriptor:
         if inspect.ismodule(obj):
-            return ModuleDescriptor.create(obj)
+            return ModuleDescriptor.create(
+                obj,
+                self.class_from_init,
+                self.ignore_dunder,
+                self.ignore_private,
+                self.ignore_all
+            )
         elif inspect.isclass(obj):
             return ClassDescriptor.create(
                 obj,

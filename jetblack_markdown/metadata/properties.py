@@ -60,6 +60,9 @@ class PropertyDescriptor(Descriptor):
     def descriptor_type(self) -> str:
         return "property"
 
+    def __repr__(self) -> str:
+        return f'{self.name} - {self.summary}'
+
     @classmethod
     def create(
             cls,

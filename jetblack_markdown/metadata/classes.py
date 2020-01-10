@@ -68,6 +68,9 @@ class ClassDescriptor(Descriptor):
     def descriptor_type(self) -> str:
         return "class"
 
+    def __repr__(self) -> str:
+        return f'{self.name} - {self.summary}'
+
     @classmethod
     def create(
             cls,
@@ -75,6 +78,7 @@ class ClassDescriptor(Descriptor):
             class_from_init: bool,
             ignore_dunder: bool,
             ignore_private: bool,
+            importing_module: Optional[str] = None
     ) -> ClassDescriptor:
         """Create a class
 
@@ -83,6 +87,7 @@ class ClassDescriptor(Descriptor):
             class_from_init (bool): If True take the docstring from the init function
             ignore_dunder (bool): If True ignore &#95;&#95;XXX&#95;&#95; functions
             ignore_private (bool): If True ignore private methods (those prefixed &#95;XXX)
+            importing_module (Optional[str], optional): The importing module, defaults to None
 
         Returns:
             ClassDescriptor: The class descriptor
@@ -163,7 +168,7 @@ class ClassDescriptor(Descriptor):
         ] if docstring is not None else None
 
         module_obj = inspect.getmodule(obj)
-        module = obj.__module__
+        module = importing_module or obj.__module__
         package = module_obj.__package__ if module_obj else None
         file = module_obj.__file__ if module_obj else None
 

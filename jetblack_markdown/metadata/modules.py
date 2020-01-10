@@ -2,8 +2,10 @@
 
 from __future__ import annotations
 import inspect
+from types import ModuleType
 from typing import (
     Any,
+    Dict,
     List,
     Optional,
     Tuple
@@ -13,6 +15,8 @@ import docstring_parser
 
 from .arguments import ArgumentDescriptor
 from .common import Descriptor
+from .classes import ClassDescriptor
+from .callables import CallableDescriptor
 
 
 class ModuleDescriptor(Descriptor):
@@ -25,8 +29,10 @@ class ModuleDescriptor(Descriptor):
             description: Optional[str],
             attributes: List[ArgumentDescriptor],
             examples: Optional[List[str]],
-            package: str,
-            file: str
+            package: Optional[str],
+            file: Optional[str],
+            classes: List[ClassDescriptor],
+            functions: List[CallableDescriptor]
     ) -> None:
         """A module descriptor
 
@@ -36,8 +42,10 @@ class ModuleDescriptor(Descriptor):
             description (Optional[str]): The module description
             attributes (List[ArgumentDescriptor]): The attribute list
             examples (Optional[List[str]]): Examples from the docstring
-            package (str): The package name
-            file (str): The file name
+            package (Optional[str]): The package name
+            file (Optional[str]): The file name
+            classes (List[ClassDescriptor]): Classes in the module
+            functions (List[CallableDescriptor]): Functions in the module
         """
         self.name = name
         self.summary = summary
@@ -46,25 +54,40 @@ class ModuleDescriptor(Descriptor):
         self.examples = examples
         self.package = package
         self.file = file
+        self.classes = classes
+        self.functions = functions
 
     @property
     def descriptor_type(self) -> str:
         return "module"
 
+    def __repr__(self) -> str:
+        return f'{self.name} - {self.summary}'
+
     @classmethod
-    def create(cls, obj: Any) -> ModuleDescriptor:
+    def create(
+            cls,
+            module: ModuleType,
+            class_from_init: bool,
+            ignore_dunder: bool,
+            ignore_private: bool,
+            ignore_all: bool
+    ) -> ModuleDescriptor:
         """Create a module descriptor
 
         Args:
             obj (Any): The module object
+            class_from_init (bool): If True take the docstring from the init function
+            ignore_dunder (bool): If True ignore &#95;&#95;XXX&#95;&#95; functions
+            ignore_private (bool): If True ignore private methods (those prefixed &#95;XXX)
+            ignore_all (bool): If True ignore the &#95;&#95;all&#95;&#95; member.
 
         Returns:
             ModuleDescriptor: A module descriptor
         """
-        docstring = docstring_parser.parse(inspect.getdoc(obj))
+        docstring = docstring_parser.parse(inspect.getdoc(module))
 
-        name = obj.__qualname__ if hasattr(
-            obj, '__qualname__') else obj.__name__
+        name = module.__name__
         summary = docstring.short_description if docstring else None
         description = docstring.short_description if docstring else None
         attrs: List[Tuple[str, str]] = [
@@ -85,8 +108,48 @@ class ModuleDescriptor(Descriptor):
             if 'examples' in meta.args
         ] if docstring is not None else None
 
-        package = obj.__package__
-        file = obj.__file__
+        package = module.__package__
+        file = module.__file__
+
+        members: Dict[str, Any] = dict(inspect.getmembers(module))
+        valid_members = members.get('__all__', [])
+
+        classes: List[ClassDescriptor] = []
+        functions: List[CallableDescriptor] = []
+        for member_name, member in members.items():
+
+            if (
+                    (not ignore_all and member_name not in valid_members)
+                    and inspect.getmodule(member) is not module
+            ):
+                # Only handler members in this module, or members in __all__ if
+                # this is not ignored.
+                continue
+            if ignore_dunder and member_name.startswith('__') and member_name.endswith('__'):
+                continue
+            if ignore_private and member_name.startswith('_'):
+                continue
+
+            if ignore_all or not valid_members or member_name in valid_members:
+
+                if inspect.isclass(member):
+                    classes.append(
+                        ClassDescriptor.create(
+                            member,
+                            class_from_init,
+                            ignore_dunder,
+                            ignore_private,
+                            name
+                        )
+                    )
+                elif inspect.isfunction(member):
+                    functions.append(
+                        CallableDescriptor.create(member)
+                    )
+                else:
+                    print(f'unknown {member_name}')
+
+        print(members)
 
         return ModuleDescriptor(
             name,
@@ -95,5 +158,7 @@ class ModuleDescriptor(Descriptor):
             attributes,
             examples,
             package,
-            file
+            file,
+            classes,
+            functions
         )
