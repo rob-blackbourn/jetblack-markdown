@@ -1,4 +1,5 @@
 # API
 
-@[jetblack_markdown.metadata:CallableDescriptor]
+@[jetblack_markdown]
 
+@[jetblack_markdown.metadata]

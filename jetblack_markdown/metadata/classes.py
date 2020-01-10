@@ -99,7 +99,7 @@ class ClassDescriptor(Descriptor):
         signature = inspect.signature(obj)
         docstring = docstring_parser.parse(
             inspect.getdoc(
-                members['__init__'] if class_from_init else obj
+                members.get('__init__', obj) if class_from_init else obj
             )
         )
         name = obj.__qualname__ if hasattr(

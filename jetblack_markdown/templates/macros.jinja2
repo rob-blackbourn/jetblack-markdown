@@ -348,5 +348,11 @@ Render a module
   {{ render_attributes(module.attributes) }}
   {{ render_description(module.description) }}
   {{ render_examples(module.examples) }}
+{%- for function in module.functions %}
+  {{ render_callable(function)}}
+{% endfor -%}
+{%- for class in module.classes %}
+  {{ render_class(class)}}
+{% endfor -%}
 </div>
 {%- endmacro %}
