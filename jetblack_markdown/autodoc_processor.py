@@ -58,6 +58,7 @@ class AutodocInlineProcessor(InlineProcessor):
             loader=PackageLoader('jetblack_markdown', 'templates'),
             autoescape=select_autoescape(['html', 'xml'])
         )
+        self.env.filters['md_format'] = self._md_format
         self.template = self.env.get_template("render.jinja2")
         super().__init__(pattern, md=md)
 
@@ -113,3 +114,8 @@ class AutodocInlineProcessor(InlineProcessor):
             return CallableDescriptor.create(obj)
         else:
             raise RuntimeError("Unhandled descriptor")
+
+    def _md_format(self, text: str) -> str:
+        md = Markdown(extensions=self.md.registeredExtensions)
+        result = md.convert(text)
+        return result

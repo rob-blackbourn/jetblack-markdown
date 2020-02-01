@@ -46,8 +46,18 @@ class AutodocExtension(Extension):
 def makeExtension(*args, **kwargs) -> Extension:
     """Make the extension
 
-    This hook function get picked up by the markdown processor when the
+    This hook *function* gets picked up by the markdown processor when the
     extension is listed
+
+    ```python
+    output = markdown.markdown(
+        content, extensions=[
+            "admonition",
+            "codehilite",
+            "jetblack_markdown.autodoc",
+        ])
+    print(output)
+    ```
 
     Returns:
         Extension: The extension

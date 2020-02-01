@@ -50,7 +50,7 @@ Render the summary
 <div class="{{ CLASS_BASE }}-summary">
 {% if summary -%}
     <h3>Summary</h3>
-    <p>{{ summary  }}</p>
+    {{ summary | md_format }}
 {%- endif %}
 </div>
 {%- endmacro %}
@@ -104,7 +104,7 @@ Render parameters
       <span class="{{ CLASS_BASE }}-punctuation"> (optional)</span>
 {%- endif -%}
 {% if argument.description -%}
-      <p>{{ argument.description }}</p>
+      {{ argument.description | md_format }}
 {%- else -%}
       <p />
 {%- endif %}
@@ -163,7 +163,7 @@ Render the description
 <div class="{{ CLASS_BASE }}-description">
 {% if description -%}
     <h3>Description</h3>
-    <p>{{ description }}</p>
+    {{ description | md_format }}
 {%- endif %}
 </div>
 {%- endmacro %}
