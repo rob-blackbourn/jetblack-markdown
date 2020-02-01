@@ -21,8 +21,8 @@ class PropertyDescriptor(Descriptor):
 
     def __init__(
             self,
+            qualifier: str,
             name: str,
-            qual_name: str,
             summary: Optional[str],
             description: Optional[str],
             type_: Optional[str],
@@ -34,8 +34,8 @@ class PropertyDescriptor(Descriptor):
         """A properties descriptor
 
         Args:
+            qualifier (str): The qualifier
             name (str): The property name
-            qual_name (str): The property qualified name
             summary (Optional[str]): The summary from the docstring
             description (Optional[str]): The description from the docstring
             type_ (Optional[str]): The property type
@@ -46,8 +46,8 @@ class PropertyDescriptor(Descriptor):
             examples (Optional[List[str]]): A list of examples from the
                 docstring
         """
+        self.qualifier = qualifier
         self.name = name
-        self.qual_name = qual_name
         self.summary = summary
         self.description = description
         self.type = type_ or 'Any'
@@ -88,7 +88,7 @@ class PropertyDescriptor(Descriptor):
         }
 
         name = property_name
-        qual_name = klass.__name__ + '.' + property_name
+        qualifier = klass.__name__
         summary = docstring.short_description if docstring else None
         description = docstring.long_description if docstring else None
         type_name = get_type_name(
@@ -106,8 +106,8 @@ class PropertyDescriptor(Descriptor):
         ] if docstring is not None else None
 
         return PropertyDescriptor(
+            qualifier,
             name,
-            qual_name,
             summary,
             description,
             type_name,

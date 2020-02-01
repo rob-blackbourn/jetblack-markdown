@@ -7,6 +7,10 @@ from .autodoc_processor import AutodocInlineProcessor
 
 DOCSTRING_RE = r'@\[([^\]]+)\]'
 
+__all__ = [
+    "AutodocExtension",
+    "makeExtension"
+]
 
 class AutodocExtension(Extension):
     """The autodoc extension.

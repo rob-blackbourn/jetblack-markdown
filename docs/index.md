@@ -1,3 +1,3 @@
-# Welcome to jetblack-markdown
+# Welcome
 
 Markdown extensions for mkdocs.

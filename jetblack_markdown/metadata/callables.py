@@ -48,6 +48,7 @@ class CallableDescriptor(Descriptor):
 
     def __init__(
             self,
+            qualifier: str,
             name: str,
             summary: Optional[str],
             description: Optional[str],
@@ -66,6 +67,7 @@ class CallableDescriptor(Descriptor):
         """A descriptor for a callable
 
         Args:
+            qualifier (str): The qualifier part of the name
             name (str): The name of the callable
             summary (Optional[str]): The callables summary docstring
             description (Optional[str]): The callables description docstring
@@ -82,6 +84,7 @@ class CallableDescriptor(Descriptor):
             package (Optional[str]): The package name
             file (Optional[str]): The file name
         """
+        self.qualifier = qualifier
         self.name = name
         self.summary = summary
         self.description = description
@@ -158,8 +161,6 @@ class CallableDescriptor(Descriptor):
         if docstring is None:
             docstring = docstring_parser.parse(inspect.getdoc(obj))
 
-        name = obj.__qualname__ if hasattr(
-            obj, '__qualname__') else obj.__name__
         is_async = inspect.iscoroutinefunction(
             obj) or inspect.isasyncgenfunction(obj)
         is_generator = inspect.isgeneratorfunction(
@@ -266,7 +267,16 @@ class CallableDescriptor(Descriptor):
         package = module_obj.__package__ if module_obj else None
         file = make_file_relative(module_obj.__file__ if module_obj else None)
 
+        if hasattr(obj, '__qualname__'):
+            qualifier, _, name = obj.__qualname__.rpartition('.')
+            if not qualifier:
+                qualifier = package
+        else:
+            qualifier = package
+            name = obj.__name__
+
         return CallableDescriptor(
+            qualifier,
             name,
             summary,
             description,
