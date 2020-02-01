@@ -7,21 +7,21 @@
         
         
         
-        <link rel="shortcut icon" href="../img/favicon.ico">
-        <title>markdown - jetblack-markdown</title>
-        <link href="../css/bootstrap-custom.min.css" rel="stylesheet">
-        <link href="../css/font-awesome.min.css" rel="stylesheet">
-        <link href="../css/base.css" rel="stylesheet">
+        <link rel="shortcut icon" href="../../img/favicon.ico">
+        <title>jetblack_markdown.autodoc - jetblack-markdown</title>
+        <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../../css/base.css" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
-        <link href="../css/custom.css" rel="stylesheet">
+        <link href="../../css/custom.css" rel="stylesheet">
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>
             <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
             <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
         <![endif]-->
 
-        <script src="../js/jquery-1.10.2.min.js" defer></script>
-        <script src="../js/bootstrap-3.0.3.min.js" defer></script>
+        <script src="../../js/jquery-1.10.2.min.js" defer></script>
+        <script src="../../js/bootstrap-3.0.3.min.js" defer></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
         <script>hljs.initHighlightingOnLoad();</script> 
     </head>
@@ -40,7 +40,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="..">jetblack-markdown</a>
+                    <a class="navbar-brand" href="../..">jetblack-markdown</a>
                 </div>
 
                 <!-- Expanded navigation -->
@@ -48,22 +48,24 @@
                         <!-- Main navigation -->
                         <ul class="nav navbar-nav">
                             <li >
-                                <a href="..">Welcome</a>
+                                <a href="../..">Welcome</a>
                             </li>
-                            <li >
-                                <a href="../api_jetblack_autodoc/">autodoc</a>
-                            </li>
-                            <li class="active">
-                                <a href="./">markdown</a>
-                            </li>
-                            <li >
-                                <a href="../api_jetblack_metadata/">metadata</a>
-                            </li>
-                            <li >
-                                <a href="../class/">Class</a>
-                            </li>
-                            <li >
-                                <a href="../function/">Function</a>
+                            <li class="dropdown active">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">API <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li >
+    <a href="../jetblack_autodoc/">jetblack-autodoc</a>
+</li>
+                                    
+<li class="active">
+    <a href="./">jetblack_markdown.autodoc</a>
+</li>
+                                    
+<li >
+    <a href="../jetblack_metadata/">jetblack_markdown.metadata</a>
+</li>
+                                </ul>
                             </li>
                         </ul>
 
@@ -74,12 +76,12 @@
                             </a>
                         </li>
                             <li >
-                                <a rel="next" href="../api_jetblack_autodoc/">
+                                <a rel="next" href="../jetblack_autodoc/">
                                     <i class="fa fa-arrow-left"></i> Previous
                                 </a>
                             </li>
                             <li >
-                                <a rel="prev" href="../api_jetblack_metadata/">
+                                <a rel="prev" href="../jetblack_metadata/">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
                             </li>
@@ -408,7 +410,7 @@
 <h4 class="autodoc-title" id="summary_8">Summary</h4>
 <p>An inline processor for Python documentation</p>
 </div>
-<code class="autodoc-signature"><span class="autodoc-qualifier">jetblack_markdown</span><span class="autodoc-punctuation">.</span><var class="autodoc-varname">AutodocInlineProcessor</var><span class="autodoc-punctuation">(</span><var class="autodoc-varname">md</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Markdown</span><span class="autodoc-punctuation">, </span><var class="autodoc-varname">*</var><span class="autodoc-punctuation">, </span><var class="autodoc-varname">class_from_init</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">bool</span><span class="autodoc-punctuation">, </span><var class="autodoc-varname">ignore_dunder</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">bool</span><span class="autodoc-punctuation">, </span><var class="autodoc-varname">ignore_private</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">bool</span><span class="autodoc-punctuation">, </span><var class="autodoc-varname">ignore_all</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">bool</span><span class="autodoc-punctuation">, </span><var class="autodoc-varname">prefer_docstring</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">bool</span><span class="autodoc-punctuation">)</span></code>
+<code class="autodoc-signature"><span class="autodoc-qualifier">jetblack_markdown</span><span class="autodoc-punctuation">.</span><var class="autodoc-varname">AutodocInlineProcessor</var><span class="autodoc-punctuation">(</span><var class="autodoc-varname">md</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Markdown</span><span class="autodoc-punctuation">, </span><var class="autodoc-varname">*</var><span class="autodoc-punctuation">, </span><var class="autodoc-varname">class_from_init</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">bool</span><span class="autodoc-punctuation">, </span><var class="autodoc-varname">ignore_dunder</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">bool</span><span class="autodoc-punctuation">, </span><var class="autodoc-varname">ignore_private</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">bool</span><span class="autodoc-punctuation">, </span><var class="autodoc-varname">ignore_all</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">bool</span><span class="autodoc-punctuation">, </span><var class="autodoc-varname">prefer_docstring</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">bool</span><span class="autodoc-punctuation">, </span><var class="autodoc-varname">template_folder</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[str]</span><span class="autodoc-punctuation">)</span></code>
   <div class="autodoc-parameters">
 <h4 class="autodoc-title" id="parameters_7">Parameters</h4>
 <var class="autodoc-varname">md</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Markdown</span><p>The markdown object provided by the
@@ -423,6 +425,8 @@ True.</p>
 (those prefixed _XXX). Defaults to True.</p>
 <var class="autodoc-varname">ignore_all</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">bool</span><p>If True ignore the <strong>all</strong> member.</p>
 <var class="autodoc-varname">prefer_docstring</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">bool</span><p>If true prefer the docstring.</p>
+<var class="autodoc-varname">template_folder</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[str]</span><p>The template folder,
+Defaults to None.</p>
 </div>
 <div class="autodoc-description">
 
@@ -606,11 +610,11 @@ and end index</span>
             <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
         </footer>
         <script>
-            var base_url = "..",
+            var base_url = "../..",
                 shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
         </script>
-        <script src="../js/base.js" defer></script>
-        <script src="../search/main.js" defer></script>
+        <script src="../../js/base.js" defer></script>
+        <script src="../../search/main.js" defer></script>
 
         <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
     <div class="modal-dialog">
