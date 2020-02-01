@@ -66,7 +66,7 @@ There are some configuration parameters.
 * prefer_docstring (bool): If true prefer the docstring.
 * template_folder(Optional[str], optional): Specify a custom template folder.
     The template "main.jinja2" will be rendered passing an `obj` parameter
-    which is a `jetblack)markdown.metadata.Descriptor`
+    which is a `jetblack.markdown.metadata.Descriptor`
 
 ## Customizing
 
