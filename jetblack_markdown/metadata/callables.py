@@ -4,6 +4,7 @@ from __future__ import annotations
 from enum import Enum, auto
 import inspect
 from inspect import Parameter, Signature
+import sys
 from typing import (
     Any,
     List,
@@ -21,6 +22,7 @@ from ..utils import (
 from .arguments import ArgumentDescriptor
 from .common import Descriptor
 from .raises import RaisesDescriptor
+from .utils import make_file_relative
 
 
 class CallableType(Enum):
@@ -134,7 +136,7 @@ class CallableDescriptor(Descriptor):
             signature: Optional[Signature] = None,
             docstring: Optional[Docstring] = None,
             callable_type: CallableType = CallableType.FUNCTION,
-            prefer_docstring = False
+            prefer_docstring=False
     ) -> CallableDescriptor:
         """Create a callable descriptor from a callable
 
@@ -262,7 +264,7 @@ class CallableDescriptor(Descriptor):
         module_obj = inspect.getmodule(obj)
         module = obj.__module__
         package = module_obj.__package__ if module_obj else None
-        file = module_obj.__file__ if module_obj else None
+        file = make_file_relative(module_obj.__file__ if module_obj else None)
 
         return CallableDescriptor(
             name,

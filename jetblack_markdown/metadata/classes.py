@@ -15,6 +15,7 @@ from .arguments import ArgumentDescriptor
 from .callables import CallableDescriptor, CallableType
 from .common import Descriptor
 from .properties import PropertyDescriptor
+from .utils import make_file_relative
 
 
 class ClassDescriptor(Descriptor):
@@ -175,7 +176,7 @@ class ClassDescriptor(Descriptor):
         module_obj = inspect.getmodule(obj)
         module = importing_module or obj.__module__
         package = module_obj.__package__ if module_obj else None
-        file = module_obj.__file__ if module_obj else None
+        file = make_file_relative(module_obj.__file__ if module_obj else None)
 
         return ClassDescriptor(
             name,

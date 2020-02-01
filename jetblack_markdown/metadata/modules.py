@@ -17,6 +17,7 @@ from .arguments import ArgumentDescriptor
 from .common import Descriptor
 from .classes import ClassDescriptor
 from .callables import CallableDescriptor
+from .utils import make_file_relative
 
 
 class ModuleDescriptor(Descriptor):
@@ -111,7 +112,7 @@ class ModuleDescriptor(Descriptor):
         ] if docstring is not None else None
 
         package = module.__package__
-        file = module.__file__
+        file = make_file_relative(module.__file__)
 
         members: Dict[str, Any] = dict(inspect.getmembers(module))
         valid_members = members.get('__all__', [])
