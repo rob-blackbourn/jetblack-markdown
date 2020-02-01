@@ -78,7 +78,8 @@ class ClassDescriptor(Descriptor):
             class_from_init: bool,
             ignore_dunder: bool,
             ignore_private: bool,
-            importing_module: Optional[str] = None
+            importing_module: Optional[str] = None,
+            prefer_docstring: bool = True
     ) -> ClassDescriptor:
         """Create a class
 
@@ -88,6 +89,7 @@ class ClassDescriptor(Descriptor):
             ignore_dunder (bool): If True ignore &#95;&#95;XXX&#95;&#95; functions
             ignore_private (bool): If True ignore private methods (those prefixed &#95;XXX)
             importing_module (Optional[str], optional): The importing module, defaults to None
+            prefer_docstring (bool): If true prefer the docstring.
 
         Returns:
             ClassDescriptor: The class descriptor
@@ -110,7 +112,8 @@ class ClassDescriptor(Descriptor):
             obj,
             signature,
             docstring,
-            CallableType.CONSTRUCTOR
+            CallableType.CONSTRUCTOR,
+            prefer_docstring=prefer_docstring
         )
         attributes: List[ArgumentDescriptor] = []
         if docstring:
@@ -149,7 +152,8 @@ class ClassDescriptor(Descriptor):
                 methods.append(
                     CallableDescriptor.create(
                         member,
-                        callable_type=CallableType.METHOD
+                        callable_type=CallableType.METHOD,
+                        prefer_docstring=prefer_docstring
                     )
                 )
             elif inspect.ismethod(member):
@@ -157,7 +161,8 @@ class ClassDescriptor(Descriptor):
                 class_methods.append(
                     CallableDescriptor.create(
                         member,
-                        callable_type=CallableType.CLASS_METHOD
+                        callable_type=CallableType.CLASS_METHOD,
+                        prefer_docstring=prefer_docstring
                     )
                 )
 

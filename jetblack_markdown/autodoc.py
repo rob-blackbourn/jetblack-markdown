@@ -20,6 +20,7 @@ class AutodocExtension(Extension):
             'ignore_dunder': [True, 'Ignore dunder methods'],
             'ignore_private': [True, 'Ignore private methods'],
             'ignore_all': [False, 'Ignore the __all__ member'],
+            'prefer_docstring': [True, 'Prefer the docstring'],
         }
         super().__init__(*args, **kwargs)
 
@@ -28,6 +29,7 @@ class AutodocExtension(Extension):
         ignore_dunder = self.getConfig('ignore_dunder')
         ignore_private = self.getConfig('ignore_private')
         ignore_all = self.getConfig('ignore_all')
+        prefer_docstring = self.getConfig('prefer_docstring')
         md.inlinePatterns.register(
             AutodocInlineProcessor(
                 DOCSTRING_RE,
@@ -35,7 +37,8 @@ class AutodocExtension(Extension):
                 class_from_init=class_from_init,
                 ignore_dunder=ignore_dunder,
                 ignore_private=ignore_private,
-                ignore_all=ignore_all
+                ignore_all=ignore_all,
+                prefer_docstring=prefer_docstring
             ),
             'autodoc',
             175

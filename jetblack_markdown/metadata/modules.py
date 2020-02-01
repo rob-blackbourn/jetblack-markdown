@@ -71,7 +71,8 @@ class ModuleDescriptor(Descriptor):
             class_from_init: bool,
             ignore_dunder: bool,
             ignore_private: bool,
-            ignore_all: bool
+            ignore_all: bool,
+            prefer_docstring: bool
     ) -> ModuleDescriptor:
         """Create a module descriptor
 
@@ -81,6 +82,7 @@ class ModuleDescriptor(Descriptor):
             ignore_dunder (bool): If True ignore &#95;&#95;XXX&#95;&#95; functions
             ignore_private (bool): If True ignore private methods (those prefixed &#95;XXX)
             ignore_all (bool): If True ignore the &#95;&#95;all&#95;&#95; member.
+            prefer_docstring (bool): If true prefer the docstring
 
         Returns:
             ModuleDescriptor: A module descriptor
@@ -144,7 +146,10 @@ class ModuleDescriptor(Descriptor):
                     )
                 elif inspect.isfunction(member):
                     functions.append(
-                        CallableDescriptor.create(member)
+                        CallableDescriptor.create(
+                            member,
+                            prefer_docstring=prefer_docstring
+                        )
                     )
                 else:
                     print(f'unknown {member_name}')

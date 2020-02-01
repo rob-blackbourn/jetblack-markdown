@@ -12,7 +12,6 @@ from markdown import Markdown
 from markdown.inlinepatterns import InlineProcessor
 from markdown.util import etree
 
-from .constants import HTML_CLASS_BASE
 from .metadata import (
     Descriptor,
     ModuleDescriptor,
@@ -33,7 +32,8 @@ class AutodocInlineProcessor(InlineProcessor):
             class_from_init: bool = True,
             ignore_dunder: bool = True,
             ignore_private: bool = True,
-            ignore_all: bool = False
+            ignore_all: bool = False,
+            prefer_docstring: bool = True
     ) -> None:
         """An inline processor for Python documentation
 
@@ -49,11 +49,13 @@ class AutodocInlineProcessor(InlineProcessor):
             ignore_private (bool, optional): If True ignore methods
                 (those prefixed &#95;XXX). Defaults to True.
             ignore_all (bool): If True ignore the &#95;&#95;all&#95;&#95; member.
+            prefer_docstring (bool): If true prefer the docstring.
         """
         self.class_from_init = class_from_init
         self.ignore_dunder = ignore_dunder
         self.ignore_private = ignore_private
         self.ignore_all = ignore_all
+        self.prefer_docstring = prefer_docstring
         self.env = Environment(
             loader=PackageLoader('jetblack_markdown', 'templates'),
             autoescape=select_autoescape(['html', 'xml'])
@@ -89,7 +91,6 @@ class AutodocInlineProcessor(InlineProcessor):
         obj = import_from_string(import_str)
         descriptor = self._make_descriptor(obj)
         html = self.template.render(
-            CLASS_BASE=HTML_CLASS_BASE,
             obj=descriptor
         )
         return etree.fromstring(html)
@@ -101,17 +102,22 @@ class AutodocInlineProcessor(InlineProcessor):
                 self.class_from_init,
                 self.ignore_dunder,
                 self.ignore_private,
-                self.ignore_all
+                self.ignore_all,
+                self.prefer_docstring
             )
         elif inspect.isclass(obj):
             return ClassDescriptor.create(
                 obj,
                 self.class_from_init,
                 self.ignore_dunder,
-                self.ignore_private
+                self.ignore_private,
+                prefer_docstring=self.prefer_docstring
             )
         elif inspect.isfunction(obj):
-            return CallableDescriptor.create(obj)
+            return CallableDescriptor.create(
+                obj,
+                prefer_docstring=self.prefer_docstring
+            )
         else:
             raise RuntimeError("Unhandled descriptor")
 

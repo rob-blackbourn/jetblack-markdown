@@ -133,7 +133,8 @@ class CallableDescriptor(Descriptor):
             obj: Any,
             signature: Optional[Signature] = None,
             docstring: Optional[Docstring] = None,
-            callable_type: CallableType = CallableType.FUNCTION
+            callable_type: CallableType = CallableType.FUNCTION,
+            prefer_docstring = False
     ) -> CallableDescriptor:
         """Create a callable descriptor from a callable
 
@@ -145,6 +146,7 @@ class CallableDescriptor(Descriptor):
                 to None.
             callable_type (CallableType, optional): The function type. Defaults
                 to CallableType.FUNCTION.
+            prefer_docstring (bool): If true prefer the docstring.
 
         Returns:
             CallableDescriptor: A callable descriptor
@@ -210,11 +212,12 @@ class CallableDescriptor(Descriptor):
                 type_name = get_type_name(
                     parameter.annotation, docstring_param)
 
-                default = (
-                    parameter.default
-                    if parameter.default != Parameter.empty
-                    else ArgumentDescriptor.EMPTY
-                )
+                if parameter.default is Parameter.empty:
+                    default = ArgumentDescriptor.EMPTY
+                elif prefer_docstring and docstring_param is not None:
+                    default = docstring_param.default
+                else:
+                    default = parameter.default
 
             description = (
                 docstring_param.description
