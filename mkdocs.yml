@@ -1,4 +1,7 @@
-site_name: My Docs
+site_name: jetblack-markdown
+
+docs_dir: documentation
+site_dir: docs
 
 markdown_extensions:
   - admonition
