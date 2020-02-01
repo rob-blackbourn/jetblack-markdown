@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../img/favicon.ico">
+        <title>Class - My Docs</title>
+        <link href="../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+        <link href="../css/custom.css" rel="stylesheet">
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+        <script src="../js/jquery-1.10.2.min.js" defer></script>
+        <script src="../js/bootstrap-3.0.3.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script> 
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+            <div class="container">
+
+                <!-- Collapsed navigation -->
+                <div class="navbar-header">
+                    <!-- Expander button -->
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="..">My Docs</a>
+                </div>
+
+                <!-- Expanded navigation -->
+                <div class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li >
+                                <a href="..">Welcome</a>
+                            </li>
+                            <li >
+                                <a href="../api_jetblack_autodoc/">autodoc</a>
+                            </li>
+                            <li >
+                                <a href="../api_jetblack_markdown/">markdown</a>
+                            </li>
+                            <li >
+                                <a href="../api_jetblack_metadata/">metadata</a>
+                            </li>
+                            <li class="active">
+                                <a href="./">Class</a>
+                            </li>
+                            <li >
+                                <a href="../function/">Function</a>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li >
+                                <a rel="next" href="../api_jetblack_metadata/">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li >
+                                <a rel="prev" href="../function/">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="main active"><a href="#class">Class</a></li>
+            <li><a href="#classdescriptor-class">ClassDescriptor (class)</a></li>
+            <li><a href="#classdescriptordescriptor_type-property">ClassDescriptor.descriptor_type (property)</a></li>
+            <li><a href="#classdescriptorcreate-class-method">ClassDescriptor.create (class method)</a></li>
+    </ul>
+</div></div>
+                <div class="col-md-9" role="main">
+
+<h1 id="class">Class</h1>
+<p>
+<div class="autodoc-class">
+<div class="autodoc-title">
+<h3 class="autodoc-title" id="classdescriptor-class"><span class="autodoc-title-name">ClassDescriptor</span><span class="autodoc-title-type"> (class)</span></h3>
+</div>
+<div class="autodoc-metadata">
+  <strong class="autodoc-metadata-header">Module: </strong><span class="autodoc-metadata-value">jetblack_markdown.metadata.classes</span>
+  <br />
+<strong class="autodoc-metadata-header">Package: </strong><span class="autodoc-metadata-value">jetblack_markdown.metadata</span>
+  <br />
+<strong class="autodoc-metadata-header">File: </strong><span class="autodoc-metadata-value">jetblack_markdown/metadata/classes.py</span>
+</div>
+<div class="autodoc-summary">
+<h4 class="autodoc-title" id="summary">Summary</h4>
+<p>A class descriptor</p>
+</div>
+<code class="autodoc-signature"><span class="autodoc-qualifier">jetblack_markdown.metadata</span><span class="autodoc-punctuation">.</span><var class="autodoc-varname">ClassDescriptor</var><span class="autodoc-punctuation">(</span><var class="autodoc-varname">summary</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[str]</span><span class="autodoc-punctuation">, </span><var class="autodoc-varname">description</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[str]</span><span class="autodoc-punctuation">, </span><var class="autodoc-varname">constructor</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">CallableDescriptor</span><span class="autodoc-punctuation">, </span><var class="autodoc-varname">attributes</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">List[ArgumentDescriptor]</span><span class="autodoc-punctuation">, </span><var class="autodoc-varname">properties</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">List[PropertyDescriptor]</span><span class="autodoc-punctuation">, </span><var class="autodoc-varname">class_methods</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">List[CallableDescriptor]</span><span class="autodoc-punctuation">, </span><var class="autodoc-varname">methods</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">List[CallableDescriptor]</span><span class="autodoc-punctuation">, </span><var class="autodoc-varname">examples</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[List[str]]</span><span class="autodoc-punctuation">, </span><var class="autodoc-varname">module</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">str</span><span class="autodoc-punctuation">, </span><var class="autodoc-varname">package</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[str]</span><span class="autodoc-punctuation">, </span><var class="autodoc-varname">file</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[str]</span><span class="autodoc-punctuation">)</span></code>
+  <div class="autodoc-parameters">
+<h4 class="autodoc-title" id="parameters">Parameters</h4>
+<var class="autodoc-varname">summary</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[str]</span><span class="autodoc-punctuation"> (optional)</span><p>The docstring summary</p>
+<var class="autodoc-varname">description</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[str]</span><span class="autodoc-punctuation"> (optional)</span><p>The docstring description</p>
+<var class="autodoc-varname">constructor</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">CallableDescriptor</span><span class="autodoc-punctuation"> (optional)</span><p>The constructor</p>
+<var class="autodoc-varname">attributes</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">List[ArgumentDescriptor]</span><span class="autodoc-punctuation"> (optional)</span><p>The class attributes</p>
+<var class="autodoc-varname">properties</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">List[PropertyDescriptor]</span><span class="autodoc-punctuation"> (optional)</span><p>The class properties</p>
+<var class="autodoc-varname">class_methods</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">List[CallableDescriptor]</span><span class="autodoc-punctuation"> (optional)</span><p>The class methods</p>
+<var class="autodoc-varname">methods</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">List[CallableDescriptor]</span><span class="autodoc-punctuation"> (optional)</span><p>The class methods</p>
+<var class="autodoc-varname">examples</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[List[str]]</span><span class="autodoc-punctuation"> (optional)</span><p>Examples from the docstring</p>
+<var class="autodoc-varname">module</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">str</span><span class="autodoc-punctuation"> (optional)</span><p>The module</p>
+<var class="autodoc-varname">package</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[str]</span><span class="autodoc-punctuation"> (optional)</span><p>The package</p>
+<var class="autodoc-varname">file</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[str]</span><span class="autodoc-punctuation"> (optional)</span><p>The file</p>
+</div>
+<div class="autodoc-description">
+
+</div>
+<div class="autodoc-attributes">
+
+</div>
+<div class="autodoc-properties">
+<div class="autodoc-property">
+<div class="autodoc-title">
+<h3 class="autodoc-title" id="classdescriptordescriptor_type-property"><span class="autodoc-qualifier">ClassDescriptor</span><span class="autodoc-punctuation">.</span><span class="autodoc-title-name">descriptor_type</span><span class="autodoc-title-type"> (property)</span></h3>
+</div>
+<div class="autodoc-summary">
+<h4 class="autodoc-title" id="summary_1">Summary</h4>
+<p>The descriptor type</p>
+</div>
+<code><span class="autodoc-vartype">descriptor_type</span><span class="autodoc-punctuation"> -&gt; </span><span class="autodoc-vartype">str</span></code><div class="autodoc-raises">
+
+</div>
+<div class="autodoc-description">
+
+</div>
+<div class="autodoc-examples">
+
+</div>
+</div>
+</div>
+<div class="autodoc-classmethods">
+<div class="autodoc-callable">
+<div class="autodoc-title">
+<h3 class="autodoc-title" id="classdescriptorcreate-class-method"><span class="autodoc-qualifier">ClassDescriptor</span><span class="autodoc-punctuation">.</span><span class="autodoc-title-name">create</span><span class="autodoc-title-type"> (class method)</span></h3>
+</div>
+<div class="autodoc-metadata">
+  <strong class="autodoc-metadata-header">Module: </strong><span class="autodoc-metadata-value">jetblack_markdown.metadata.classes</span>
+  <br />
+<strong class="autodoc-metadata-header">Package: </strong><span class="autodoc-metadata-value">jetblack_markdown.metadata</span>
+  <br />
+<strong class="autodoc-metadata-header">File: </strong><span class="autodoc-metadata-value">jetblack_markdown/metadata/classes.py</span>
+</div>
+<div class="autodoc-summary">
+<h4 class="autodoc-title" id="summary_2">Summary</h4>
+<p>Create a class</p>
+</div>
+<code class="autodoc-signature"><span class="autodoc-qualifier">ClassDescriptor</span><span class="autodoc-punctuation">.</span><var class="autodoc-varname">create</var><span class="autodoc-punctuation">(</span><var class="autodoc-varname">class_from_init</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">bool</span><span class="autodoc-punctuation">, </span><var class="autodoc-varname">ignore_dunder</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">bool</span><span class="autodoc-punctuation">, </span><var class="autodoc-varname">ignore_private</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">bool</span><span class="autodoc-punctuation">, </span><var class="autodoc-varname">importing_module</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[str]</span><span class="autodoc-punctuation">, </span><var class="autodoc-varname">prefer_docstring</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">bool</span><span class="autodoc-punctuation">)</span></code>
+  <div class="autodoc-parameters">
+<h4 class="autodoc-title" id="parameters_1">Parameters</h4>
+<var class="autodoc-varname">class_from_init</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">bool</span><span class="autodoc-punctuation"> (optional)</span><p>If True take the docstring from the init function</p>
+<var class="autodoc-varname">ignore_dunder</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">bool</span><span class="autodoc-punctuation"> (optional)</span><p>If True ignore <strong>XXX</strong> functions</p>
+<var class="autodoc-varname">ignore_private</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">bool</span><span class="autodoc-punctuation"> (optional)</span><p>If True ignore private methods (those prefixed _XXX)</p>
+<var class="autodoc-varname">importing_module</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[str]</span><p>The importing module, defaults to None</p>
+<var class="autodoc-varname">prefer_docstring</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">bool</span><p>If true prefer the docstring.</p>
+</div>
+<div class="autodoc-returns">
+<h4 class="autodoc-title" id="returns">Returns</h4>
+<span class="autodoc-vartype">ClassDescriptor</span><span class="autodoc-punctuation">: </span>
+<span class="autodoc-summary">The class descriptor</span>
+</div>
+<div class="autodoc-raises">
+
+</div>
+<div class="autodoc-description">
+
+</div>
+<div class="autodoc-examples">
+
+</div>
+</div>
+</div>
+<div class="autodoc-methods"></div>
+<div class="autodoc-examples">
+
+</div>
+</div>
+</p></div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>
+            var base_url = "..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../js/base.js" defer></script>
+        <script src="../search/main.js" defer></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="Keyboard Shortcuts Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Keyboard Shortcuts</h4>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>
