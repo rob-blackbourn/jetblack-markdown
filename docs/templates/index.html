@@ -120,7 +120,29 @@ The descriptor has a type. The default template libraries <code>main.jinja2</cod
 
 
 <p>It renders the appropriate template by checking the type
-of the descriptor and then calling a macro.</p></div>
+of the descriptor and then calling a macro.</p>
+<p>Here's an example of rendering a signature.</p>
+<pre class="codehilite"><code class="language-python">{% macro render_signature(callable) -%}
+&lt;code class=&quot;autodoc-signature&quot;&gt;
+    {%- if callable.is_async -%}
+    &lt;span class=&quot;autodoc-keyword&quot;&gt;async&lt;/span&gt;&lt;span&gt; &lt;/span&gt;
+    {%- endif -%}
+    &lt;span class=&quot;autodoc-qualifier&quot;&gt;{{ callable.qualifier }}&lt;/span&gt;&lt;span class=&quot;autodoc-punctuation&quot;&gt;.&lt;/span&gt;&lt;var class=&quot;autodoc-varname&quot;&gt;{{ callable.name }}&lt;/var&gt;&lt;span class=&quot;autodoc-punctuation&quot;&gt;(&lt;/span&gt;
+    {%- for arg in callable.arguments -%}
+      {%- if not loop.first -%}
+        &lt;span class=&quot;autodoc-punctuation&quot;&gt;, &lt;/span&gt;
+      {%- endif -%}
+      &lt;var class=&quot;autodoc-varname&quot;&gt;{{ arg.name }}&lt;/var&gt;
+      {%- if arg.type -%}
+        &lt;span class=&quot;autodoc-punctuation&quot;&gt;: &lt;/span&gt;&lt;span class=&quot;autodoc-vartype&quot;&gt;{{ arg.type }}&lt;/span&gt;
+      {%- endif -%}
+    {%- endfor -%}
+    &lt;span class=&quot;autodoc-punctuation&quot;&gt;)&lt;/span&gt;
+    {%- if return_type -%}
+      &lt;span class=&quot;autodoc-punctuation&quot;&gt; -&amp;gt; &lt;/span&gt;&lt;span class=&quot;autodoc-vartype&quot;&gt;{{ return_type }}&lt;/span&gt;
+    {%- endif -%}
+&lt;/code&gt;
+{%- endmacro %}</code></pre></div>
         </div>
 
         <footer class="col-md-12">
