@@ -25,6 +25,7 @@ class AutodocExtension(Extension):
             'ignore_private': [True, 'Ignore private methods'],
             'ignore_all': [False, 'Ignore the __all__ member'],
             'prefer_docstring': [True, 'Prefer the docstring'],
+            'template_folder': ['', 'The template folder'],
         }
         super().__init__(*args, **kwargs)
 
@@ -34,6 +35,8 @@ class AutodocExtension(Extension):
         ignore_private = self.getConfig('ignore_private')
         ignore_all = self.getConfig('ignore_all')
         prefer_docstring = self.getConfig('prefer_docstring')
+        template_folder = self.getConfig('template_folder')
+        print(f"template folder: {template_folder}")
         md.inlinePatterns.register(
             AutodocInlineProcessor(
                 DOCSTRING_RE,
@@ -42,7 +45,8 @@ class AutodocExtension(Extension):
                 ignore_dunder=ignore_dunder,
                 ignore_private=ignore_private,
                 ignore_all=ignore_all,
-                prefer_docstring=prefer_docstring
+                prefer_docstring=prefer_docstring,
+                template_folder=template_folder
             ),
             'autodoc',
             175

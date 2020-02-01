@@ -3,12 +3,22 @@ site_name: jetblack-markdown
 docs_dir: documentation
 site_dir: docs
 
+nav:
+  - index.md
+  - API:
+    - jetblack-autodoc: api/jetblack_autodoc.md
+    - jetblack_markdown.autodoc: api/jetblack_markdown.md
+    - jetblack_markdown.metadata: api/jetblack_metadata.md
+  
 markdown_extensions:
   - admonition
   - codehilite
   - jetblack_markdown.autodoc:
       class_from_init: true
       ignore_dunder: true
+      ignore_private: true
+      ignore_all: false
+      prefer_docstring: true
 
 extra_css:
     - css/custom.css
