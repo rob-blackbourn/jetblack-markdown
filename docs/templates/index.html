@@ -7,21 +7,21 @@
         
         
         
-        <link rel="shortcut icon" href="/img/favicon.ico">
-        <title>jetblack-markdown</title>
-        <link href="/css/bootstrap-custom.min.css" rel="stylesheet">
-        <link href="/css/font-awesome.min.css" rel="stylesheet">
-        <link href="/css/base.css" rel="stylesheet">
+        <link rel="shortcut icon" href="../img/favicon.ico">
+        <title>Templates - jetblack-markdown</title>
+        <link href="../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../css/base.css" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
-        <link href="/css/custom.css" rel="stylesheet">
+        <link href="../css/custom.css" rel="stylesheet">
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>
             <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
             <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
         <![endif]-->
 
-        <script src="/js/jquery-1.10.2.min.js" defer></script>
-        <script src="/js/bootstrap-3.0.3.min.js" defer></script>
+        <script src="../js/jquery-1.10.2.min.js" defer></script>
+        <script src="../js/bootstrap-3.0.3.min.js" defer></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
         <script>hljs.initHighlightingOnLoad();</script> 
     </head>
@@ -40,7 +40,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="/.">jetblack-markdown</a>
+                    <a class="navbar-brand" href="..">jetblack-markdown</a>
                 </div>
 
                 <!-- Expanded navigation -->
@@ -48,28 +48,28 @@
                         <!-- Main navigation -->
                         <ul class="nav navbar-nav">
                             <li >
-                                <a href="/.">Welcome</a>
+                                <a href="..">Welcome</a>
                             </li>
                             <li >
-                                <a href="/docstrings/">Docstrings</a>
+                                <a href="../docstrings/">Docstrings</a>
                             </li>
-                            <li >
-                                <a href="/templates/">Templates</a>
+                            <li class="active">
+                                <a href="./">Templates</a>
                             </li>
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">API <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     
 <li >
-    <a href="/api/jetblack_autodoc/">jetblack-autodoc</a>
+    <a href="../api/jetblack_autodoc/">jetblack-autodoc</a>
 </li>
                                     
 <li >
-    <a href="/api/jetblack_markdown/">jetblack_markdown.autodoc</a>
+    <a href="../api/jetblack_markdown/">jetblack_markdown.autodoc</a>
 </li>
                                     
 <li >
-    <a href="/api/jetblack_metadata/">jetblack_markdown.metadata</a>
+    <a href="../api/jetblack_metadata/">jetblack_markdown.metadata</a>
 </li>
                                 </ul>
                             </li>
@@ -81,21 +81,46 @@
                                 <i class="fa fa-search"></i> Search
                             </a>
                         </li>
+                            <li >
+                                <a rel="next" href="../docstrings/">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li >
+                                <a rel="prev" href="../api/jetblack_autodoc/">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
                     </ul>
                 </div>
             </div>
         </div>
 
         <div class="container">
+                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="main active"><a href="#templates">Templates</a></li>
+    </ul>
+</div></div>
+                <div class="col-md-9" role="main">
 
-    <div class="row-fluid">
-      <div id="main-content" class="span12">
-        <h1 id="404-page-not-found" style="text-align: center">404</h1>
-        <p style="text-align: center"><strong>Page not found</strong></p>
-      </div>
-    </div>
+<h1 id="templates">Templates</h1>
+<p><a href="https://jinja.palletsprojects.com/en/2.11.x/">Jinja2</a> templating
+is used to render the documentation.</p>
+<p>The template <code>main.jinja2</code> is passed an <code>obj</code> parameter which is of type <code>jetblack_markdown.metadata.Descriptor</code>.
+The descriptor has a type. The default template libraries <code>main.jinja2</code> looks like this:</p>
+<pre class="codehilite"><code class="language-python">{% import 'macros.jinja2' as macros with context %}
+{% if obj.descriptor_type == &quot;module&quot; %}
+{{ macros.render_module(obj) }}
+{% elif obj.descriptor_type == &quot;class&quot; %}
+{{ macros.render_class(obj) }}
+{% elif obj.descriptor_type == &quot;callable&quot; %}
+{{ macros.render_callable(obj) }}
+{% endif %}</code></pre>
 
 
+<p>It renders the appropriate template by checking the type
+of the descriptor and then calling a macro.</p></div>
         </div>
 
         <footer class="col-md-12">
@@ -103,11 +128,11 @@
             <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
         </footer>
         <script>
-            var base_url = "/",
+            var base_url = "..",
                 shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
         </script>
-        <script src="/js/base.js" defer></script>
-        <script src="/search/main.js" defer></script>
+        <script src="../js/base.js" defer></script>
+        <script src="../search/main.js" defer></script>
 
         <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
     <div class="modal-dialog">

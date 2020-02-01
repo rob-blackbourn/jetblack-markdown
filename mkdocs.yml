@@ -5,6 +5,8 @@ site_dir: docs
 
 nav:
   - index.md
+  - docstrings.md
+  - templates.md
   - API:
     - jetblack-autodoc: api/jetblack_autodoc.md
     - jetblack_markdown.autodoc: api/jetblack_markdown.md

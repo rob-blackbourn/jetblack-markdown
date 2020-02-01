@@ -1,6 +1,6 @@
 # Welcome
 
-Markdown extensions for mkdocs.
+Markdown extensions for [mkdocs](https://www.mkdocs.org/).
 
 ## Markdown Extension
 
