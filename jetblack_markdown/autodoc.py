@@ -25,6 +25,7 @@ class AutodocExtension(Extension):
             'ignore_dunder': [True, 'Ignore dunder methods'],
             'ignore_private': [True, 'Ignore private methods'],
             'ignore_all': [False, 'Ignore the __all__ member'],
+            'ignore_inherited': [True, 'Ignore inherited members'],
             'prefer_docstring': [True, 'Prefer the docstring'],
             'template_folder': ['', 'The template folder'],
         }
@@ -35,6 +36,7 @@ class AutodocExtension(Extension):
         ignore_dunder = self.getConfig('ignore_dunder')
         ignore_private = self.getConfig('ignore_private')
         ignore_all = self.getConfig('ignore_all')
+        ignore_inherited = self.getConfig('ignore_inherited')
         prefer_docstring = self.getConfig('prefer_docstring')
         template_folder = self.getConfig('template_folder')
         md.inlinePatterns.register(
@@ -45,6 +47,7 @@ class AutodocExtension(Extension):
                 ignore_dunder=ignore_dunder,
                 ignore_private=ignore_private,
                 ignore_all=ignore_all,
+                ignore_inherited=ignore_inherited,
                 prefer_docstring=prefer_docstring,
                 template_folder=template_folder
             ),

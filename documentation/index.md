@@ -44,6 +44,7 @@ markdown_extensions:
       ignore_dunder: true
       ignore_private: true
       ignore_all: false
+      ignore_inherited: true
       prefer_docstring: true
       template_folder: null
 
@@ -63,6 +64,7 @@ There are some configuration parameters.
 * ignore_private (bool, optional): If True ignore methods
     (those prefixed &#95;XXX). Defaults to True.
 * ignore_all (bool): If True ignore the &#95;&#95;all&#95;&#95; member.
+* ignore_inherited (bool): If True ignore inherited members.
 * prefer_docstring (bool): If true prefer the docstring.
 * template_folder(Optional[str], optional): Specify a custom template folder.
     The template "main.jinja2" will be rendered passing an `obj` parameter

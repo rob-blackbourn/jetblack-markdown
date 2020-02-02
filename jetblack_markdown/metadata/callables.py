@@ -139,7 +139,8 @@ class CallableDescriptor(Descriptor):
             signature: Optional[Signature] = None,
             docstring: Optional[Docstring] = None,
             callable_type: CallableType = CallableType.FUNCTION,
-            prefer_docstring=False
+            prefer_docstring=False,
+            qualifier: Optional[str] = None
     ) -> CallableDescriptor:
         """Create a callable descriptor from a callable
 
@@ -152,6 +153,8 @@ class CallableDescriptor(Descriptor):
             callable_type (CallableType, optional): The function type. Defaults
                 to CallableType.FUNCTION.
             prefer_docstring (bool): If true prefer the docstring.
+            qualifier (Optional[str], optional): An overload for the qualifier.
+                Defaults to None.
 
         Returns:
             CallableDescriptor: A callable descriptor
@@ -264,10 +267,12 @@ class CallableDescriptor(Descriptor):
 
         module_obj = inspect.getmodule(obj)
         module = obj.__module__
-        package = module_obj.__package__ if module_obj else None
+        package = module_obj.__package__ if module_obj and module_obj.__package__ else None
         file = make_file_relative(module_obj.__file__ if module_obj else None)
 
-        if hasattr(obj, '__qualname__'):
+        if qualifier:
+            name = obj.__name__
+        elif hasattr(obj, '__qualname__'):
             qualifier, _, name = obj.__qualname__.rpartition('.')
             if not qualifier:
                 qualifier = package
@@ -276,7 +281,7 @@ class CallableDescriptor(Descriptor):
             name = obj.__name__
 
         return CallableDescriptor(
-            qualifier,
+            qualifier or '',
             name,
             summary,
             description,

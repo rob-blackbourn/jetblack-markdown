@@ -40,6 +40,7 @@ class AutodocInlineProcessor(InlineProcessor):
             ignore_dunder: bool = True,
             ignore_private: bool = True,
             ignore_all: bool = False,
+            ignore_inherited: bool = True,
             prefer_docstring: bool = True,
             template_folder: Optional[str] = None
     ) -> None:
@@ -57,6 +58,7 @@ class AutodocInlineProcessor(InlineProcessor):
             ignore_private (bool, optional): If True ignore methods
                 (those prefixed &#95;XXX). Defaults to True.
             ignore_all (bool): If True ignore the &#95;&#95;all&#95;&#95; member.
+            ignore_inherited (bool): If True ignore inherited members.
             prefer_docstring (bool): If true prefer the docstring.
             template_folder (Optional[str], optional): The template folder,
                 Defaults to None.
@@ -65,6 +67,7 @@ class AutodocInlineProcessor(InlineProcessor):
         self.ignore_dunder = ignore_dunder
         self.ignore_private = ignore_private
         self.ignore_all = ignore_all
+        self.ignore_inherited = ignore_inherited
         self.prefer_docstring = prefer_docstring
         if template_folder:
             loader: BaseLoader = FileSystemLoader(template_folder)
@@ -117,6 +120,7 @@ class AutodocInlineProcessor(InlineProcessor):
                 self.ignore_dunder,
                 self.ignore_private,
                 self.ignore_all,
+                self.ignore_inherited,
                 self.prefer_docstring
             )
         elif inspect.isclass(obj):
@@ -125,6 +129,7 @@ class AutodocInlineProcessor(InlineProcessor):
                 self.class_from_init,
                 self.ignore_dunder,
                 self.ignore_private,
+                self.ignore_inherited,
                 prefer_docstring=self.prefer_docstring
             )
         elif inspect.isfunction(obj):

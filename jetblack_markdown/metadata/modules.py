@@ -73,6 +73,7 @@ class ModuleDescriptor(Descriptor):
             ignore_dunder: bool,
             ignore_private: bool,
             ignore_all: bool,
+            ignore_inherited: bool,
             prefer_docstring: bool
     ) -> ModuleDescriptor:
         """Create a module descriptor
@@ -142,6 +143,7 @@ class ModuleDescriptor(Descriptor):
                             class_from_init,
                             ignore_dunder,
                             ignore_private,
+                            ignore_inherited,
                             name
                         )
                     )

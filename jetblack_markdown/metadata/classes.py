@@ -79,6 +79,7 @@ class ClassDescriptor(Descriptor):
             class_from_init: bool,
             ignore_dunder: bool,
             ignore_private: bool,
+            ignore_inherited: bool,
             importing_module: Optional[str] = None,
             prefer_docstring: bool = True
     ) -> ClassDescriptor:
@@ -89,15 +90,21 @@ class ClassDescriptor(Descriptor):
             class_from_init (bool): If True take the docstring from the init function
             ignore_dunder (bool): If True ignore &#95;&#95;XXX&#95;&#95; functions
             ignore_private (bool): If True ignore private methods (those prefixed &#95;XXX)
+            ignore_inherited (bool): If True ignore inherited methods
             importing_module (Optional[str], optional): The importing module, defaults to None
             prefer_docstring (bool): If true prefer the docstring.
 
         Returns:
             ClassDescriptor: The class descriptor
         """
+        valid_names: List[str] = []
+        valid_names.extend(getattr(obj, '__dict__', {}).keys())
+        valid_names.extend(getattr(obj, '__slots__', []))
+
         members: Dict[str, Any] = {
             name: value
             for name, value in inspect.getmembers(obj)
+            if not ignore_inherited or name in valid_names
         }
         signature = inspect.signature(obj)
         docstring = docstring_parser.parse(
@@ -154,7 +161,8 @@ class ClassDescriptor(Descriptor):
                     CallableDescriptor.create(
                         member,
                         callable_type=CallableType.METHOD,
-                        prefer_docstring=prefer_docstring
+                        prefer_docstring=prefer_docstring,
+                        qualifier=name
                     )
                 )
             elif inspect.ismethod(member):
@@ -163,7 +171,8 @@ class ClassDescriptor(Descriptor):
                     CallableDescriptor.create(
                         member,
                         callable_type=CallableType.CLASS_METHOD,
-                        prefer_docstring=prefer_docstring
+                        prefer_docstring=prefer_docstring,
+                        qualifier=name
                     )
                 )
 

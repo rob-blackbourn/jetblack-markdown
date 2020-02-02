@@ -144,6 +144,7 @@ markdown_extensions:
       ignore_dunder: true
       ignore_private: true
       ignore_all: false
+      ignore_inherited: true
       prefer_docstring: true
       template_folder: null
 
@@ -162,6 +163,7 @@ extra_css:
 <li>ignore_private (bool, optional): If True ignore methods
     (those prefixed &#95;XXX). Defaults to True.</li>
 <li>ignore_all (bool): If True ignore the &#95;&#95;all&#95;&#95; member.</li>
+<li>ignore_inherited (bool): If True ignore inherited members.</li>
 <li>prefer_docstring (bool): If true prefer the docstring.</li>
 <li>template_folder(Optional[str], optional): Specify a custom template folder.
     The template "main.jinja2" will be rendered passing an <code>obj</code> parameter
@@ -253,5 +255,5 @@ the <code>mkdocs.yml</code>.</p></div>
 
 <!--
 MkDocs version : 1.0.4
-Build Date UTC : 2020-02-02 09:05:28
+Build Date UTC : 2020-02-02 09:56:20
 -->
