@@ -5,12 +5,13 @@ from markdown.extensions import Extension
 
 from .autodoc_processor import AutodocInlineProcessor
 
-DOCSTRING_RE = r'@\[([^\]]+)\]'
+_DOCSTRING_RE = r'@\[([^\]]+)\]'
 
 __all__ = [
     "AutodocExtension",
     "makeExtension"
 ]
+
 
 class AutodocExtension(Extension):
     """The autodoc extension.
@@ -36,10 +37,9 @@ class AutodocExtension(Extension):
         ignore_all = self.getConfig('ignore_all')
         prefer_docstring = self.getConfig('prefer_docstring')
         template_folder = self.getConfig('template_folder')
-        print(f"template folder: {template_folder}")
         md.inlinePatterns.register(
             AutodocInlineProcessor(
-                DOCSTRING_RE,
+                _DOCSTRING_RE,
                 md,
                 class_from_init=class_from_init,
                 ignore_dunder=ignore_dunder,

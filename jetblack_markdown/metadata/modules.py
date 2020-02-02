@@ -155,8 +155,6 @@ class ModuleDescriptor(Descriptor):
                 else:
                     print(f'unknown {member_name}')
 
-        print(members)
-
         return ModuleDescriptor(
             name,
             summary,

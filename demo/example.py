@@ -4,15 +4,10 @@ from jetblack_markdown import AutodocExtension
 if __name__ == "__main__":
     content = """
 
-@[jetblack_markdown.autodoc:makeExtension]
+# autodoc
 
-Something else
+@[jetblack_markdown.autodoc]
 
-```python
-import foo
-
-print(foo)
-```
 """
     extension = AutodocExtension(class_from_init=True)
     output = markdown.markdown(
