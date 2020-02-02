@@ -30,3 +30,13 @@ Note the markdown on `function`, and the python code block.
 
 Docstrings are parsed with the [docstrings_parser](https://github.com/rr-/docstring_parser).
 This has been tested only with Google style docstrings.
+
+## Escaping markdown
+
+To escape markdown, use the html entity surrounded by the `<span>` tag.
+
+```markdown
+The dunder init: <span>&#95;&#95;</span>XXX<span>&#95;&#95;</span>
+```
+
+The dunder init: <span>&#95;&#95;</span>XXX<span>&#95;&#95;</span>

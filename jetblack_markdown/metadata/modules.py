@@ -81,9 +81,9 @@ class ModuleDescriptor(Descriptor):
         Args:
             obj (Any): The module object
             class_from_init (bool): If True take the docstring from the init function
-            ignore_dunder (bool): If True ignore &#95;&#95;XXX&#95;&#95; functions
+            ignore_dunder (bool): If True ignore <span>&#95;&#95;</span>XXX<span>&#95;&#95;</span> functions
             ignore_private (bool): If True ignore private methods (those prefixed &#95;XXX)
-            ignore_all (bool): If True ignore the &#95;&#95;all&#95;&#95; member.
+            ignore_all (bool): If True ignore the <span>&#95;&#95;</span>all<span>&#95;&#95;</span> member.
             prefer_docstring (bool): If true prefer the docstring
 
         Returns:

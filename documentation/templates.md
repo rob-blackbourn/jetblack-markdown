@@ -3,6 +3,8 @@
 [Jinja2](https://jinja.palletsprojects.com/en/2.11.x/) templating
 is used to render the documentation.
 
+## The entry point
+
 The template `main.jinja2` is passed an `obj` parameter which is of type `jetblack_markdown.metadata.Descriptor`.
 The descriptor has a type. The default template libraries `main.jinja2` looks like this:
 
@@ -19,6 +21,8 @@ The descriptor has a type. The default template libraries `main.jinja2` looks li
 
 It renders the appropriate template by checking the type
 of the descriptor and then calling a macro.
+
+## A renderer
 
 Here's an example of rendering a signature.
 
@@ -43,5 +47,20 @@ Here's an example of rendering a signature.
       <span class="autodoc-punctuation"> -&gt; </span><span class="autodoc-vartype">{{ return_type }}</span>
     {%- endif -%}
 </code>
+{%- endmacro %}
+```
+
+## The md_format filter
+
+A custom filter `md_format` has been provided to process code that may contain markdown, such as the summary.
+
+Heres an example of its use.
+
+```python
+{% macro render_summary(summary) -%}
+{% if summary -%}
+  <h4 class="autodoc-title">Summary</h4>
+  {{ summary | md_format }}
+{%- endif %}
 {%- endmacro %}
 ```
