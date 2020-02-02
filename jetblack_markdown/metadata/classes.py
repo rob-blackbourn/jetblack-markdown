@@ -34,7 +34,8 @@ class ClassDescriptor(Descriptor):
             examples: Optional[List[str]],
             module: str,
             package: Optional[str],
-            file: Optional[str]
+            file: Optional[str],
+            bases: List[ClassDescriptor]
     ) -> None:
         """A class descriptor
 
@@ -50,7 +51,8 @@ class ClassDescriptor(Descriptor):
             examples (Optional[List[str]]): Examples from the docstring
             module (str): The module
             package (Optional[str]): The package
-            file (Optional[str]): The file
+            file (Optional[str]): The file,
+            bases (List[ClassDescription]): The base classes
         """
         self.name = name
         self.summary = summary
@@ -64,6 +66,7 @@ class ClassDescriptor(Descriptor):
         self.module = module
         self.package = package
         self.file = file
+        self.bases = bases
 
     @property
     def descriptor_type(self) -> str:
@@ -187,6 +190,20 @@ class ClassDescriptor(Descriptor):
         package = module_obj.__package__ if module_obj else None
         file = make_file_relative(module_obj.__file__ if module_obj else None)
 
+        bases = [
+            ClassDescriptor.create(
+                base,
+                class_from_init=class_from_init,
+                ignore_dunder=ignore_dunder,
+                ignore_private=ignore_private,
+                ignore_inherited=ignore_inherited,
+                importing_module=importing_module,
+                prefer_docstring=prefer_docstring
+            )
+            for base in getattr(obj, '__bases__', [])
+            if base is not object
+        ]
+
         return ClassDescriptor(
             name,
             summary,
@@ -199,5 +216,6 @@ class ClassDescriptor(Descriptor):
             examples,
             module,
             package,
-            file
+            file,
+            bases
         )
