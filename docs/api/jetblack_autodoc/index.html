@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../../img/favicon.ico">
+        <title>jetblack-autodoc - jetblack-markdown</title>
+        <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+        <link href="../../css/custom.css" rel="stylesheet">
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+        <script src="../../js/jquery-1.10.2.min.js" defer></script>
+        <script src="../../js/bootstrap-3.0.3.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script> 
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+            <div class="container">
+
+                <!-- Collapsed navigation -->
+                <div class="navbar-header">
+                    <!-- Expander button -->
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="../..">jetblack-markdown</a>
+                </div>
+
+                <!-- Expanded navigation -->
+                <div class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li >
+                                <a href="../..">Welcome</a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">User Guide <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li >
+    <a href="../../user-guide/config/">Configuration</a>
+</li>
+                                    
+<li >
+    <a href="../../user-guide/docstrings/">Docstrings</a>
+</li>
+                                    
+<li >
+    <a href="../../user-guide/templates/">Templates</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown active">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">API <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li class="active">
+    <a href="./">jetblack-autodoc</a>
+</li>
+                                    
+<li >
+    <a href="../jetblack_markdown/">jetblack_markdown.autodoc</a>
+</li>
+                                    
+<li >
+    <a href="../jetblack_metadata/">jetblack_markdown.metadata</a>
+</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li >
+                                <a rel="next" href="../../user-guide/templates/">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li >
+                                <a rel="prev" href="../jetblack_markdown/">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="main active"><a href="#autodoc">autodoc</a></li>
+            <li><a href="#module-jetblack_markdownautodoc">module jetblack_markdown.autodoc</a></li>
+            <li><a href="#function-jetblack_markdownmakeextension">function jetblack_markdown.makeExtension</a></li>
+            <li><a href="#class-autodocextensionextension">class AutodocExtension(Extension)</a></li>
+            <li><a href="#method-autodocextensionextendmarkdown">method AutodocExtension.extendMarkdown</a></li>
+            <li><a href="#method-autodocextensiongetconfig">method AutodocExtension.getConfig</a></li>
+            <li><a href="#method-autodocextensiongetconfiginfo">method AutodocExtension.getConfigInfo</a></li>
+            <li><a href="#method-autodocextensiongetconfigs">method AutodocExtension.getConfigs</a></li>
+            <li><a href="#method-autodocextensionsetconfig">method AutodocExtension.setConfig</a></li>
+            <li><a href="#method-autodocextensionsetconfigs">method AutodocExtension.setConfigs</a></li>
+    </ul>
+</div></div>
+                <div class="col-md-9" role="main">
+
+<h1 id="autodoc">autodoc</h1>
+<p>
+<div class="autodoc-module">
+<h3 class="autodoc-title" id="module-jetblack_markdownautodoc">
+  <span class="autodoc-title-type">module </span><span class="autodoc-title-name">jetblack_markdown.autodoc</span>
+</h3>
+<div class="autodoc-metadata">
+  <br />
+<strong class="autodoc-metadata-header">Package: </strong><span class="autodoc-metadata-value">jetblack_markdown</span>
+  <br />
+<strong class="autodoc-metadata-header">File: </strong><span class="autodoc-metadata-value">jetblack_markdown/autodoc.py</span>
+</div>
+<h4 class="autodoc-title" id="summary">Summary</h4>
+<p>A markdown extension for creating documentation</p>
+<div class="autodoc-attributes">
+
+</div>
+<div class="autodoc-description">
+<h4 class="autodoc-title" id="description">Description</h4>
+<p>A markdown extension for creating documentation</p>
+</div>
+<div class="autodoc-examples">
+
+</div>
+<div class="autodoc-callable">
+<h3 class="autodoc-title" id="function-jetblack_markdownmakeextension">
+  <span class="autodoc-title-type">function </span><span class="autodoc-qualifier">jetblack_markdown</span><span class="autodoc-punctuation">.</span><span class="autodoc-title-name">makeExtension</span>
+</h3>
+<div class="autodoc-metadata">
+  <strong class="autodoc-metadata-header">Module: </strong><span class="autodoc-metadata-value">jetblack_markdown.autodoc</span>
+  <br />
+<strong class="autodoc-metadata-header">Package: </strong><span class="autodoc-metadata-value">jetblack_markdown</span>
+  <br />
+<strong class="autodoc-metadata-header">File: </strong><span class="autodoc-metadata-value">jetblack_markdown/autodoc.py</span>
+</div>
+<h4 class="autodoc-title" id="summary_1">Summary</h4>
+<p>Make the extension</p>
+<code class="autodoc-signature"><span class="autodoc-qualifier">jetblack_markdown</span><span class="autodoc-punctuation">.</span><var class="autodoc-varname">makeExtension</var><span class="autodoc-punctuation">(</span><var class="autodoc-varname">*args</var><span class="autodoc-punctuation">, </span><var class="autodoc-varname">**kwargs</var><span class="autodoc-punctuation">)</span></code>
+  <div class="autodoc-parameters">
+<h4 class="autodoc-title" id="parameters">Parameters</h4>
+<var class="autodoc-varname">*args</var><span class="autodoc-punctuation"> (optional)</span><p></p>
+<var class="autodoc-varname">**kwargs</var><span class="autodoc-punctuation"> (optional)</span><p></p>
+</div>
+<div class="autodoc-returns">
+<h4 class="autodoc-title" id="returns">Returns</h4>
+<span class="autodoc-vartype">Extension</span><span class="autodoc-punctuation">: </span>
+<span class="autodoc-summary">The extension</span>
+</div>
+<div class="autodoc-raises">
+
+</div>
+<div class="autodoc-description">
+<h4 class="autodoc-title" id="description_1">Description</h4>
+<p>This hook <em>function</em> gets picked up by the markdown processor when the
+extension is listed</p>
+<pre class="codehilite"><code class="language-python">output = markdown.markdown(
+    content, extensions=[
+        "admonition",
+        "codehilite",
+        "jetblack_markdown.autodoc",
+    ])
+print(output)
+</code></pre>
+</div>
+<div class="autodoc-examples">
+
+</div>
+</div>
+<hr />
+<div class="autodoc-class">
+<h3 class="autodoc-title" id="class-autodocextensionextension">
+  <span class="autodoc-title-type">class </span><span class="autodoc-title-name">AutodocExtension</span><span class="autodoc-punctuation">(</span><span class="autodoc-type">Extension</span><span class="autodoc-punctuation">)</span>
+</h3>
+<div class="autodoc-metadata">
+  <strong class="autodoc-metadata-header">Module: </strong><span class="autodoc-metadata-value">jetblack_markdown.autodoc</span>
+  <br />
+<strong class="autodoc-metadata-header">Package: </strong><span class="autodoc-metadata-value">jetblack_markdown</span>
+  <br />
+<strong class="autodoc-metadata-header">File: </strong><span class="autodoc-metadata-value">jetblack_markdown/autodoc.py</span>
+</div>
+<h4 class="autodoc-title" id="summary_2">Summary</h4>
+<p>Initiate Extension and set up configs. </p>
+<code class="autodoc-signature"><span class="autodoc-qualifier">jetblack_markdown</span><span class="autodoc-punctuation">.</span><var class="autodoc-varname">AutodocExtension</var><span class="autodoc-punctuation">(</span><var class="autodoc-varname">**kwargs</var><span class="autodoc-punctuation">)</span></code>
+  <div class="autodoc-parameters">
+<h4 class="autodoc-title" id="parameters_1">Parameters</h4>
+<var class="autodoc-varname">**kwargs</var><span class="autodoc-punctuation"> (optional)</span><p></p>
+</div>
+<div class="autodoc-description">
+
+</div>
+<div class="autodoc-attributes">
+
+</div>
+<div class="autodoc-properties">
+
+</div>
+<div class="autodoc-classmethods"></div>
+<div class="autodoc-methods">
+<div class="autodoc-callable">
+<h3 class="autodoc-title" id="method-autodocextensionextendmarkdown">
+  <span class="autodoc-title-type">method </span><span class="autodoc-qualifier">AutodocExtension</span><span class="autodoc-punctuation">.</span><span class="autodoc-title-name">extendMarkdown</span>
+</h3>
+<div class="autodoc-metadata">
+  <strong class="autodoc-metadata-header">Module: </strong><span class="autodoc-metadata-value">jetblack_markdown.autodoc</span>
+  <br />
+<strong class="autodoc-metadata-header">Package: </strong><span class="autodoc-metadata-value">jetblack_markdown</span>
+  <br />
+<strong class="autodoc-metadata-header">File: </strong><span class="autodoc-metadata-value">jetblack_markdown/autodoc.py</span>
+</div>
+<h4 class="autodoc-title" id="summary_3">Summary</h4>
+<p>Add the various proccesors and patterns to the Markdown Instance.</p>
+<code class="autodoc-signature"><span class="autodoc-qualifier">AutodocExtension</span><span class="autodoc-punctuation">.</span><var class="autodoc-varname">extendMarkdown</var><span class="autodoc-punctuation">(</span><var class="autodoc-varname">md</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Markdown</span><span class="autodoc-punctuation">)</span></code>
+  <div class="autodoc-parameters">
+<h4 class="autodoc-title" id="parameters_2">Parameters</h4>
+<var class="autodoc-varname">md</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Markdown</span><span class="autodoc-punctuation"> (optional)</span><p></p>
+</div>
+<div class="autodoc-returns">
+<h4 class="autodoc-title" id="returns_1">Returns</h4>
+<span class="autodoc-vartype">Any</span><span class="autodoc-punctuation">: </span>
+
+</div>
+<div class="autodoc-raises">
+
+</div>
+<div class="autodoc-description">
+<h4 class="autodoc-title" id="description_2">Description</h4>
+<p>This method must be overriden by every extension.</p>
+<p>Keyword arguments:</p>
+<ul>
+<li>
+<p>md: The Markdown instance.</p>
+</li>
+<li>
+<p>md_globals: Global variables in the markdown module namespace.</p>
+</li>
+</ul>
+</div>
+<div class="autodoc-examples">
+
+</div>
+</div>
+<div class="autodoc-callable">
+<h3 class="autodoc-title" id="method-autodocextensiongetconfig">
+  <span class="autodoc-title-type">method </span><span class="autodoc-qualifier">AutodocExtension</span><span class="autodoc-punctuation">.</span><span class="autodoc-title-name">getConfig</span>
+</h3>
+<div class="autodoc-metadata">
+  <strong class="autodoc-metadata-header">Module: </strong><span class="autodoc-metadata-value">markdown.extensions</span>
+  <br />
+<strong class="autodoc-metadata-header">Package: </strong><span class="autodoc-metadata-value">markdown.extensions</span>
+  <br />
+<strong class="autodoc-metadata-header">File: </strong><span class="autodoc-metadata-value">markdown/extensions/<strong>init</strong>.py</span>
+</div>
+<h4 class="autodoc-title" id="summary_4">Summary</h4>
+<p>Return a setting for the given key or an empty string. </p>
+<code class="autodoc-signature"><span class="autodoc-qualifier">AutodocExtension</span><span class="autodoc-punctuation">.</span><var class="autodoc-varname">getConfig</var><span class="autodoc-punctuation">(</span><var class="autodoc-varname">key</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Any</span><span class="autodoc-punctuation">, </span><var class="autodoc-varname">default</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Any</span><span class="autodoc-punctuation">)</span></code>
+  <div class="autodoc-parameters">
+<h4 class="autodoc-title" id="parameters_3">Parameters</h4>
+<var class="autodoc-varname">key</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Any</span><span class="autodoc-punctuation"> (optional)</span><p></p>
+<var class="autodoc-varname">default</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Any</span><p></p>
+</div>
+<div class="autodoc-returns">
+<h4 class="autodoc-title" id="returns_2">Returns</h4>
+<span class="autodoc-vartype">Any</span><span class="autodoc-punctuation">: </span>
+
+</div>
+<div class="autodoc-raises">
+
+</div>
+<div class="autodoc-description">
+
+</div>
+<div class="autodoc-examples">
+
+</div>
+</div>
+<div class="autodoc-callable">
+<h3 class="autodoc-title" id="method-autodocextensiongetconfiginfo">
+  <span class="autodoc-title-type">method </span><span class="autodoc-qualifier">AutodocExtension</span><span class="autodoc-punctuation">.</span><span class="autodoc-title-name">getConfigInfo</span>
+</h3>
+<div class="autodoc-metadata">
+  <strong class="autodoc-metadata-header">Module: </strong><span class="autodoc-metadata-value">markdown.extensions</span>
+  <br />
+<strong class="autodoc-metadata-header">Package: </strong><span class="autodoc-metadata-value">markdown.extensions</span>
+  <br />
+<strong class="autodoc-metadata-header">File: </strong><span class="autodoc-metadata-value">markdown/extensions/<strong>init</strong>.py</span>
+</div>
+<h4 class="autodoc-title" id="summary_5">Summary</h4>
+<p>Return all config descriptions as a list of tuples. </p>
+<code class="autodoc-signature"><span class="autodoc-qualifier">AutodocExtension</span><span class="autodoc-punctuation">.</span><var class="autodoc-varname">getConfigInfo</var><span class="autodoc-punctuation">(</span><span class="autodoc-punctuation">)</span></code>
+  <div class="autodoc-parameters">
+<h4 class="autodoc-title" id="parameters_4">Parameters</h4>
+</div>
+<div class="autodoc-returns">
+<h4 class="autodoc-title" id="returns_3">Returns</h4>
+<span class="autodoc-vartype">Any</span><span class="autodoc-punctuation">: </span>
+
+</div>
+<div class="autodoc-raises">
+
+</div>
+<div class="autodoc-description">
+
+</div>
+<div class="autodoc-examples">
+
+</div>
+</div>
+<div class="autodoc-callable">
+<h3 class="autodoc-title" id="method-autodocextensiongetconfigs">
+  <span class="autodoc-title-type">method </span><span class="autodoc-qualifier">AutodocExtension</span><span class="autodoc-punctuation">.</span><span class="autodoc-title-name">getConfigs</span>
+</h3>
+<div class="autodoc-metadata">
+  <strong class="autodoc-metadata-header">Module: </strong><span class="autodoc-metadata-value">markdown.extensions</span>
+  <br />
+<strong class="autodoc-metadata-header">Package: </strong><span class="autodoc-metadata-value">markdown.extensions</span>
+  <br />
+<strong class="autodoc-metadata-header">File: </strong><span class="autodoc-metadata-value">markdown/extensions/<strong>init</strong>.py</span>
+</div>
+<h4 class="autodoc-title" id="summary_6">Summary</h4>
+<p>Return all configs settings as a dict. </p>
+<code class="autodoc-signature"><span class="autodoc-qualifier">AutodocExtension</span><span class="autodoc-punctuation">.</span><var class="autodoc-varname">getConfigs</var><span class="autodoc-punctuation">(</span><span class="autodoc-punctuation">)</span></code>
+  <div class="autodoc-parameters">
+<h4 class="autodoc-title" id="parameters_5">Parameters</h4>
+</div>
+<div class="autodoc-returns">
+<h4 class="autodoc-title" id="returns_4">Returns</h4>
+<span class="autodoc-vartype">Any</span><span class="autodoc-punctuation">: </span>
+
+</div>
+<div class="autodoc-raises">
+
+</div>
+<div class="autodoc-description">
+
+</div>
+<div class="autodoc-examples">
+
+</div>
+</div>
+<div class="autodoc-callable">
+<h3 class="autodoc-title" id="method-autodocextensionsetconfig">
+  <span class="autodoc-title-type">method </span><span class="autodoc-qualifier">AutodocExtension</span><span class="autodoc-punctuation">.</span><span class="autodoc-title-name">setConfig</span>
+</h3>
+<div class="autodoc-metadata">
+  <strong class="autodoc-metadata-header">Module: </strong><span class="autodoc-metadata-value">markdown.extensions</span>
+  <br />
+<strong class="autodoc-metadata-header">Package: </strong><span class="autodoc-metadata-value">markdown.extensions</span>
+  <br />
+<strong class="autodoc-metadata-header">File: </strong><span class="autodoc-metadata-value">markdown/extensions/<strong>init</strong>.py</span>
+</div>
+<h4 class="autodoc-title" id="summary_7">Summary</h4>
+<p>Set a config setting for <code>key</code> with the given <code>value</code>. </p>
+<code class="autodoc-signature"><span class="autodoc-qualifier">AutodocExtension</span><span class="autodoc-punctuation">.</span><var class="autodoc-varname">setConfig</var><span class="autodoc-punctuation">(</span><var class="autodoc-varname">key</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Any</span><span class="autodoc-punctuation">, </span><var class="autodoc-varname">value</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Any</span><span class="autodoc-punctuation">)</span></code>
+  <div class="autodoc-parameters">
+<h4 class="autodoc-title" id="parameters_6">Parameters</h4>
+<var class="autodoc-varname">key</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Any</span><span class="autodoc-punctuation"> (optional)</span><p></p>
+<var class="autodoc-varname">value</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Any</span><span class="autodoc-punctuation"> (optional)</span><p></p>
+</div>
+<div class="autodoc-returns">
+<h4 class="autodoc-title" id="returns_5">Returns</h4>
+<span class="autodoc-vartype">Any</span><span class="autodoc-punctuation">: </span>
+
+</div>
+<div class="autodoc-raises">
+
+</div>
+<div class="autodoc-description">
+
+</div>
+<div class="autodoc-examples">
+
+</div>
+</div>
+<div class="autodoc-callable">
+<h3 class="autodoc-title" id="method-autodocextensionsetconfigs">
+  <span class="autodoc-title-type">method </span><span class="autodoc-qualifier">AutodocExtension</span><span class="autodoc-punctuation">.</span><span class="autodoc-title-name">setConfigs</span>
+</h3>
+<div class="autodoc-metadata">
+  <strong class="autodoc-metadata-header">Module: </strong><span class="autodoc-metadata-value">markdown.extensions</span>
+  <br />
+<strong class="autodoc-metadata-header">Package: </strong><span class="autodoc-metadata-value">markdown.extensions</span>
+  <br />
+<strong class="autodoc-metadata-header">File: </strong><span class="autodoc-metadata-value">markdown/extensions/<strong>init</strong>.py</span>
+</div>
+<h4 class="autodoc-title" id="summary_8">Summary</h4>
+<p>Set multiple config settings given a dict or list of tuples. </p>
+<code class="autodoc-signature"><span class="autodoc-qualifier">AutodocExtension</span><span class="autodoc-punctuation">.</span><var class="autodoc-varname">setConfigs</var><span class="autodoc-punctuation">(</span><var class="autodoc-varname">items</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Any</span><span class="autodoc-punctuation">)</span></code>
+  <div class="autodoc-parameters">
+<h4 class="autodoc-title" id="parameters_7">Parameters</h4>
+<var class="autodoc-varname">items</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Any</span><span class="autodoc-punctuation"> (optional)</span><p></p>
+</div>
+<div class="autodoc-returns">
+<h4 class="autodoc-title" id="returns_6">Returns</h4>
+<span class="autodoc-vartype">Any</span><span class="autodoc-punctuation">: </span>
+
+</div>
+<div class="autodoc-raises">
+
+</div>
+<div class="autodoc-description">
+
+</div>
+<div class="autodoc-examples">
+
+</div>
+</div>
+</div>
+<div class="autodoc-examples">
+
+</div>
+</div>
+<hr />
+</div>
+</p></div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>
+            var base_url = "../..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../../js/base.js" defer></script>
+        <script src="../../search/main.js" defer></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="Keyboard Shortcuts Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Keyboard Shortcuts</h4>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>
