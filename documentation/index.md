@@ -52,27 +52,8 @@ extra_css:
     - css/custom.css
 ```
 
-### Configuration
-
-There are some configuration parameters.
-
-* class_from_init (bool, optional): If True use the docstring from
-    the &#95;&#95;init&#95;&#95; function for classes. Defaults to
-    True.
-* ignore_dunder (bool, optional): If True ignore
-    &#95;&#95;XXX&#95;&#95; functions. Defaults to True.
-* ignore_private (bool, optional): If True ignore methods
-    (those prefixed &#95;XXX). Defaults to True.
-* ignore_all (bool): If True ignore the &#95;&#95;all&#95;&#95; member.
-* ignore_inherited (bool): If True ignore inherited members.
-* prefer_docstring (bool): If true prefer the docstring.
-* template_folder(Optional[str], optional): Specify a custom template folder.
-    The template "main.jinja2" will be rendered passing an `obj` parameter
-    which is a `jetblack.markdown.metadata.Descriptor`
-
 ## Customizing
 
 All the rendering is done with jinja2 templates. Start by copying the current
 templates from jetblack_markdown/templates and specify the `template_folder` in
 the `mkdocs.yml`.
-

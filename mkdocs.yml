@@ -5,8 +5,10 @@ site_dir: docs
 
 nav:
   - index.md
-  - docstrings.md
-  - templates.md
+  - User Guide:
+    - user-guide/config.md
+    - user-guide/docstrings.md
+    - user-guide/templates.md
   - API:
     - jetblack-autodoc: api/jetblack_autodoc.md
     - jetblack_markdown.autodoc: api/jetblack_markdown.md
