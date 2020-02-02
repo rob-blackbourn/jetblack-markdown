@@ -12,11 +12,9 @@ Render the title
     object_type (str): The object type
 #}
 {% macro render_qualified_title(qualifier, name, object_type) -%}
-<div class="autodoc-title">
-  <h3 class="autodoc-title">
-      <span class="autodoc-title-type">{{ object_type }} </span><span class="autodoc-qualifier">{{ qualifier }}</span><span class="autodoc-punctuation">.</span><span class="autodoc-title-name">{{ name }}</span>
-    </h3>
-</div>
+<h3 class="autodoc-title">
+  <span class="autodoc-title-type">{{ object_type }} </span><span class="autodoc-qualifier">{{ qualifier }}</span><span class="autodoc-punctuation">.</span><span class="autodoc-title-name">{{ name }}</span>
+</h3>
 {%- endmacro %}
 
 
@@ -29,21 +27,19 @@ Render the class title
     object_type (str): The object type
 #}
 {% macro render_class_title(name, bases, object_type) -%}
-<div class="autodoc-title">
-  <h3 class="autodoc-title">
-    <span class="autodoc-title-type">{{ object_type }} </span><span class="autodoc-title-name">{{ name }}</span>
-    {%- if bases|length > 0 -%}
-      <span class="autodoc-punctuation">(</span>
-      {%-for base in bases -%}
-        <span class="autodoc-type">{{ base.name }}</span>
-        {%- if not loop.last -%}
-          <span class="autodoc-puntuation">, </span>
-        {%- endif -%}
-      {%- endfor -%}
-      <span class="autodoc-punctuation">)</span>
-    {%- endif %}
-  </h3>
-</div>
+<h3 class="autodoc-title">
+  <span class="autodoc-title-type">{{ object_type }} </span><span class="autodoc-title-name">{{ name }}</span>
+  {%- if bases|length > 0 -%}
+    <span class="autodoc-punctuation">(</span>
+    {%-for base in bases -%}
+      <span class="autodoc-type">{{ base.name }}</span>
+      {%- if not loop.last -%}
+        <span class="autodoc-puntuation">, </span>
+      {%- endif -%}
+    {%- endfor -%}
+    <span class="autodoc-punctuation">)</span>
+  {%- endif %}
+</h3>
 {%- endmacro %}
 
 
@@ -55,11 +51,9 @@ Render the module title
     object_type (str): The object type
 #}
 {% macro render_unqualified_title(name, object_type) -%}
-<div class="autodoc-title">
-  <h3 class="autodoc-title">
-    <span class="autodoc-title-type">{{ object_type }} </span><span class="autodoc-title-name">{{ name }}</span>
-  </h3>
-</div>
+<h3 class="autodoc-title">
+  <span class="autodoc-title-type">{{ object_type }} </span><span class="autodoc-title-name">{{ name }}</span>
+</h3>
 {%- endmacro %}
 
 
