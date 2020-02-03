@@ -17,7 +17,7 @@ from .arguments import ArgumentDescriptor
 from .common import Descriptor
 from .classes import ClassDescriptor
 from .callables import CallableDescriptor
-from .utils import make_file_relative
+from .utils import make_file_relative, is_child_module
 
 
 class ModuleDescriptor(Descriptor):
@@ -33,7 +33,8 @@ class ModuleDescriptor(Descriptor):
             package: Optional[str],
             file: Optional[str],
             classes: List[ClassDescriptor],
-            functions: List[CallableDescriptor]
+            functions: List[CallableDescriptor],
+            modules: List[ModuleDescriptor]
     ) -> None:
         """A module descriptor
 
@@ -47,6 +48,7 @@ class ModuleDescriptor(Descriptor):
             file (Optional[str]): The file name
             classes (List[ClassDescriptor]): Classes in the module
             functions (List[CallableDescriptor]): Functions in the module
+            modules (List[ModuleDescriptor]): The child modules
         """
         self.name = name
         self.summary = summary
@@ -57,6 +59,7 @@ class ModuleDescriptor(Descriptor):
         self.file = file
         self.classes = classes
         self.functions = functions
+        self.modules = modules
 
     @property
     def descriptor_type(self) -> str:
@@ -74,17 +77,23 @@ class ModuleDescriptor(Descriptor):
             ignore_private: bool,
             ignore_all: bool,
             ignore_inherited: bool,
-            prefer_docstring: bool
+            prefer_docstring: bool,
+            follow_module_tree: bool
     ) -> ModuleDescriptor:
         """Create a module descriptor
 
         Args:
             obj (Any): The module object
-            class_from_init (bool): If True take the docstring from the init function
-            ignore_dunder (bool): If True ignore <span>&#95;&#95;</span>XXX<span>&#95;&#95;</span> functions
-            ignore_private (bool): If True ignore private methods (those prefixed &#95;XXX)
-            ignore_all (bool): If True ignore the <span>&#95;&#95;</span>all<span>&#95;&#95;</span> member.
+            class_from_init (bool): If True take the docstring from the init
+                function
+            ignore_dunder (bool): If True ignore
+                <span>&#95;&#95;</span>XXX<span>&#95;&#95;</span> functions
+            ignore_private (bool): If True ignore private methods
+                (those prefixed &#95;XXX)
+            ignore_all (bool): If True ignore the
+                <span>&#95;&#95;</span>all<span>&#95;&#95;</span> member.
             prefer_docstring (bool): If true prefer the docstring
+            follow_module_tree (bool): If true follow the module tree
 
         Returns:
             ModuleDescriptor: A module descriptor
@@ -157,6 +166,21 @@ class ModuleDescriptor(Descriptor):
                 else:
                     print(f'unknown {member_name}')
 
+        modules = [
+            ModuleDescriptor.create(
+                member,
+                class_from_init,
+                ignore_dunder,
+                ignore_private,
+                ignore_all,
+                ignore_inherited,
+                prefer_docstring,
+                follow_module_tree
+            )
+            for member in members.values()
+            if follow_module_tree and is_child_module(module, member)
+        ]
+
         return ModuleDescriptor(
             name,
             summary,
@@ -166,5 +190,6 @@ class ModuleDescriptor(Descriptor):
             package,
             file,
             classes,
-            functions
+            functions,
+            modules
         )

@@ -1,7 +1,9 @@
 """Meta data utilities"""
 
+import inspect
 import sys
-from typing import NamedTuple, Optional, Type
+from types import ModuleType
+from typing import Any, Optional, Type
 
 
 def make_file_relative(file: Optional[str]) -> Optional[str]:
@@ -22,12 +24,13 @@ def make_file_relative(file: Optional[str]) -> Optional[str]:
 
     return file
 
+
 def is_named_tuple_type(obj: Type) -> bool:
     """Check if a type is a named tuple
-    
+
     Args:
         obj (Type): The type to check
-    
+
     Returns:
         bool: True if the type is a named tuple.
     """
@@ -39,3 +42,22 @@ def is_named_tuple_type(obj: Type) -> bool:
         return False
 
     return all(isinstance(field, str) for field in fields)
+
+
+def is_child_module(parent: ModuleType, child: Any) -> bool:
+    """Check if a module is a child of another module
+
+    Args:
+        parent ([type]): The parent module
+        child ([type]): The child to test
+
+    Returns:
+        bool: True if the child is a child module of the parent
+    """
+
+    return (
+        inspect.ismodule(child) and
+        getattr(child, '__package__', '').startswith(
+            getattr(parent, '__package__', '')
+        )
+    )

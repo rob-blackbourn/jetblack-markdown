@@ -27,6 +27,7 @@ class AutodocExtension(Extension):
             'ignore_all': [False, 'Ignore the __all__ member'],
             'ignore_inherited': [True, 'Ignore inherited members'],
             'prefer_docstring': [True, 'Prefer the docstring'],
+            'follow_module_tree': [False, 'Follow the module tree'],
             'template_folder': ['', 'The template folder'],
         }
         super().__init__(*args, **kwargs)
@@ -38,6 +39,7 @@ class AutodocExtension(Extension):
         ignore_all = self.getConfig('ignore_all')
         ignore_inherited = self.getConfig('ignore_inherited')
         prefer_docstring = self.getConfig('prefer_docstring')
+        follow_module_tree = self.getConfig('follow_module_tree')
         template_folder = self.getConfig('template_folder')
         md.inlinePatterns.register(
             AutodocInlineProcessor(
@@ -49,6 +51,7 @@ class AutodocExtension(Extension):
                 ignore_all=ignore_all,
                 ignore_inherited=ignore_inherited,
                 prefer_docstring=prefer_docstring,
+                follow_module_tree=follow_module_tree,
                 template_folder=template_folder
             ),
             'autodoc',

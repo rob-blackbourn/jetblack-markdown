@@ -42,6 +42,7 @@ class AutodocInlineProcessor(InlineProcessor):
             ignore_all: bool = False,
             ignore_inherited: bool = True,
             prefer_docstring: bool = True,
+            follow_module_tree: bool = False,
             template_folder: Optional[str] = None
     ) -> None:
         """An inline processor for Python documentation
@@ -60,6 +61,7 @@ class AutodocInlineProcessor(InlineProcessor):
             ignore_all (bool): If True ignore the &#95;&#95;all&#95;&#95; member.
             ignore_inherited (bool): If True ignore inherited members.
             prefer_docstring (bool): If true prefer the docstring.
+            follow_module_tree (bool): If true follow the module tree.
             template_folder (Optional[str], optional): The template folder,
                 Defaults to None.
         """
@@ -68,6 +70,7 @@ class AutodocInlineProcessor(InlineProcessor):
         self.ignore_private = ignore_private
         self.ignore_all = ignore_all
         self.ignore_inherited = ignore_inherited
+        self.follow_module_tree = follow_module_tree
         self.prefer_docstring = prefer_docstring
         if template_folder:
             loader: BaseLoader = FileSystemLoader(template_folder)
@@ -121,7 +124,8 @@ class AutodocInlineProcessor(InlineProcessor):
                 self.ignore_private,
                 self.ignore_all,
                 self.ignore_inherited,
-                self.prefer_docstring
+                self.prefer_docstring,
+                self.follow_module_tree
             )
         elif inspect.isclass(obj):
             return ClassDescriptor.create(

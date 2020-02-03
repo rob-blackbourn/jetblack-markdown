@@ -15,6 +15,8 @@ There are some configuration parameters.
     Defaults to `true`
 * **prefer_docstring** (*bool, optional*): If `true` prefer the docstring.
     Defaults to `true`
+* **follow_module_tree** (*bool, optional*): If `true` follow the module tree.
+    Defaults to `false`
 * **template_folder** (*Optional[str], optional*): Specify a custom template folder.
     The template `main.jinja2` will be rendered passing an `obj` parameter
     which is a `jetblack.markdown.metadata.Descriptor`

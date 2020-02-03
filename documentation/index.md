@@ -46,6 +46,7 @@ markdown_extensions:
       ignore_all: false
       ignore_inherited: true
       prefer_docstring: true
+      follow_module_tree: False
       template_folder: null
 
 extra_css:

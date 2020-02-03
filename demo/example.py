@@ -6,15 +6,15 @@ if __name__ == "__main__":
 
 # autodoc
 
-@[jetblack_markdown.autodoc]
+@[jetblack_markdown]
 
 """
-    extension = AutodocExtension(class_from_init=True)
+    extension = AutodocExtension(class_from_init=True, follow_module_tree=True)
     output = markdown.markdown(
         content, extensions=[
             "admonition",
             "codehilite",
-            "jetblack_markdown.autodoc",
+            extension,
         ])
     print(output)
     assert output is not None

@@ -23,6 +23,7 @@ markdown_extensions:
       ignore_private: true
       ignore_all: false
       ignore_inherited: false
+      follow_module_tree: false
       prefer_docstring: true
 
 extra_css:
