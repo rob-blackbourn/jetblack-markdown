@@ -1,12 +1,15 @@
 site_name: jetblack-markdown
 site_description: A markdown extension for mkdocs.
+site_dir: docs
 
 docs_dir: documentation
-site_dir: docs
 
 repo_name: rob-blackbourn/jetblack-markdown
 repo_url: https://github.com/rob-blackbourn/jetblack-markdown
 edit_uri: ""
+
+theme:
+    name: 'material'
 
 nav:
   - index.md
