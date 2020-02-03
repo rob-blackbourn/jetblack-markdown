@@ -1,6 +1,6 @@
 """Mocks"""
 
-from typing import Any, List, Optional
+from typing import Any, List, NamedTuple, Optional
 
 DEFAULT_INT = 1
 
@@ -52,3 +52,18 @@ class MockClass:
         Args:
             arg1 (str): The first arg
         """
+
+class MockNamedTuple(NamedTuple):
+    """A named tuple
+    
+    Args:
+        str_arg (str): A string argument
+        optional_int (Optional[int]): An optional int argument
+        str_with_default (str, optional): A string argument. Defaults to 'string'.
+        optional_int_with_default (Optional[int], optional): An optional int
+            argument. Defaults to None.
+    """
+    str_arg: str
+    optional_int: Optional[int]
+    str_with_default: str = 'string'
+    optional_int_with_default: Optional[int] = None

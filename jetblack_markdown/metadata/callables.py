@@ -268,7 +268,11 @@ class CallableDescriptor(Descriptor):
         module_obj = inspect.getmodule(obj)
         module = obj.__module__
         package = module_obj.__package__ if module_obj and module_obj.__package__ else None
-        file = make_file_relative(module_obj.__file__ if module_obj else None)
+        file = make_file_relative(
+            module_obj.__file__
+            if module_obj and hasattr(module_obj, '__file__')
+            else None
+        )
 
         if qualifier:
             name = obj.__name__

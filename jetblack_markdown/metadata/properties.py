@@ -10,10 +10,11 @@ from typing import (
 
 import docstring_parser
 
-from ..utils import get_type_name
+from ..utils import get_type_name, find_docstring_param
 
 from .common import Descriptor
 from .raises import RaisesDescriptor
+from .utils import is_named_tuple_type
 
 
 class PropertyDescriptor(Descriptor):
@@ -80,8 +81,6 @@ class PropertyDescriptor(Descriptor):
         Returns:
             PropertyDescriptor: A property descriptor
         """
-        signature = inspect.signature(obj.fget)
-        docstring = docstring_parser.parse(inspect.getdoc(obj))
         members = {
             name: value
             for name, value in inspect.getmembers(obj)
@@ -89,21 +88,42 @@ class PropertyDescriptor(Descriptor):
 
         name = property_name
         qualifier = klass.__name__
-        summary = docstring.short_description if docstring else None
-        description = docstring.long_description if docstring else None
-        type_name = get_type_name(
-            signature.return_annotation, docstring.returns)
-        is_settable = 'fset' in members and members['fset']
-        is_deletable = 'fdel' in members and members['fdel']
-        raises: Optional[List[RaisesDescriptor]] = [
-            RaisesDescriptor(error.type_name, error.description)
-            for error in docstring.raises
-        ] if docstring and docstring.raises else None
-        examples: Optional[List[str]] = [
-            meta.description
-            for meta in docstring.meta
-            if 'examples' in meta.args
-        ] if docstring is not None else None
+
+        if is_named_tuple_type(klass) and name in klass._fields:
+            docstring = docstring_parser.parse(inspect.getdoc(klass))
+            docstring_param = find_docstring_param(name, docstring)
+            field_type = klass._field_types[name] # pylint: disable=protected-access
+            type_name = get_type_name(
+                field_type,
+                docstring_param
+            )
+            summary = docstring_param.description if docstring_param else None
+            description: Optional[str] = None
+            raises: Optional[List[RaisesDescriptor]] = None
+            is_settable = False
+            is_deletable = False
+            examples: Optional[List[str]] = None
+        else:
+            docstring = docstring_parser.parse(inspect.getdoc(obj))
+            signature = inspect.signature(obj.fget)
+            type_name = get_type_name(
+                signature.return_annotation,
+                docstring.returns
+            )
+            summary = docstring.short_description if docstring else None
+            description = docstring.long_description if docstring else None
+            raises = [
+                RaisesDescriptor(error.type_name, error.description)
+                for error in docstring.raises
+            ] if docstring and docstring.raises else None
+
+            is_settable = 'fset' in members and members['fset']
+            is_deletable = 'fdel' in members and members['fdel']
+            examples = [
+                meta.description
+                for meta in docstring.meta
+                if 'examples' in meta.args
+            ] if docstring is not None else None
 
         return PropertyDescriptor(
             qualifier,

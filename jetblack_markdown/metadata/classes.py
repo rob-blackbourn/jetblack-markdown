@@ -6,6 +6,7 @@ from typing import (
     Any,
     Dict,
     List,
+    NamedTuple,
     Optional
 )
 
@@ -15,7 +16,7 @@ from .arguments import ArgumentDescriptor
 from .callables import CallableDescriptor, CallableType
 from .common import Descriptor
 from .properties import PropertyDescriptor
-from .utils import make_file_relative
+from .utils import make_file_relative, is_named_tuple_type
 
 
 class ClassDescriptor(Descriptor):
@@ -100,6 +101,8 @@ class ClassDescriptor(Descriptor):
         Returns:
             ClassDescriptor: The class descriptor
         """
+        is_named_tuple = is_named_tuple_type(obj)
+
         valid_names: List[str] = []
         valid_names.extend(getattr(obj, '__dict__', {}).keys())
         valid_names.extend(getattr(obj, '__slots__', []))
@@ -112,7 +115,8 @@ class ClassDescriptor(Descriptor):
         signature = inspect.signature(obj)
         docstring = docstring_parser.parse(
             inspect.getdoc(
-                members.get('__init__', obj) if class_from_init else obj
+                members.get('__init__', obj)
+                if class_from_init and not is_named_tuple else obj
             )
         )
         name = obj.__qualname__ if hasattr(
@@ -188,7 +192,11 @@ class ClassDescriptor(Descriptor):
         module_obj = inspect.getmodule(obj)
         module = importing_module or obj.__module__
         package = module_obj.__package__ if module_obj else None
-        file = make_file_relative(module_obj.__file__ if module_obj else None)
+        file = make_file_relative(
+            module_obj.__file__ 
+            if module_obj and hasattr(module_obj, '__file__')
+            else None
+        )
 
         bases = [
             ClassDescriptor.create(

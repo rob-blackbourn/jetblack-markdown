@@ -1,7 +1,7 @@
 """Meta data utilities"""
 
 import sys
-from typing import Optional
+from typing import NamedTuple, Optional, Type
 
 
 def make_file_relative(file: Optional[str]) -> Optional[str]:
@@ -21,3 +21,21 @@ def make_file_relative(file: Optional[str]) -> Optional[str]:
             return file[len(path)+1:]
 
     return file
+
+def is_named_tuple_type(obj: Type) -> bool:
+    """Check if a type is a named tuple
+    
+    Args:
+        obj (Type): The type to check
+    
+    Returns:
+        bool: True if the type is a named tuple.
+    """
+    if tuple not in getattr(obj, '__bases__', []):
+        return False
+
+    fields = getattr(obj, '_fields', None)
+    if not isinstance(fields, tuple):
+        return False
+
+    return all(isinstance(field, str) for field in fields)
