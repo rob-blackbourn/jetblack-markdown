@@ -44,20 +44,6 @@ Render the class title
 
 
 {#
-Render the module title
-
-    Args:
-    name (str): The name
-    object_type (str): The object type
-#}
-{% macro render_unqualified_title(name, object_type) -%}
-<h3 class="autodoc-title">
-  <span class="autodoc-title-type">{{ object_type }} </span><span class="autodoc-title-name">{{ name }}</span>
-</h3>
-{%- endmacro %}
-
-
-{#
 Render the metadata
 
     Args:
@@ -378,7 +364,9 @@ Render a module
 #}
 {% macro render_module(module) -%}
 <div class="autodoc-module">
-  {{ render_unqualified_title(module.name, "module") }}
+    <h3 class="autodoc-title">
+        <span class="autodoc-title-type">module </span><span class="autodoc-title-name">{{ module.name }}</span>
+    </h3>
   {{ render_metadata(None, module.package, module.file)}}
   {{ render_summary(module.summary) }}
   {{ render_attributes(module.attributes) }}

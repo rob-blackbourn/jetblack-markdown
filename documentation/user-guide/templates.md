@@ -24,6 +24,18 @@ of the descriptor and then calling a macro.
 
 ## A renderer
 
+Here's a simple render macro for rendering the "Summary" which is usually the
+long description from the docstring.
+
+```python
+{% macro render_summary(summary) -%}
+{% if summary -%}
+  <h4 class="autodoc-title">Summary</h4>
+  {{ summary | md_format }}
+{%- endif %}
+{%- endmacro %}
+```
+
 Here's an example of rendering a signature.
 
 ```python
@@ -54,7 +66,7 @@ Here's an example of rendering a signature.
 
 A custom filter `md_format` has been provided to process code that may contain markdown, such as the summary.
 
-Heres an example of its use.
+Here's an example of its use.
 
 ```python
 {% macro render_summary(summary) -%}

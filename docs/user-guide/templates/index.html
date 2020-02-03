@@ -137,6 +137,16 @@ The descriptor has a type. The default template libraries <code>main.jinja2</cod
 <p>It renders the appropriate template by checking the type
 of the descriptor and then calling a macro.</p>
 <h2 id="a-renderer">A renderer</h2>
+<p>Here's a simple render macro for rendering the "Summary" which is usually the
+long description from the docstring.</p>
+<pre class="codehilite"><code class="language-python">{% macro render_summary(summary) -%}
+{% if summary -%}
+  &lt;h4 class=&quot;autodoc-title&quot;&gt;Summary&lt;/h4&gt;
+  {{ summary | md_format }}
+{%- endif %}
+{%- endmacro %}</code></pre>
+
+
 <p>Here's an example of rendering a signature.</p>
 <pre class="codehilite"><code class="language-python">{% macro render_signature(callable) -%}
 &lt;code class=&quot;autodoc-signature&quot;&gt;
@@ -163,7 +173,7 @@ of the descriptor and then calling a macro.</p>
 
 <h2 id="the-md_format-filter">The md_format filter</h2>
 <p>A custom filter <code>md_format</code> has been provided to process code that may contain markdown, such as the summary.</p>
-<p>Heres an example of its use.</p>
+<p>Here's an example of its use.</p>
 <pre class="codehilite"><code class="language-python">{% macro render_summary(summary) -%}
 {% if summary -%}
   &lt;h4 class=&quot;autodoc-title&quot;&gt;Summary&lt;/h4&gt;
