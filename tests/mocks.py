@@ -53,9 +53,10 @@ class MockClass:
             arg1 (str): The first arg
         """
 
+
 class MockNamedTuple(NamedTuple):
     """A named tuple
-    
+
     Args:
         str_arg (str): A string argument
         optional_int (Optional[int]): An optional int argument

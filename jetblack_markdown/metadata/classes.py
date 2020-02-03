@@ -6,7 +6,6 @@ from typing import (
     Any,
     Dict,
     List,
-    NamedTuple,
     Optional
 )
 
@@ -193,7 +192,7 @@ class ClassDescriptor(Descriptor):
         module = importing_module or obj.__module__
         package = module_obj.__package__ if module_obj else None
         file = make_file_relative(
-            module_obj.__file__ 
+            module_obj.__file__
             if module_obj and hasattr(module_obj, '__file__')
             else None
         )

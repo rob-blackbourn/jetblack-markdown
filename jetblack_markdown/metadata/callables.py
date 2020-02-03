@@ -4,7 +4,6 @@ from __future__ import annotations
 from enum import Enum, auto
 import inspect
 from inspect import Parameter, Signature
-import sys
 from typing import (
     Any,
     List,
