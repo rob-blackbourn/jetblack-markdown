@@ -392,5 +392,9 @@ Render a module
   {{ render_class(class)}}
   <hr />
 {% endfor -%}
+{%- for child_module in module.modules %}
+  {{ render_module(child_module)}}
+  <hr />
+{% endfor -%}
 </div>
 {%- endmacro %}
