@@ -102,7 +102,7 @@ class ModuleDescriptor(Descriptor):
 
         name = module.__name__
         summary = docstring.short_description if docstring else None
-        description = docstring.short_description if docstring else None
+        description = docstring.long_description if docstring else None
         attrs: List[Tuple[str, str]] = [
             (meta.args[1], meta.description)
             for meta in docstring.meta
