@@ -33,6 +33,7 @@ markdown_extensions:
       ignore_inherited: false
       follow_module_tree: false
       prefer_docstring: true
+      template_folder: templates
 
 extra_css:
     - css/custom.css
