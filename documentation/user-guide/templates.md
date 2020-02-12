@@ -5,8 +5,9 @@ is used to render the documentation.
 
 ## The entry point
 
-The template `main.jinja2` is passed an `obj` parameter which is of type `jetblack_markdown.metadata.Descriptor`.
-The descriptor has a type. The default template libraries `main.jinja2` looks like this:
+The template file is passed an `obj` parameter which is of type
+`jetblack_markdown.metadata.Descriptor`. The descriptor has a type property.
+The default template file looks like this:
 
 ```python
 {% import 'macros.jinja2' as macros with context %}
@@ -36,7 +37,12 @@ long description from the docstring.
 {%- endmacro %}
 ```
 
-Here's an example of rendering a signature.
+First it checks if the long description has been specified. If it has it renders
+it as a level 4 heading with the class `autodoc-title`. Finally it uses a built
+in custom filter to convert the docstring to markdown. The custom filter will
+generate it's contents in a `<p> ... </p>` block.
+
+Here's a more complex example of rendering a signature.
 
 ```python
 {% macro render_signature(callable) -%}

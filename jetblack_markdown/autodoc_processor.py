@@ -43,7 +43,8 @@ class AutodocInlineProcessor(InlineProcessor):
             ignore_inherited: bool = True,
             prefer_docstring: bool = True,
             follow_module_tree: bool = False,
-            template_folder: Optional[str] = None
+            template_folder: Optional[str] = None,
+            template_file: str = "main.jinja2"
     ) -> None:
         """An inline processor for Python documentation
 
@@ -64,6 +65,8 @@ class AutodocInlineProcessor(InlineProcessor):
             follow_module_tree (bool): If true follow the module tree.
             template_folder (Optional[str], optional): The template folder,
                 Defaults to None.
+            template_file (Optional[str], optional): The template file to use,
+                Defaults to "main.jinja2".
         """
         self.class_from_init = class_from_init
         self.ignore_dunder = ignore_dunder
@@ -81,7 +84,7 @@ class AutodocInlineProcessor(InlineProcessor):
             autoescape=select_autoescape(['html', 'xml'])
         )
         self.env.filters['md_format'] = self._md_format
-        self.template = self.env.get_template("main.jinja2")
+        self.template = self.env.get_template(template_file)
         super().__init__(pattern, md=md)
 
     # pylint: disable=arguments-differ

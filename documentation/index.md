@@ -40,14 +40,10 @@ markdown_extensions:
   - admonition
   - codehilite
   - jetblack_markdown.autodoc:
-      class_from_init: true
-      ignore_dunder: true
-      ignore_private: true
       ignore_all: false
       ignore_inherited: true
       prefer_docstring: true
       follow_module_tree: False
-      template_folder: null
 
 extra_css:
     - css/custom.css

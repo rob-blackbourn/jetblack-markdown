@@ -259,9 +259,94 @@
       
     
     
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Configuration
+      </label>
+    
     <a href="./" title="Configuration" class="md-nav__link md-nav__link--active">
       Configuration
     </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#class_from_init-bool-optional-true" class="md-nav__link">
+    class_from_init (bool, optional) = true
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ignore_dunder-bool-optional-true" class="md-nav__link">
+    ignore_dunder (bool, optional) = true
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ignore_private-bool-optional-true" class="md-nav__link">
+    ignore_private (bool, optional) = true
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ignore_all-bool-optional-false" class="md-nav__link">
+    ignore_all (bool, optional) = false
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ignore_inherited-bool-optional-true" class="md-nav__link">
+    ignore_inherited (bool, optional) = true
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prefer_docstring-bool-optional-true" class="md-nav__link">
+    prefer_docstring (bool, optional) = true
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#follow_module_tree-bool-optional-false" class="md-nav__link">
+    follow_module_tree (bool, optional) = false
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#template_file-optionalstr-optional-mainjinja2" class="md-nav__link">
+    template_file (Optional[str], optional) = "main.jinja2"
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#template_folder-optionalstr-optional-none" class="md-nav__link">
+    template_folder (Optional[str], optional) = None
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
     
   </li>
 
@@ -372,6 +457,78 @@
     
   
   
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#class_from_init-bool-optional-true" class="md-nav__link">
+    class_from_init (bool, optional) = true
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ignore_dunder-bool-optional-true" class="md-nav__link">
+    ignore_dunder (bool, optional) = true
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ignore_private-bool-optional-true" class="md-nav__link">
+    ignore_private (bool, optional) = true
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ignore_all-bool-optional-false" class="md-nav__link">
+    ignore_all (bool, optional) = false
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ignore_inherited-bool-optional-true" class="md-nav__link">
+    ignore_inherited (bool, optional) = true
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prefer_docstring-bool-optional-true" class="md-nav__link">
+    prefer_docstring (bool, optional) = true
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#follow_module_tree-bool-optional-false" class="md-nav__link">
+    follow_module_tree (bool, optional) = false
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#template_file-optionalstr-optional-mainjinja2" class="md-nav__link">
+    template_file (Optional[str], optional) = "main.jinja2"
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#template_folder-optionalstr-optional-none" class="md-nav__link">
+    template_folder (Optional[str], optional) = None
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -384,27 +541,90 @@
                 
                 
                 <h1 id="configuration">Configuration</h1>
-<p>There are some configuration parameters.</p>
-<ul>
-<li><strong>class_from_init</strong> (<em>bool, optional</em>): If <code>true</code> use the docstring from
-    the &#95;&#95;init&#95;&#95; function for classes. Defaults to
-    <code>true</code>.</li>
-<li><strong>ignore_dunder</strong> (<em>bool, optional</em>): If <code>true</code> ignore
-    &#95;&#95;XXX&#95;&#95; functions. Defaults to <code>true</code>.</li>
-<li><strong>ignore_private</strong> (<em>bool, optional</em>): If <code>true</code> ignore methods
-    (those prefixed &#95;XXX). Defaults to <code>true</code>.</li>
-<li><strong>ignore_all</strong> (<em>bool, optional</em>): If <code>true</code> ignore the &#95;&#95;all&#95;&#95; member.
-    Defaults to <code>false</code>.</li>
-<li><strong>ignore_inherited</strong> (<em>bool, optional</em>): If <code>true</code> ignore inherited members.
-    Defaults to <code>true</code></li>
-<li><strong>prefer_docstring</strong> (<em>bool, optional</em>): If <code>true</code> prefer the docstring.
-    Defaults to <code>true</code></li>
-<li><strong>follow_module_tree</strong> (<em>bool, optional</em>): If <code>true</code> follow the module tree.
-    Defaults to <code>false</code></li>
-<li><strong>template_folder</strong> (<em>Optional[str], optional</em>): Specify a custom template folder.
-    The template <code>main.jinja2</code> will be rendered passing an <code>obj</code> parameter
-    which is a <code>jetblack.markdown.metadata.Descriptor</code></li>
-</ul>
+<p>The configuration parameters can be specified in the <code>mkdocs.yml</code> file:</p>
+<div class="codehilite"><pre><span></span><span class="nt">markdown_extensions</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">admonition</span>
+  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">codehilite</span>
+  <span class="p p-Indicator">-</span> <span class="nt">jetblack_markdown.autodoc</span><span class="p">:</span>
+      <span class="nt">class_from_init</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+      <span class="nt">ignore_dunder</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+      <span class="nt">ignore_private</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+      <span class="nt">ignore_all</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">false</span>
+      <span class="nt">prefer_docstring</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+      <span class="nt">template_file</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">black.jinja2</span>
+      <span class="nt">template_folder</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">/usr/local/share/jetblack-markdown</span>
+</pre></div>
+
+
+<h2 id="class_from_init-bool-optional-true"><strong>class_from_init</strong> (<em>bool, optional</em>) = <code>true</code></h2>
+<p>If <code>true</code> use the docstring from the &#95;&#95;init&#95;&#95; function for
+classes when generating the documentation for the constructor; otherwise use
+the docstring from the class. e.g.</p>
+<div class="codehilite"><pre><span></span><span class="k">class</span> <span class="nc">MyClass</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;A simple class.</span>
+
+<span class="sd">    If class_from_init == false use this docstring.</span>
+
+<span class="sd">    Arguments:</span>
+<span class="sd">        name (str): The name</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="s2">&quot;&quot;&quot;A simple class.</span>
+
+<span class="s2">        If class_from_init == true use this docstring.</span>
+
+<span class="s2">        Arguments:</span>
+<span class="s2">            name (str): The name</span>
+
+<span class="s2">        self.name = name</span>
+</pre></div>
+
+
+<h2 id="ignore_dunder-bool-optional-true"><strong>ignore_dunder</strong> (<em>bool, optional</em>) = <code>true</code></h2>
+<p>If <code>true</code> ignore &#95;&#95;XXX&#95;&#95; functions.</p>
+<h2 id="ignore_private-bool-optional-true"><strong>ignore_private</strong> (<em>bool, optional</em>) = <code>true</code></h2>
+<p>If <code>true</code> ignore methods (those prefixed &#95;XXX).</p>
+<h2 id="ignore_all-bool-optional-false"><strong>ignore_all</strong> (<em>bool, optional</em>) = <code>false</code></h2>
+<p>If <code>false</code> use the &#95;&#95;all&#95;&#95; member to constrain which objects
+are documented.</p>
+<h2 id="ignore_inherited-bool-optional-true"><strong>ignore_inherited</strong> (<em>bool, optional</em>) = <code>true</code></h2>
+<p>If <code>true</code> ignore inherited members.</p>
+<h2 id="prefer_docstring-bool-optional-true"><strong>prefer_docstring</strong> (<em>bool, optional</em>) = <code>true</code></h2>
+<p>If <code>true</code> prefer the docstring over the typing and inspection. This can be useful
+in reducing the verboseness of the output, and providing symbolic defaults rather
+than literal defaults. e.g.</p>
+<div class="codehilite"><pre><span></span><span class="n">SomeType</span> <span class="o">=</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]</span>
+<span class="n">SOME_DEFAULT</span> <span class="o">=</span> <span class="s2">&quot;This is not a test&quot;</span>
+
+<span class="k">def</span> <span class="nf">some_func</span><span class="p">(</span><span class="n">arg</span><span class="p">:</span> <span class="n">SomeType</span> <span class="o">=</span> <span class="n">SOME_DEFAULT</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Some function</span>
+
+<span class="sd">    Arguments:</span>
+<span class="sd">        arg (SomeType): an argument</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">pass</span>
+</pre></div>
+
+
+<p>If <code>prefer_docstring</code> is <code>true</code> this would provide:</p>
+<div class="codehilite"><pre><span></span><span class="k">def</span> <span class="nf">some_func</span><span class="p">(</span><span class="n">arg</span><span class="p">:</span> <span class="n">SomeType</span> <span class="o">=</span> <span class="n">SOME_DEFAULT</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</pre></div>
+
+
+<p>But if <code>prefer_docstring</code> is <code>false</code>:</p>
+<div class="codehilite"><pre><span></span><span class="k">def</span> <span class="nf">some_func</span><span class="p">(</span><span class="n">arg</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="n">NoneType</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;This is not a test&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</pre></div>
+
+
+<h2 id="follow_module_tree-bool-optional-false"><strong>follow_module_tree</strong> (<em>bool, optional</em>) = <code>false</code></h2>
+<p>If <code>true</code> explore the module tree javadoc style. This is most useful when
+combined with <code>ignore_all</code> = <code>false</code>.</p>
+<h2 id="template_file-optionalstr-optional-mainjinja2"><strong>template_file</strong> (<em>Optional[str], optional</em>) = <code>"main.jinja2"</code></h2>
+<p>The name of the template file to run.</p>
+<h2 id="template_folder-optionalstr-optional-none"><strong>template_folder</strong> (<em>Optional[str], optional</em>) = <code>None</code></h2>
+<p>The folder in which the templates can be found. If this is not specified the
+built in templates are used.</p>
                 
                   
                 

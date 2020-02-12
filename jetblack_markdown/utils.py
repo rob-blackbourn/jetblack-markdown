@@ -78,6 +78,16 @@ def get_type_name(
         annotation: Any,
         docstring_param: Optional[Union[DocstringParam, DocstringReturns]]
 ) -> str:
+    """Get the type name
+    
+    Args:
+        annotation (Any): The type annotation
+        docstring_param (Optional[Union[DocstringParam, DocstringReturns]]):
+            The docstring param
+    
+    Returns:
+        str: The type description
+    """
     type_name = docstring_param.type_name if docstring_param else None
     if type_name:
         return type_name

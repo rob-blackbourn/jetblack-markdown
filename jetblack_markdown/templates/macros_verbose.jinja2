@@ -44,6 +44,29 @@ Render the class title
 
 
 {#
+Render the metadata
+
+    Args:
+        module (Optional[str]): The module name
+        package (Optional[str]): The package name
+        file (Optional[str]): The file naame
+#}
+{% macro render_metadata(module, package, file) -%}
+<div class="autodoc-metadata">
+{%- if module %}
+  <strong class="autodoc-metadata-header">Module: </strong><span class="autodoc-metadata-value">{{ module }}</span>
+{%- endif -%}
+{%- if package %}
+  <br /><strong class="autodoc-metadata-header">Package: </strong><span class="autodoc-metadata-value">{{ package }}</span>
+{%- endif -%}
+{%- if file %}
+  <br /><strong class="autodoc-metadata-header">File: </strong><span class="autodoc-metadata-value">{{ file }}</span>
+{%- endif %}
+</div>
+{%- endmacro %}
+
+
+{#
 Render the summary
 
     Args:
@@ -64,30 +87,25 @@ Render the signature
         callable (CallableDescriptor): The callable
 #}
 {% macro render_signature(callable) -%}
-<div class="autodoc-signature">
+<code class="autodoc-signature">
     {%- if callable.is_async -%}
     <span class="autodoc-keyword">async</span><span> </span>
     {%- endif -%}
     <span class="autodoc-qualifier">{{ callable.qualifier }}</span><span class="autodoc-punctuation">.</span><var class="autodoc-varname">{{ callable.name }}</var><span class="autodoc-punctuation">(</span>
-    {%- if callable.arguments|length > 0 -%}
-      <br />
-      {%- for arg in callable.arguments -%}
-        <div class="autodoc-argument">
-        <var class="autodoc-varname">{{ arg.name }}</var>
-        {%- if arg.type -%}
-          <span class="autodoc-punctuation">: </span><span class="autodoc-vartype">{{ arg.type }}</span>
-        {%- endif -%}
-        {%- if not loop.last -%}
-          <span class="autodoc-punctuation">,</span>
-        {%- endif -%}
-        </div>
+    {%- for arg in callable.arguments -%}
+      {%- if not loop.first -%}
+        <span class="autodoc-punctuation">, </span>
+      {%- endif -%}
+      <var class="autodoc-varname">{{ arg.name }}</var>
+      {%- if arg.type -%}
+        <span class="autodoc-punctuation">: </span><span class="autodoc-vartype">{{ arg.type }}</span>
+      {%- endif -%}
     {%- endfor -%}
-    {%- endif -%}
     <span class="autodoc-punctuation">)</span>
     {%- if callable.return_type -%}
       <span class="autodoc-punctuation"> -&gt; </span><span class="autodoc-vartype">{{ callable.return_type }}</span>
     {%- endif -%}
-</div>
+</code>
 {%- endmacro %}
 
 
@@ -273,6 +291,7 @@ Render callable
 {% macro render_callable(callable) -%}
 <div class="autodoc-callable">
   {{ render_qualified_title(callable.qualifier, callable.name, callable.callable_type_description) }}
+  {{ render_metadata(callable.module, callable.package, callable.file)}}
   {{ render_summary(callable.summary) }}
   {{ render_signature(callable) }}
   {{ render_parameters(callable.arguments) }}
@@ -323,6 +342,7 @@ Render class
 {% macro render_class(class) -%}
 <div class="autodoc-class">
   {{ render_class_title(class.name, class.bases, "class") }}
+  {{ render_metadata(class.module, class.package, class.file)}}
   {{ render_summary(class.summary) }}
   {{ render_signature(class.constructor) }}
   {{ render_parameters(class.constructor.arguments) }}
@@ -344,9 +364,10 @@ Render a module
 #}
 {% macro render_module(module) -%}
 <div class="autodoc-module">
-  <h3 class="autodoc-title">
-      <span class="autodoc-title-type">module </span><span class="autodoc-title-name">{{ module.name }}</span>
-  </h3>
+    <h3 class="autodoc-title">
+        <span class="autodoc-title-type">module </span><span class="autodoc-title-name">{{ module.name }}</span>
+    </h3>
+  {{ render_metadata(None, module.package, module.file)}}
   {{ render_summary(module.summary) }}
   {{ render_attributes(module.attributes) }}
   {{ render_description(module.description) }}

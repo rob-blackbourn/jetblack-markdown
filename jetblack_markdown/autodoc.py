@@ -29,6 +29,7 @@ class AutodocExtension(Extension):
             'prefer_docstring': [True, 'Prefer the docstring'],
             'follow_module_tree': [False, 'Follow the module tree'],
             'template_folder': ['', 'The template folder'],
+            'template_file': ['main.jinja2', 'The template file to use'],
         }
         super().__init__(*args, **kwargs)
 
@@ -41,6 +42,7 @@ class AutodocExtension(Extension):
         prefer_docstring = self.getConfig('prefer_docstring')
         follow_module_tree = self.getConfig('follow_module_tree')
         template_folder = self.getConfig('template_folder')
+        template_file = self.getConfig('template_file')
         md.inlinePatterns.register(
             AutodocInlineProcessor(
                 _DOCSTRING_RE,
@@ -52,7 +54,8 @@ class AutodocExtension(Extension):
                 ignore_inherited=ignore_inherited,
                 prefer_docstring=prefer_docstring,
                 follow_module_tree=follow_module_tree,
-                template_folder=template_folder
+                template_folder=template_folder,
+                template_file=template_file
             ),
             'autodoc',
             175
