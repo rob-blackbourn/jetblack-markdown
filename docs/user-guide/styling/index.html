@@ -38,7 +38,7 @@
     
     
       
-        <title>Docstrings - jetblack-markdown</title>
+        <title>Styling - jetblack-markdown</title>
       
     
     
@@ -81,7 +81,7 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
     
-      <a href="#docstrings" tabindex="1" class="md-skip">
+      <a href="#styling" tabindex="1" class="md-skip">
         Skip to content
       </a>
     
@@ -107,7 +107,7 @@
             </span>
             <span class="md-header-nav__topic">
               
-                Docstrings
+                Styling
               
             </span>
           
@@ -261,49 +261,11 @@
           
           
 
-  
 
-
-  <li class="md-nav__item md-nav__item--active">
-    
-    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-    
-      
-    
-    
-      <label class="md-nav__link md-nav__link--active" for="__toc">
-        Docstrings
-      </label>
-    
-    <a href="./" title="Docstrings" class="md-nav__link md-nav__link--active">
+  <li class="md-nav__item">
+    <a href="../docstrings/" title="Docstrings" class="md-nav__link">
       Docstrings
     </a>
-    
-      
-<nav class="md-nav md-nav--secondary">
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">Table of contents</label>
-    <ul class="md-nav__list" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#escaping-markdown" class="md-nav__link">
-    Escaping markdown
-  </a>
-  
-</li>
-      
-      
-      
-      
-      
-    </ul>
-  
-</nav>
-    
   </li>
 
         
@@ -323,11 +285,20 @@
           
           
 
+  
 
-  <li class="md-nav__item">
-    <a href="../styling/" title="Styling" class="md-nav__link">
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+    <a href="./" title="Styling" class="md-nav__link md-nav__link--active">
       Styling
     </a>
+    
   </li>
 
         
@@ -401,22 +372,6 @@
     
   
   
-    <label class="md-nav__title" for="__toc">Table of contents</label>
-    <ul class="md-nav__list" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#escaping-markdown" class="md-nav__link">
-    Escaping markdown
-  </a>
-  
-</li>
-      
-      
-      
-      
-      
-    </ul>
-  
 </nav>
                   </div>
                 </div>
@@ -428,42 +383,36 @@
               
                 
                 
-                <h1 id="docstrings">Docstrings</h1>
-<p>The automatic documentation will use docstrings do enhance the documentation.
-As this is a markdown extension, markdown an be used in the docstrings.</p>
-<div class="codehilite"><pre><span></span><span class="k">def</span> <span class="nf">makeExtension</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Extension</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Make the extension</span>
+                <h1 id="styling">Styling</h1>
+<p>When using the standard templates the following styles are recommended.</p>
+<div class="codehilite"><pre><span></span><span class="nt">span</span><span class="p">.</span><span class="nc">autodoc-vartype</span> <span class="p">{</span>
+    <span class="k">color</span><span class="p">:</span> <span class="mh">#c53204</span><span class="p">;</span>
+<span class="p">}</span>
 
-<span class="sd">    This hook *function* gets picked up by the markdown processor when the</span>
-<span class="sd">    extension is listed</span>
+<span class="nt">var</span><span class="p">.</span><span class="nc">autodoc-varname</span> <span class="p">{</span>
+    <span class="k">color</span><span class="p">:</span> <span class="mh">#4b9e48</span><span class="p">;</span>
+<span class="p">}</span>
 
-<span class="sd">    ```python</span>
-<span class="sd">    output = markdown.markdown(</span>
-<span class="sd">        content, extensions=[</span>
-<span class="sd">            &quot;admonition&quot;,</span>
-<span class="sd">            &quot;codehilite&quot;,</span>
-<span class="sd">            &quot;jetblack_markdown.autodoc&quot;,</span>
-<span class="sd">        ])</span>
-<span class="sd">    print(output)</span>
-<span class="sd">    ```</span>
+<span class="nt">h3</span><span class="p">.</span><span class="nc">autodoc-title</span> <span class="p">{</span>
+    <span class="k">font-weight</span><span class="p">:</span> <span class="kc">bold</span><span class="p">;</span>
+<span class="p">}</span>
 
-<span class="sd">    Returns:</span>
-<span class="sd">        Extension: The extension</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="n">AutodocExtension</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="nt">h4</span><span class="p">.</span><span class="nc">autodoc-title</span> <span class="p">{</span>
+    <span class="k">font-weight</span><span class="p">:</span> <span class="kc">bold</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="p">.</span><span class="nc">autodoc-qualifier</span> <span class="p">{</span>
+    <span class="k">font-weight</span><span class="p">:</span> <span class="kc">normal</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="p">.</span><span class="nc">autodoc-argument</span> <span class="p">{</span>
+    <span class="k">text-indent</span><span class="p">:</span> <span class="mi">4</span><span class="kt">em</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="p">.</span><span class="nc">autodoc-signature</span><span class="o">,</span> <span class="p">.</span><span class="nc">autodoc-property</span> <span class="p">{</span>
+    <span class="k">font-family</span><span class="p">:</span> <span class="s2">&quot;Roboto Mono&quot;</span><span class="p">,</span><span class="s2">&quot;Courier New&quot;</span><span class="p">,</span><span class="n">Courier</span><span class="p">,</span><span class="kc">monospace</span><span class="p">;</span>
+<span class="p">}</span>
 </pre></div>
-
-
-<p>Note the markdown on <code>function</code>, and the python code block.</p>
-<p>Docstrings are parsed with the <a href="https://github.com/rr-/docstring_parser">docstrings_parser</a>.
-This has been tested only with Google style docstrings.</p>
-<h2 id="escaping-markdown">Escaping markdown</h2>
-<p>To escape markdown, use the html entity surrounded by the <code>&lt;span&gt;</code> tag.</p>
-<div class="codehilite"><pre><span></span>The dunder init: <span class="nt">&lt;span&gt;</span><span class="ni">&amp;#95;&amp;#95;</span><span class="nt">&lt;/span&gt;</span>XXX<span class="nt">&lt;span&gt;</span><span class="ni">&amp;#95;&amp;#95;</span><span class="nt">&lt;/span&gt;</span>
-</pre></div>
-
-
-<p>The dunder init: <span>&#95;&#95;</span>XXX<span>&#95;&#95;</span></p>
                 
                   
                 
@@ -485,7 +434,7 @@ This has been tested only with Google style docstrings.</p>
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
         
-          <a href="../config/" title="Configuration" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../templates/" title="Templates" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-flex__cell md-flex__cell--shrink">
               <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
             </div>
@@ -494,19 +443,19 @@ This has been tested only with Google style docstrings.</p>
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                Configuration
+                Templates
               </span>
             </div>
           </a>
         
         
-          <a href="../templates/" title="Templates" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../../api/jetblack_markdown.autodoc/" title="jetblack_markdown.autodoc" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
               <span class="md-flex__ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                Templates
+                jetblack_markdown.autodoc
               </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink">

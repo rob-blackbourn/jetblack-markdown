@@ -17,6 +17,7 @@ nav:
     - user-guide/config.md
     - user-guide/docstrings.md
     - user-guide/templates.md
+    - user-guide/styling.md
   - API:
     - jetblack_markdown.autodoc: api/jetblack_markdown.autodoc.md
     - jetblack_markdown.metadata: api/jetblack_markdown.metadata.md
