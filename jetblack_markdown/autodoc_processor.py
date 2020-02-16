@@ -53,13 +53,15 @@ class AutodocInlineProcessor(InlineProcessor):
             md (Markdown, optional): The markdown object provided by the
                 extension. Defaults to None.
             class_from_init (bool, optional): If True use the docstring from
-                the &#95;&#95;init&#95;&#95; function for classes. Defaults to
-                True.
+                the <span>&#95;&#95;</span>init<span>&#95;&#95;</span> function
+                for classes. Defaults to True.
             ignore_dunder (bool, optional): If True ignore
-                &#95;&#95;XXX&#95;&#95; functions. Defaults to True.
-            ignore_private (bool, optional): If True ignore methods
-                (those prefixed &#95;XXX). Defaults to True.
-            ignore_all (bool): If True ignore the &#95;&#95;all&#95;&#95; member.
+                <span>&#95;&#95;</span>XXX<span>&#95;&#95;</span> functions.
+                Defaults to True.
+            ignore_private (bool, optional): If True ignore private methods
+                (those prefixed <span>&#95;</span>XXX). Defaults to True.
+            ignore_all (bool): If True ignore the
+                <span>&#95;&#95;</span>all<span>&#95;&#95;</span> member.
             ignore_inherited (bool): If True ignore inherited members.
             prefer_docstring (bool): If true prefer the docstring.
             follow_module_tree (bool): If true follow the module tree.

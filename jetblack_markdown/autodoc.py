@@ -79,7 +79,11 @@ def makeExtension(*args, **kwargs) -> Extension:
     print(output)
     ```
 
+    Args:
+        *args: Positional arguments from the markdown processor
+        **kwargs: Keyword arguments from the markdown processor
+
     Returns:
-        Extension: The extension
+        Extension: The markdown extension
     """
     return AutodocExtension(*args, **kwargs)

@@ -91,8 +91,10 @@ class ClassDescriptor(Descriptor):
         Args:
             obj (Any): The class
             class_from_init (bool): If True take the docstring from the init function
-            ignore_dunder (bool): If True ignore &#95;&#95;XXX&#95;&#95; functions
-            ignore_private (bool): If True ignore private methods (those prefixed &#95;XXX)
+            ignore_dunder (bool): If True ignore
+                <span>&#95;&#95;</span>XXX<span>&#95;&#95;</span> functions
+            ignore_private (bool): If True ignore private methods (those
+                prefixed <span>&#95;</span>XXX)
             ignore_inherited (bool): If True ignore inherited methods
             importing_module (Optional[str], optional): The importing module, defaults to None
             prefer_docstring (bool): If true prefer the docstring.

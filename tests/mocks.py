@@ -1,6 +1,6 @@
 """Mocks"""
 
-from typing import Any, List, NamedTuple, Optional
+from typing import Any, List, NamedTuple, Optional, Tuple
 
 DEFAULT_INT = 1
 
@@ -21,6 +21,25 @@ def mock_func(arg_one: str, arg_two: Optional[int] = DEFAULT_INT) -> List[Any]:
         List[Any]: The return description
     """
     return [arg_one, arg_two]
+
+
+def mock_func_with_kwargs(
+        arg_one: int,
+        *,
+        arg_two: str,
+        arg_three: Optional[float] = None
+) -> Tuple[int, str, Optional[float]]:
+    """A function with keyword arguments
+
+    Args:
+        arg_one (int): The first positional argument
+        arg_two (str): The first keyword argument
+        arg_three (Optional[float], optional): The second keyword argument. Defaults to None.
+
+    Returns:
+        Tuple[int, str, Optional[float]]: The args returned
+    """
+    return arg_one, arg_two, arg_three
 
 
 class MockClass:

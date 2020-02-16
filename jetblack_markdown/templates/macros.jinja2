@@ -65,28 +65,28 @@ Render the signature
 #}
 {% macro render_signature(callable) -%}
 <div class="autodoc-signature">
-    {%- if callable.is_async -%}
+{%- if callable.is_async -%}
     <span class="autodoc-keyword">async</span><span> </span>
-    {%- endif -%}
+{%- endif -%}
     <span class="autodoc-qualifier">{{ callable.qualifier }}</span><span class="autodoc-punctuation">.</span><var class="autodoc-varname">{{ callable.name }}</var><span class="autodoc-punctuation">(</span>
-    {%- if callable.arguments|length > 0 -%}
+{%- if callable.arguments|length > 0 -%}
       <br />
-      {%- for arg in callable.arguments -%}
+{%- for arg in callable.arguments -%}
         <div class="autodoc-argument" >
         <var class="autodoc-varname">{{ arg.name }}</var>
-        {%- if arg.type -%}
+{%- if arg.type -%}
           <span class="autodoc-punctuation">: </span><span class="autodoc-vartype">{{ arg.type }}</span>
-        {%- endif -%}
-        {%- if not loop.last -%}
+{%- endif -%}
+{%- if not loop.last -%}
           <span class="autodoc-punctuation">,</span>
-        {%- endif -%}
+{%- endif -%}
         </div>
-    {%- endfor -%}
-    {%- endif -%}
+{%- endfor -%}
+{%- endif -%}
     <span class="autodoc-punctuation">)</span>
-    {%- if callable.return_type -%}
+{%- if callable.return_type -%}
       <span class="autodoc-punctuation"> -&gt; </span><span class="autodoc-vartype">{{ callable.return_type }}</span>
-    {%- endif -%}
+{%- endif -%}
 </div>
 {%- endmacro %}
 
@@ -102,6 +102,7 @@ Render parameters
   <h4 class="autodoc-title">Parameters</h4>
 
 {% for argument in arguments %}
+{%- if argument.name not in ['*', '/'] -%}
     <var class="autodoc-varname">{{ argument.name }}</var>
 {%- if argument.type -%}
       <span class="autodoc-punctuation">: </span><span class="autodoc-vartype">{{ argument.type }}</span>
@@ -113,6 +114,7 @@ Render parameters
       {{ argument.description | md_format }}
 {%- else -%}
       <p />
+{%- endif -%}
 {%- endif %}
 {% endfor %}
 </div>

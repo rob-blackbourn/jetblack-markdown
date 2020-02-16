@@ -18,9 +18,8 @@ nav:
     - user-guide/docstrings.md
     - user-guide/templates.md
   - API:
-    - jetblack-autodoc: api/jetblack_autodoc.md
-    - jetblack_markdown.autodoc: api/jetblack_markdown.md
-    - jetblack_markdown.metadata: api/jetblack_metadata.md
+    - jetblack_markdown.autodoc: api/jetblack_markdown.autodoc.md
+    - jetblack_markdown.metadata: api/jetblack_markdown.metadata.md
   
 markdown_extensions:
   - admonition
@@ -30,7 +29,7 @@ markdown_extensions:
       ignore_dunder: true
       ignore_private: true
       ignore_all: false
-      ignore_inherited: false
+      ignore_inherited: true
       follow_module_tree: false
       prefer_docstring: true
 
