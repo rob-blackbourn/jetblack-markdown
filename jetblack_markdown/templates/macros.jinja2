@@ -250,12 +250,18 @@ Render properties
   <div class="autodoc-property">
     {{ render_qualified_title(property.qualifier, property.name, "property") }}
     {{ render_summary(property.summary) }}
-    <code><var class="autodoc-varname">{{ property.name }}</var><span class="autodoc-punctuation"> -> </span><span class="autodoc-vartype">{{ property.type }}</span></code>
+    <div class="autodoc-property">
+      <var class="autodoc-varname">{{ property.name }}</var><span class="autodoc-punctuation"> -> </span><span class="autodoc-vartype">{{ property.type }}</span>
+    </div>
 {%- if property.is_settable %}
-    <br /><code><var class="autodoc-varname">{{ property.name }}</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">{{ property.type }}</span><span class="autodoc-punctuation"> = ...</span></code>
+    <div class="autodoc-property">
+      <var class="autodoc-varname">{{ property.name }}</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">{{ property.type }}</span><span class="autodoc-punctuation"> = ...</span>
+    </div>
 {%- endif -%}
 {%- if property.is_deletable %}
-    <br /><code><span class="autodoc-keyword">del</span><span class="autodoc-punctuation"> </span><var class="autodoc-varname">{{ property.name }}</var></code>
+    <div class="autodoc-property">
+      <span class="autodoc-keyword">del</span><span class="autodoc-punctuation"> </span><var class="autodoc-varname">{{ property.name }}</var>
+    </div>
 {%- endif -%}
     {{ render_raises(property.raises) }}
     {{ render_description(property.description) }}
