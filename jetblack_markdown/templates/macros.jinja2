@@ -98,6 +98,7 @@ Render parameters
         arguments (List[ArgumentDescriptor]): The argument descriptors
 #}
 {% macro render_parameters(arguments) -%}
+{% if arguments %}
 <div class="autodoc-parameters">
   <h4 class="autodoc-title">Parameters</h4>
 
@@ -118,6 +119,7 @@ Render parameters
 {%- endif %}
 {% endfor %}
 </div>
+{% endif %}
 {%- endmacro %}
 
 
@@ -147,17 +149,6 @@ Render attributes
 {%- endfor -%}
 {%- endif %}
 </div>
-{%- endmacro %}
-
-
-{#
-Render a class constructor
-    Args:
-        constructor (CallableDescriptor): The constructor
-#}
-{% macro render_constructor(constructor) -%}
-{{ render_signature(constructor) }}
-{{ render_parameters(constructor.arguments) }}
 {%- endmacro %}
 
 
@@ -332,7 +323,9 @@ Render class
 <div class="autodoc-class">
   {{ render_class_title(class.name, class.bases, "class") }}
   {{ render_summary(class.summary) }}
+{% if class.constructor -%}
   {{ render_signature(class.constructor) }}
+{%- endif %}
   {{ render_parameters(class.constructor.arguments) }}
   {{ render_description(class.description) }}
   {{ render_attributes(class.attributes) }}

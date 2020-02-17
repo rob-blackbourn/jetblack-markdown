@@ -18,6 +18,26 @@ from .properties import PropertyDescriptor
 from .utils import make_file_relative, is_named_tuple_type
 
 
+def _get_docstring(
+        obj: Any,
+        members: Dict[str, Any],
+        class_from_init: bool,
+        is_named_tuple: bool
+) -> docstring.Docstring:
+    docstring = docstring_parser.parse(
+        inspect.getdoc(
+            members.get('__init__', obj)
+            if class_from_init and not is_named_tuple else obj
+        )
+    )
+
+    # There has to be a better way to detect an empty __init__.
+    if docstring.short_description == 'Initialize self.  See help(type(self)) for accurate signature.':
+        docstring = docstring_parser.parse(inspect.getdoc(obj))
+
+    return docstring
+
+
 class ClassDescriptor(Descriptor):
     """A class descriptor"""
 
@@ -26,7 +46,7 @@ class ClassDescriptor(Descriptor):
             name: str,
             summary: Optional[str],
             description: Optional[str],
-            constructor: CallableDescriptor,
+            constructor: Optional[CallableDescriptor],
             attributes: List[ArgumentDescriptor],
             properties: List[PropertyDescriptor],
             class_methods: List[CallableDescriptor],
@@ -43,7 +63,7 @@ class ClassDescriptor(Descriptor):
             name (str): The class name
             summary (Optional[str]): The docstring summary
             description (Optional[str]): The docstring description
-            constructor (CallableDescriptor): The constructor
+            constructor (Optional[CallableDescriptor]): The constructor
             attributes (List[ArgumentDescriptor]): The class attributes
             properties (List[PropertyDescriptor]): The class properties
             class_methods (List[CallableDescriptor]): The class methods
@@ -113,24 +133,13 @@ class ClassDescriptor(Descriptor):
             for name, value in inspect.getmembers(obj)
             if not ignore_inherited or name in valid_names
         }
-        signature = inspect.signature(obj)
-        docstring = docstring_parser.parse(
-            inspect.getdoc(
-                members.get('__init__', obj)
-                if class_from_init and not is_named_tuple else obj
-            )
-        )
+
+        docstring = _get_docstring(obj, members, class_from_init, is_named_tuple)
         name = obj.__qualname__ if hasattr(
             obj, '__qualname__') else obj.__name__
         summary = docstring.short_description if docstring else None
         description = docstring.long_description if docstring else None
-        constructor = CallableDescriptor.create(
-            obj,
-            signature,
-            docstring,
-            CallableType.CONSTRUCTOR,
-            prefer_docstring=prefer_docstring
-        )
+
         attributes: List[ArgumentDescriptor] = []
         if docstring:
             attrs = [
@@ -212,6 +221,18 @@ class ClassDescriptor(Descriptor):
             for base in getattr(obj, '__bases__', [])
             if base is not object
         ]
+
+        try:
+            signature = inspect.signature(obj)
+            constructor = CallableDescriptor.create(
+                obj,
+                signature,
+                docstring,
+                CallableType.CONSTRUCTOR,
+                prefer_docstring=prefer_docstring
+            )
+        except ValueError:
+            constructor = None
 
         return ClassDescriptor(
             name,
