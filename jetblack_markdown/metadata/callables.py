@@ -33,7 +33,6 @@ class CallableType(Enum):
 
 
 CLASS_FUNCTIONS = {
-    CallableType.CONSTRUCTOR,
     CallableType.CLASS_METHOD,
     CallableType.METHOD
 }
