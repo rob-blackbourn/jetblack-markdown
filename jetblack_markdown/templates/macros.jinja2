@@ -241,6 +241,7 @@ Render properties
   <div class="autodoc-property">
     {{ render_qualified_title(property.qualifier, property.name, "property") }}
     {{ render_summary(property.summary) }}
+    {{ render_description(property.description) }}
     <div class="autodoc-property">
       <var class="autodoc-varname">{{ property.name }}</var><span class="autodoc-punctuation"> -> </span><span class="autodoc-vartype">{{ property.type }}</span>
     </div>
@@ -255,7 +256,6 @@ Render properties
     </div>
 {%- endif -%}
     {{ render_raises(property.raises) }}
-    {{ render_description(property.description) }}
     {{ render_examples(property.examples) }}
   </div>
 {%- endfor %}
@@ -273,11 +273,11 @@ Render callable
 <div class="autodoc-callable">
   {{ render_qualified_title(callable.qualifier, callable.name, callable.callable_type_description) }}
   {{ render_summary(callable.summary) }}
+  {{ render_description(callable.description) }}
   {{ render_signature(callable) }}
   {{ render_parameters(callable.arguments) }}
   {{ render_returns(callable) }}
   {{ render_raises(callable.raises) }}
-  {{ render_description(callable.description) }}
   {{ render_examples(callable.examples )}}
 </div>
 {%- endmacro %}
@@ -323,11 +323,11 @@ Render class
 <div class="autodoc-class">
   {{ render_class_title(class.name, class.bases, "class") }}
   {{ render_summary(class.summary) }}
+  {{ render_description(class.description) }}
 {% if class.constructor -%}
   {{ render_signature(class.constructor) }}
 {%- endif %}
   {{ render_parameters(class.constructor.arguments) }}
-  {{ render_description(class.description) }}
   {{ render_attributes(class.attributes) }}
   {{ render_properties(class.properties) }}
   {{ render_class_methods(class.class_methods) }}
@@ -349,8 +349,8 @@ Render a module
       <span class="autodoc-title-type">module </span><span class="autodoc-title-name">{{ module.name }}</span>
   </h3>
   {{ render_summary(module.summary) }}
-  {{ render_attributes(module.attributes) }}
   {{ render_description(module.description) }}
+  {{ render_attributes(module.attributes) }}
   {{ render_examples(module.examples) }}
 {%- for function in module.functions %}
   {{ render_callable(function)}}
