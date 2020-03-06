@@ -42,7 +42,7 @@ class ArgumentDescriptor(Descriptor):
         Returns:
             bool: True if the argument is optional
         """
-        return self.default is ArgumentDescriptor.EMPTY
+        return self.default is not ArgumentDescriptor.EMPTY
 
     @property
     def descriptor_type(self) -> str:
