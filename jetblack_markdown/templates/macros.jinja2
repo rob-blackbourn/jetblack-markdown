@@ -129,7 +129,7 @@ Render attributes
     Args:
         attributes (List[ArgumentDescription]): The attributes
 #}
-{% macro render_attributes(atttributes) -%}
+{% macro render_attributes(attributes) -%}
 <div class="autodoc-attributes">
 {% if attributes -%}
   <h3 class="autodoc-title">Attributes</h3>
@@ -350,8 +350,8 @@ Render a module
   </h3>
   {{ render_summary(module.summary) }}
   {{ render_description(module.description) }}
-  {{ render_attributes(module.attributes) }}
   {{ render_examples(module.examples) }}
+  {{ render_attributes(module.attributes) }}
 {%- for function in module.functions %}
   {{ render_callable(function)}}
   <hr />
