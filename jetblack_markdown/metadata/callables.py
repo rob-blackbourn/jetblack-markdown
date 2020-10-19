@@ -234,9 +234,9 @@ class CallableDescriptor(Descriptor):
             )
 
         return_description: Optional[str] = None
-        if callable_type == CallableType.CONSTRUCTOR:
+        if callable_type == CallableType.CONSTRUCTOR or signature.return_annotation is None:
             return_type = 'None'
-        elif not signature.return_annotation:
+        elif not signature.return_annotation or signature.return_annotation == Parameter.empty:
             return_type = 'Any'
         else:
             return_type = get_type_name(
