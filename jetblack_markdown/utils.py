@@ -3,15 +3,11 @@
 import importlib
 from inspect import Parameter
 import re
-from typing import (
-    Any,
-    Iterable,
-    Optional,
-    Tuple,
-    Union
-)
+from typing import Any, Optional, Union
+import xml.etree.ElementTree as etree
+
 from docstring_parser import Docstring, DocstringParam, DocstringReturns
-from markdown.util import etree
+
 
 def import_from_string(import_str: str) -> Any:
     """Import some python object from a given string
@@ -34,7 +30,7 @@ def import_from_string(import_str: str) -> Any:
         module_name = module_str.split(".", 1)[0]
         if exc.name != module_name:
             raise exc from None
-        raise ValueError(f"Could not import module {module_str!r}.")
+        raise ValueError(f"Could not import module {module_str!r}.") from exc
 
     if not attr_str:
         return module
@@ -43,7 +39,8 @@ def import_from_string(import_str: str) -> Any:
         return getattr(module, attr_str)
     except AttributeError as exc:
         raise ValueError(
-            f"Attribute {attr_str!r} not found in module {module_str!r}.")
+            f"Attribute {attr_str!r} not found in module {module_str!r}."
+        ) from exc
 
 
 def add_tag(tag: str, class_name: Optional[str], parent: etree.Element) -> etree.Element:
@@ -63,7 +60,7 @@ def add_span_tag(text: str, klass: Optional[str], parent: etree.Element) -> etre
     return add_text_tag('span', text, klass, parent)
 
 
-def find_docstring_param(name: str, docstring: Docstring) -> DocstringParam:
+def find_docstring_param(name: str, docstring: Docstring) -> Optional[DocstringParam]:
     return next(
         (
             param
@@ -79,12 +76,12 @@ def get_type_name(
         docstring_param: Optional[Union[DocstringParam, DocstringReturns]]
 ) -> str:
     """Get the type name
-    
+
     Args:
         annotation (Any): The type annotation
         docstring_param (Optional[Union[DocstringParam, DocstringReturns]]):
             The docstring param
-    
+
     Returns:
         str: The type description
     """

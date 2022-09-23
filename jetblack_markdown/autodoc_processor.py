@@ -5,8 +5,10 @@ import re
 from typing import (
     Any,
     Optional,
-    Tuple
+    Tuple,
+    Union
 )
+import xml.etree.ElementTree as etree
 
 from jinja2 import (
     Environment,
@@ -17,7 +19,7 @@ from jinja2 import (
 )
 from markdown import Markdown
 from markdown.inlinepatterns import InlineProcessor
-from markdown.util import etree
+
 
 from .metadata import (
     Descriptor,
@@ -29,7 +31,7 @@ from .utils import import_from_string
 
 
 class AutodocInlineProcessor(InlineProcessor):
-    """An inline processort for Python documentation"""
+    """An inline processor for Python documentation"""
 
     def __init__(
             self,
@@ -94,15 +96,15 @@ class AutodocInlineProcessor(InlineProcessor):
             self,
             matches: re.Match,
             data: str
-    ) -> Tuple[etree.Element, int, int]:
+    ) -> Union[Tuple[etree.Element, int, int], Tuple[None, None, None]]:
         """Handle a match
 
         Args:
-            matches (re.Match): The regular expression match result
+            m (re.Match): The regular expression match result
             data (str): The matched text
 
         Returns:
-            Tuple[etree.Element, int, int]: The element to insert and the start
+            Union[Tuple[etree.Element, int, int], Tuple[None, None, None]]: The element to insert and the start
                 and end index
         """
         import_str = matches.group(1)
