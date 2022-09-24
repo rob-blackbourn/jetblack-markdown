@@ -1,40 +1,17 @@
 
-
-
-
 <!doctype html>
 <html lang="en" class="no-js">
   <head>
     
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
-      <meta http-equiv="x-ua-compatible" content="ie=edge">
       
         <meta name="description" content="A markdown extension for mkdocs.">
       
       
       
-      
-        <meta name="lang:clipboard.copy" content="Copy to clipboard">
-      
-        <meta name="lang:clipboard.copied" content="Copied to clipboard">
-      
-        <meta name="lang:search.language" content="en">
-      
-        <meta name="lang:search.pipeline.stopwords" content="True">
-      
-        <meta name="lang:search.pipeline.trimmer" content="True">
-      
-        <meta name="lang:search.result.none" content="No matching documents">
-      
-        <meta name="lang:search.result.one" content="1 matching document">
-      
-        <meta name="lang:search.result.other" content="# matching documents">
-      
-        <meta name="lang:search.tokenizer" content="[\s\-]+">
-      
-      <link rel="shortcut icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.6.0">
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-8.5.3">
     
     
       
@@ -42,96 +19,120 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/application.1b62728e.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.7a952b86.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.cbb835fc.min.css">
+        
       
       
+
     
-    
-      <script src="../../assets/javascripts/modernizr.268332fc.js"></script>
     
     
       
-        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
-        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
       
-    
-    <link rel="stylesheet" href="../../assets/fonts/material-icons.css">
     
     
       <link rel="stylesheet" href="../../css/custom.css">
     
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
+
+    
     
     
   </head>
   
-    <body dir="ltr">
   
-    <svg class="md-svg">
-      <defs>
-        
-        
-          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448" viewBox="0 0 416 448" id="__github"><path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19T128 352t-18.125-8.5-10.75-19T96 304t3.125-20.5 10.75-19T128 256t18.125 8.5 10.75 19T160 304zm160 0q0 10-3.125 20.5t-10.75 19T288 352t-18.125-8.5-10.75-19T256 304t3.125-20.5 10.75-19T288 256t18.125 8.5 10.75 19T320 304zm40 0q0-30-17.25-51T296 232q-10.25 0-48.75 5.25Q229.5 240 208 240t-39.25-2.75Q130.75 232 120 232q-29.5 0-46.75 21T56 304q0 22 8 38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0 37.25-1.75t35-7.375 30.5-15 20.25-25.75T360 304zm56-44q0 51.75-15.25 82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5T212 416q-19.5 0-35.5-.75t-36.875-3.125-38.125-7.5-34.25-12.875T37 371.5t-21.5-28.75Q0 312 0 260q0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25 30.875Q171.5 96 212 96q37 0 70 8 26.25-20.5 46.75-30.25T376 64q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34 99.5z"/></svg>
-        
-      </defs>
-    </svg>
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="none" data-md-color-accent="none">
+  
+    
+    
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
-    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
-    
-      <a href="#module-jetblack_markdownmetadata" tabindex="1" class="md-skip">
-        Skip to content
-      </a>
-    
-    
-      <header class="md-header" data-md-component="header">
-  <nav class="md-header-nav md-grid">
-    <div class="md-flex">
-      <div class="md-flex__cell md-flex__cell--shrink">
-        <a href="../.." title="jetblack-markdown" class="md-header-nav__button md-logo">
-          
-            <i class="md-icon"></i>
-          
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#module-jetblack_markdownmetadata" class="md-skip">
+          Skip to content
         </a>
-      </div>
-      <div class="md-flex__cell md-flex__cell--shrink">
-        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
-      </div>
-      <div class="md-flex__cell md-flex__cell--stretch">
-        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
-          
-            <span class="md-header-nav__topic">
-              jetblack-markdown
-            </span>
-            <span class="md-header-nav__topic">
-              
-                jetblack_markdown.metadata
-              
-            </span>
-          
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="jetblack-markdown" class="md-header__button md-logo" aria-label="jetblack-markdown" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            jetblack-markdown
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              jetblack_markdown.metadata
+            
+          </span>
         </div>
       </div>
-      <div class="md-flex__cell md-flex__cell--shrink">
-        
-          <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
-          
-<div class="md-search" data-md-component="search" role="dialog">
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" name="search">
-      <input type="text" class="md-search__input" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
-      <label class="md-icon md-search__icon" for="__search"></label>
-      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
-        &#xE5CD;
-      </button>
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
     </form>
     <div class="md-search__output">
       <div class="md-search__scrollwrap" data-md-scrollfix>
-        <div class="md-search-result" data-md-component="result">
+        <div class="md-search-result" data-md-component="search-result">
           <div class="md-search-result__meta">
-            Type to start searching
+            Initializing search
           </div>
           <ol class="md-search-result__list"></ol>
         </div>
@@ -139,71 +140,59 @@
     </div>
   </div>
 </div>
-        
-      </div>
-      
-        <div class="md-flex__cell md-flex__cell--shrink">
-          <div class="md-header-nav__source">
-            
-
-
-  
-
-<a href="https://github.com/rob-blackbourn/jetblack-markdown" title="Go to repository" class="md-source" data-md-source="github">
-  
-    <div class="md-source__icon">
-      <svg viewBox="0 0 24 24" width="24" height="24">
-        <use xlink:href="#__github" width="24" height="24"></use>
-      </svg>
-    </div>
-  
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/rob-blackbourn/jetblack-markdown" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
   <div class="md-source__repository">
     rob-blackbourn/jetblack-markdown
   </div>
 </a>
-          </div>
-        </div>
-      
-    </div>
+      </div>
+    
   </nav>
+  
 </header>
     
-    <div class="md-container">
+    <div class="md-container" data-md-component="container">
+      
       
         
+          
+        
       
-      
-      <main class="md-main" role="main">
-        <div class="md-main__inner md-grid" data-md-component="container">
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
           
             
-              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
                 <div class="md-sidebar__scrollwrap">
                   <div class="md-sidebar__inner">
-                    <nav class="md-nav md-nav--primary" data-md-level="0">
-  <label class="md-nav__title md-nav__title--site" for="__drawer">
-    <a href="../.." title="jetblack-markdown" class="md-nav__button md-logo">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="jetblack-markdown" class="md-nav__button md-logo" aria-label="jetblack-markdown" data-md-component="logo">
       
-        <i class="md-icon"></i>
-      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
     </a>
     jetblack-markdown
   </label>
   
     <div class="md-nav__source">
-      
-
-
-  
-
-<a href="https://github.com/rob-blackbourn/jetblack-markdown" title="Go to repository" class="md-source" data-md-source="github">
-  
-    <div class="md-source__icon">
-      <svg viewBox="0 0 24 24" width="24" height="24">
-        <use xlink:href="#__github" width="24" height="24"></use>
-      </svg>
-    </div>
-  
+      <a href="https://github.com/rob-blackbourn/jetblack-markdown" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
   <div class="md-source__repository">
     rob-blackbourn/jetblack-markdown
   </div>
@@ -216,84 +205,15 @@
       
       
 
-
-  <li class="md-nav__item">
-    <a href="../.." title="Welcome" class="md-nav__link">
-      Welcome
-    </a>
-  </li>
-
-    
-      
-      
-      
-
-
-  <li class="md-nav__item md-nav__item--nested">
-    
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2">
-    
-    <label class="md-nav__link" for="nav-2">
-      User Guide
-    </label>
-    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
-      <label class="md-nav__title" for="nav-2">
-        User Guide
-      </label>
-      <ul class="md-nav__list" data-md-scrollfix>
-        
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../../user-guide/config/" title="Configuration" class="md-nav__link">
-      Configuration
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../../user-guide/docstrings/" title="Docstrings" class="md-nav__link">
-      Docstrings
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../../user-guide/templates/" title="Templates" class="md-nav__link">
-      Templates
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../../user-guide/styling/" title="Styling" class="md-nav__link">
-      Styling
-    </a>
-  </li>
-
-        
-      </ul>
-    </nav>
-  </li>
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        Welcome
+      </a>
+    </li>
+  
 
     
       
@@ -301,68 +221,176 @@
       
 
   
-
-
-  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+  
+  
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" checked>
-    
-    <label class="md-nav__link" for="nav-3">
-      API
-    </label>
-    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
-      <label class="md-nav__title" for="nav-3">
-        API
-      </label>
-      <ul class="md-nav__list" data-md-scrollfix>
-        
-        
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          User Guide
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="User Guide" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          User Guide
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
           
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../jetblack_markdown.autodoc/" title="jetblack_markdown.autodoc" class="md-nav__link">
-      jetblack_markdown.autodoc
-    </a>
-  </li>
-
-        
-          
-          
-          
-
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user-guide/config/" class="md-nav__link">
+        Configuration
+      </a>
+    </li>
   
 
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user-guide/docstrings/" class="md-nav__link">
+        Docstrings
+      </a>
+    </li>
+  
 
-  <li class="md-nav__item md-nav__item--active">
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user-guide/templates/" class="md-nav__link">
+        Templates
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user-guide/styling/" class="md-nav__link">
+        Styling
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
     
-    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+      
+
+  
+  
     
+  
+  
     
-      <label class="md-nav__link md-nav__link--active" for="__toc">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          API
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="API" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          API
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../jetblack_markdown.autodoc/" class="md-nav__link">
+        jetblack_markdown.autodoc
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          jetblack_markdown.metadata
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         jetblack_markdown.metadata
-      </label>
-    
-    <a href="./" title="jetblack_markdown.metadata" class="md-nav__link md-nav__link--active">
-      jetblack_markdown.metadata
-    </a>
-    
+      </a>
       
-<nav class="md-nav md-nav--secondary">
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
   
   
   
-    <label class="md-nav__title" for="__toc">Table of contents</label>
-    <ul class="md-nav__list" data-md-scrollfix>
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
   <a href="#module-jetblack_markdownmetadata" class="md-nav__link">
     module jetblack_markdown.metadata
   </a>
   
-    <nav class="md-nav">
+    <nav class="md-nav" aria-label="module jetblack_markdown.metadata">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -382,7 +410,7 @@
     class ArgumentDescriptor(Descriptor)
   </a>
   
-    <nav class="md-nav">
+    <nav class="md-nav" aria-label="class ArgumentDescriptor(Descriptor)">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -409,7 +437,7 @@
     property ArgumentDescriptor.descriptor_type
   </a>
   
-    <nav class="md-nav">
+    <nav class="md-nav" aria-label="property ArgumentDescriptor.descriptor_type">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -429,7 +457,7 @@
     property ArgumentDescriptor.is_optional
   </a>
   
-    <nav class="md-nav">
+    <nav class="md-nav" aria-label="property ArgumentDescriptor.is_optional">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -456,7 +484,7 @@
     class CallableDescriptor(Descriptor)
   </a>
   
-    <nav class="md-nav">
+    <nav class="md-nav" aria-label="class CallableDescriptor(Descriptor)">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -483,7 +511,7 @@
     property CallableDescriptor.callable_type_description
   </a>
   
-    <nav class="md-nav">
+    <nav class="md-nav" aria-label="property CallableDescriptor.callable_type_description">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -510,7 +538,7 @@
     property CallableDescriptor.descriptor_type
   </a>
   
-    <nav class="md-nav">
+    <nav class="md-nav" aria-label="property CallableDescriptor.descriptor_type">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -530,7 +558,7 @@
     class method CallableDescriptor.create
   </a>
   
-    <nav class="md-nav">
+    <nav class="md-nav" aria-label="class method CallableDescriptor.create">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -564,7 +592,7 @@
     class CallableType(Enum)
   </a>
   
-    <nav class="md-nav">
+    <nav class="md-nav" aria-label="class CallableType(Enum)">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -591,7 +619,7 @@
     class ClassDescriptor(Descriptor)
   </a>
   
-    <nav class="md-nav">
+    <nav class="md-nav" aria-label="class ClassDescriptor(Descriptor)">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -618,7 +646,7 @@
     property ClassDescriptor.descriptor_type
   </a>
   
-    <nav class="md-nav">
+    <nav class="md-nav" aria-label="property ClassDescriptor.descriptor_type">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -638,7 +666,7 @@
     class method ClassDescriptor.create
   </a>
   
-    <nav class="md-nav">
+    <nav class="md-nav" aria-label="class method ClassDescriptor.create">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -672,19 +700,12 @@
     class Descriptor
   </a>
   
-    <nav class="md-nav">
+    <nav class="md-nav" aria-label="class Descriptor">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
   <a href="#summary_12" class="md-nav__link">
     Summary
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#parameters_6" class="md-nav__link">
-    Parameters
   </a>
   
 </li>
@@ -699,7 +720,7 @@
     property Descriptor.descriptor_type
   </a>
   
-    <nav class="md-nav">
+    <nav class="md-nav" aria-label="property Descriptor.descriptor_type">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -719,7 +740,7 @@
     class ModuleDescriptor(Descriptor)
   </a>
   
-    <nav class="md-nav">
+    <nav class="md-nav" aria-label="class ModuleDescriptor(Descriptor)">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -730,7 +751,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#parameters_7" class="md-nav__link">
+  <a href="#parameters_6" class="md-nav__link">
     Parameters
   </a>
   
@@ -746,7 +767,7 @@
     property ModuleDescriptor.descriptor_type
   </a>
   
-    <nav class="md-nav">
+    <nav class="md-nav" aria-label="property ModuleDescriptor.descriptor_type">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -766,7 +787,7 @@
     class method ModuleDescriptor.create
   </a>
   
-    <nav class="md-nav">
+    <nav class="md-nav" aria-label="class method ModuleDescriptor.create">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -777,7 +798,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#parameters_8" class="md-nav__link">
+  <a href="#parameters_7" class="md-nav__link">
     Parameters
   </a>
   
@@ -800,7 +821,7 @@
     class PropertyDescriptor(Descriptor)
   </a>
   
-    <nav class="md-nav">
+    <nav class="md-nav" aria-label="class PropertyDescriptor(Descriptor)">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -811,7 +832,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#parameters_9" class="md-nav__link">
+  <a href="#parameters_8" class="md-nav__link">
     Parameters
   </a>
   
@@ -827,7 +848,7 @@
     property PropertyDescriptor.descriptor_type
   </a>
   
-    <nav class="md-nav">
+    <nav class="md-nav" aria-label="property PropertyDescriptor.descriptor_type">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -847,7 +868,7 @@
     class method PropertyDescriptor.create
   </a>
   
-    <nav class="md-nav">
+    <nav class="md-nav" aria-label="class method PropertyDescriptor.create">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -858,7 +879,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#parameters_10" class="md-nav__link">
+  <a href="#parameters_9" class="md-nav__link">
     Parameters
   </a>
   
@@ -881,7 +902,7 @@
     class RaisesDescriptor(Descriptor)
   </a>
   
-    <nav class="md-nav">
+    <nav class="md-nav" aria-label="class RaisesDescriptor(Descriptor)">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -892,7 +913,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#parameters_11" class="md-nav__link">
+  <a href="#parameters_10" class="md-nav__link">
     Parameters
   </a>
   
@@ -908,7 +929,7 @@
     property RaisesDescriptor.descriptor_type
   </a>
   
-    <nav class="md-nav">
+    <nav class="md-nav" aria-label="property RaisesDescriptor.descriptor_type">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -923,20 +944,19 @@
   
 </li>
       
-      
-      
-      
-      
     </ul>
   
 </nav>
-    
-  </li>
+      
+    </li>
+  
 
-        
-      </ul>
-    </nav>
-  </li>
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
 
     
   </ul>
@@ -946,23 +966,29 @@
               </div>
             
             
-              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
                 <div class="md-sidebar__scrollwrap">
                   <div class="md-sidebar__inner">
                     
-<nav class="md-nav md-nav--secondary">
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
   
   
   
-    <label class="md-nav__title" for="__toc">Table of contents</label>
-    <ul class="md-nav__list" data-md-scrollfix>
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
   <a href="#module-jetblack_markdownmetadata" class="md-nav__link">
     module jetblack_markdown.metadata
   </a>
   
-    <nav class="md-nav">
+    <nav class="md-nav" aria-label="module jetblack_markdown.metadata">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -982,7 +1008,7 @@
     class ArgumentDescriptor(Descriptor)
   </a>
   
-    <nav class="md-nav">
+    <nav class="md-nav" aria-label="class ArgumentDescriptor(Descriptor)">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -1009,7 +1035,7 @@
     property ArgumentDescriptor.descriptor_type
   </a>
   
-    <nav class="md-nav">
+    <nav class="md-nav" aria-label="property ArgumentDescriptor.descriptor_type">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -1029,7 +1055,7 @@
     property ArgumentDescriptor.is_optional
   </a>
   
-    <nav class="md-nav">
+    <nav class="md-nav" aria-label="property ArgumentDescriptor.is_optional">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -1056,7 +1082,7 @@
     class CallableDescriptor(Descriptor)
   </a>
   
-    <nav class="md-nav">
+    <nav class="md-nav" aria-label="class CallableDescriptor(Descriptor)">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -1083,7 +1109,7 @@
     property CallableDescriptor.callable_type_description
   </a>
   
-    <nav class="md-nav">
+    <nav class="md-nav" aria-label="property CallableDescriptor.callable_type_description">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -1110,7 +1136,7 @@
     property CallableDescriptor.descriptor_type
   </a>
   
-    <nav class="md-nav">
+    <nav class="md-nav" aria-label="property CallableDescriptor.descriptor_type">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -1130,7 +1156,7 @@
     class method CallableDescriptor.create
   </a>
   
-    <nav class="md-nav">
+    <nav class="md-nav" aria-label="class method CallableDescriptor.create">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -1164,7 +1190,7 @@
     class CallableType(Enum)
   </a>
   
-    <nav class="md-nav">
+    <nav class="md-nav" aria-label="class CallableType(Enum)">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -1191,7 +1217,7 @@
     class ClassDescriptor(Descriptor)
   </a>
   
-    <nav class="md-nav">
+    <nav class="md-nav" aria-label="class ClassDescriptor(Descriptor)">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -1218,7 +1244,7 @@
     property ClassDescriptor.descriptor_type
   </a>
   
-    <nav class="md-nav">
+    <nav class="md-nav" aria-label="property ClassDescriptor.descriptor_type">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -1238,7 +1264,7 @@
     class method ClassDescriptor.create
   </a>
   
-    <nav class="md-nav">
+    <nav class="md-nav" aria-label="class method ClassDescriptor.create">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -1272,19 +1298,12 @@
     class Descriptor
   </a>
   
-    <nav class="md-nav">
+    <nav class="md-nav" aria-label="class Descriptor">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
   <a href="#summary_12" class="md-nav__link">
     Summary
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#parameters_6" class="md-nav__link">
-    Parameters
   </a>
   
 </li>
@@ -1299,7 +1318,7 @@
     property Descriptor.descriptor_type
   </a>
   
-    <nav class="md-nav">
+    <nav class="md-nav" aria-label="property Descriptor.descriptor_type">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -1319,7 +1338,7 @@
     class ModuleDescriptor(Descriptor)
   </a>
   
-    <nav class="md-nav">
+    <nav class="md-nav" aria-label="class ModuleDescriptor(Descriptor)">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -1330,7 +1349,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#parameters_7" class="md-nav__link">
+  <a href="#parameters_6" class="md-nav__link">
     Parameters
   </a>
   
@@ -1346,7 +1365,7 @@
     property ModuleDescriptor.descriptor_type
   </a>
   
-    <nav class="md-nav">
+    <nav class="md-nav" aria-label="property ModuleDescriptor.descriptor_type">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -1366,7 +1385,7 @@
     class method ModuleDescriptor.create
   </a>
   
-    <nav class="md-nav">
+    <nav class="md-nav" aria-label="class method ModuleDescriptor.create">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -1377,7 +1396,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#parameters_8" class="md-nav__link">
+  <a href="#parameters_7" class="md-nav__link">
     Parameters
   </a>
   
@@ -1400,7 +1419,7 @@
     class PropertyDescriptor(Descriptor)
   </a>
   
-    <nav class="md-nav">
+    <nav class="md-nav" aria-label="class PropertyDescriptor(Descriptor)">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -1411,7 +1430,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#parameters_9" class="md-nav__link">
+  <a href="#parameters_8" class="md-nav__link">
     Parameters
   </a>
   
@@ -1427,7 +1446,7 @@
     property PropertyDescriptor.descriptor_type
   </a>
   
-    <nav class="md-nav">
+    <nav class="md-nav" aria-label="property PropertyDescriptor.descriptor_type">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -1447,7 +1466,7 @@
     class method PropertyDescriptor.create
   </a>
   
-    <nav class="md-nav">
+    <nav class="md-nav" aria-label="class method PropertyDescriptor.create">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -1458,7 +1477,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#parameters_10" class="md-nav__link">
+  <a href="#parameters_9" class="md-nav__link">
     Parameters
   </a>
   
@@ -1481,7 +1500,7 @@
     class RaisesDescriptor(Descriptor)
   </a>
   
-    <nav class="md-nav">
+    <nav class="md-nav" aria-label="class RaisesDescriptor(Descriptor)">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -1492,7 +1511,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#parameters_11" class="md-nav__link">
+  <a href="#parameters_10" class="md-nav__link">
     Parameters
   </a>
   
@@ -1508,7 +1527,7 @@
     property RaisesDescriptor.descriptor_type
   </a>
   
-    <nav class="md-nav">
+    <nav class="md-nav" aria-label="property RaisesDescriptor.descriptor_type">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -1523,10 +1542,6 @@
   
 </li>
       
-      
-      
-      
-      
     </ul>
   
 </nav>
@@ -1535,27 +1550,29 @@
               </div>
             
           
-          <div class="md-content">
-            <article class="md-content__inner md-typeset">
-              
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
                 
-                
-                  <h1>jetblack_markdown.metadata</h1>
-                
-                <p>
+                  
+
+
+  <h1>jetblack_markdown.metadata</h1>
+
+<p>
 <div class="autodoc-module">
 <h3 class="autodoc-title" id="module-jetblack_markdownmetadata">
       <span class="autodoc-title-type">module </span><span class="autodoc-title-name">jetblack_markdown.metadata</span>
   </h3>
 <h4 class="autodoc-title" id="summary">Summary</h4>
 <p>Meta data</p>
-<div class="autodoc-attributes">
-
-</div>
 <div class="autodoc-description">
 
 </div>
 <div class="autodoc-examples">
+
+</div>
+<div class="autodoc-attributes">
 
 </div>
 <div class="autodoc-class">
@@ -1564,7 +1581,12 @@
 </h3>
 <h4 class="autodoc-title" id="summary_1">Summary</h4>
 <p>A descriptor for arguments</p>
+<div class="autodoc-description">
+
+</div>
 <div class="autodoc-signature"><span class="autodoc-qualifier">jetblack_markdown.metadata</span><span class="autodoc-punctuation">.</span><var class="autodoc-varname">ArgumentDescriptor</var><span class="autodoc-punctuation">(</span><br />
+<div class="autodoc-argument">
+        <var class="autodoc-varname">name</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">str</span><span class="autodoc-punctuation">,</span></div>
 <div class="autodoc-argument">
         <var class="autodoc-varname">type_</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[str]</span><span class="autodoc-punctuation">,</span></div>
 <div class="autodoc-argument">
@@ -1572,14 +1594,13 @@
 <div class="autodoc-argument">
         <var class="autodoc-varname">default</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[str]</span></div>
 <span class="autodoc-punctuation">)</span><span class="autodoc-punctuation"> -&gt; </span><span class="autodoc-vartype">None</span></div>
+<br />
 <div class="autodoc-parameters">
 <h4 class="autodoc-title" id="parameters">Parameters</h4>
-<var class="autodoc-varname">type_</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[str]</span><span class="autodoc-punctuation"> (optional)</span><p>The argument type</p>
-<var class="autodoc-varname">description</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[str]</span><span class="autodoc-punctuation"> (optional)</span><p>The arguments description</p>
-<var class="autodoc-varname">default</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[str]</span><p>The default value. Defaults to ARG_DESCRIPTOR_EMPTY.</p>
-</div>
-<div class="autodoc-description">
-
+<var class="autodoc-varname">name</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">str</span><p>The argument name</p>
+<var class="autodoc-varname">type_</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[str]</span><p>The argument type</p>
+<var class="autodoc-varname">description</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[str]</span><p>The arguments description</p>
+<var class="autodoc-varname">default</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[str]</span><span class="autodoc-punctuation"> (optional)</span><p>The default value. Defaults to ARG_DESCRIPTOR_EMPTY.</p>
 </div>
 <div class="autodoc-attributes">
 
@@ -1591,13 +1612,13 @@
 </h3>
 <h4 class="autodoc-title" id="summary_2">Summary</h4>
 <p>The descriptor type</p>
+<div class="autodoc-description">
+
+</div>
 <div class="autodoc-property">
       <var class="autodoc-varname">descriptor_type</var><span class="autodoc-punctuation"> -&gt; </span><span class="autodoc-vartype">str</span>
     </div>
 <div class="autodoc-raises">
-
-</div>
-<div class="autodoc-description">
 
 </div>
 <div class="autodoc-examples">
@@ -1610,16 +1631,16 @@
 </h3>
 <h4 class="autodoc-title" id="summary_3">Summary</h4>
 <p>Indicates whether the argument is optional</p>
+<div class="autodoc-description">
+<h4 class="autodoc-title" id="description">Description</h4>
+<p>Note that an argument is optional if it has a default value, not if it
+has the Optional[...] type decoration.</p>
+</div>
 <div class="autodoc-property">
       <var class="autodoc-varname">is_optional</var><span class="autodoc-punctuation"> -&gt; </span><span class="autodoc-vartype">bool</span>
     </div>
 <div class="autodoc-raises">
 
-</div>
-<div class="autodoc-description">
-<h4 class="autodoc-title" id="description">Description</h4>
-<p>Note that an argument is optional if it has a default value, not if it
-has the Optional[...] type decoration.</p>
 </div>
 <div class="autodoc-examples">
 
@@ -1639,7 +1660,12 @@ has the Optional[...] type decoration.</p>
 </h3>
 <h4 class="autodoc-title" id="summary_4">Summary</h4>
 <p>A descriptor for a callable</p>
+<div class="autodoc-description">
+
+</div>
 <div class="autodoc-signature"><span class="autodoc-qualifier">jetblack_markdown.metadata</span><span class="autodoc-punctuation">.</span><var class="autodoc-varname">CallableDescriptor</var><span class="autodoc-punctuation">(</span><br />
+<div class="autodoc-argument">
+        <var class="autodoc-varname">qualifier</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">str</span><span class="autodoc-punctuation">,</span></div>
 <div class="autodoc-argument">
         <var class="autodoc-varname">name</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">str</span><span class="autodoc-punctuation">,</span></div>
 <div class="autodoc-argument">
@@ -1669,26 +1695,25 @@ has the Optional[...] type decoration.</p>
 <div class="autodoc-argument">
         <var class="autodoc-varname">file</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[str]</span></div>
 <span class="autodoc-punctuation">)</span><span class="autodoc-punctuation"> -&gt; </span><span class="autodoc-vartype">None</span></div>
+<br />
 <div class="autodoc-parameters">
 <h4 class="autodoc-title" id="parameters_1">Parameters</h4>
-<var class="autodoc-varname">name</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">str</span><span class="autodoc-punctuation"> (optional)</span><p>The name of the callable</p>
-<var class="autodoc-varname">summary</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[str]</span><span class="autodoc-punctuation"> (optional)</span><p>The callables summary docstring</p>
-<var class="autodoc-varname">description</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[str]</span><span class="autodoc-punctuation"> (optional)</span><p>The callables description docstring</p>
-<var class="autodoc-varname">arguments</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">List[ArgumentDescriptor]</span><span class="autodoc-punctuation"> (optional)</span><p>The callables arguments</p>
-<var class="autodoc-varname">return_type</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">str</span><span class="autodoc-punctuation"> (optional)</span><p>The callables return type</p>
-<var class="autodoc-varname">return_description</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[str]</span><span class="autodoc-punctuation"> (optional)</span><p>The callables return description</p>
-<var class="autodoc-varname">callable_type</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">CallableType</span><span class="autodoc-punctuation"> (optional)</span><p>The type of callable</p>
-<var class="autodoc-varname">is_async</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">bool</span><span class="autodoc-punctuation"> (optional)</span><p>True if the callable is async</p>
-<var class="autodoc-varname">is_generator</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">bool</span><span class="autodoc-punctuation"> (optional)</span><p>True if the callable is a generator</p>
-<var class="autodoc-varname">raises</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[List[RaisesDescriptor]]</span><span class="autodoc-punctuation"> (optional)</span><p>A list of the exceptions
+<var class="autodoc-varname">qualifier</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">str</span><p>The qualifier part of the name</p>
+<var class="autodoc-varname">name</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">str</span><p>The name of the callable</p>
+<var class="autodoc-varname">summary</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[str]</span><p>The callables summary docstring</p>
+<var class="autodoc-varname">description</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[str]</span><p>The callables description docstring</p>
+<var class="autodoc-varname">arguments</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">List[ArgumentDescriptor]</span><p>The callables arguments</p>
+<var class="autodoc-varname">return_type</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">str</span><p>The callables return type</p>
+<var class="autodoc-varname">return_description</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[str]</span><p>The callables return description</p>
+<var class="autodoc-varname">callable_type</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">CallableType</span><p>The type of callable</p>
+<var class="autodoc-varname">is_async</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">bool</span><p>True if the callable is async</p>
+<var class="autodoc-varname">is_generator</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">bool</span><p>True if the callable is a generator</p>
+<var class="autodoc-varname">raises</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[List[RaisesDescriptor]]</span><p>A list of the exceptions
 raised</p>
-<var class="autodoc-varname">examples</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[List[str]]</span><span class="autodoc-punctuation"> (optional)</span><p>A list of examples</p>
-<var class="autodoc-varname">module</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">str</span><span class="autodoc-punctuation"> (optional)</span><p>The module name</p>
-<var class="autodoc-varname">package</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[str]</span><span class="autodoc-punctuation"> (optional)</span><p>The package name</p>
-<var class="autodoc-varname">file</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[str]</span><span class="autodoc-punctuation"> (optional)</span><p>The file name</p>
-</div>
-<div class="autodoc-description">
-
+<var class="autodoc-varname">examples</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[List[str]]</span><p>A list of examples</p>
+<var class="autodoc-varname">module</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">str</span><p>The module name</p>
+<var class="autodoc-varname">package</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[str]</span><p>The package name</p>
+<var class="autodoc-varname">file</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[str]</span><p>The file name</p>
 </div>
 <div class="autodoc-attributes">
 
@@ -1700,16 +1725,16 @@ raised</p>
 </h3>
 <h4 class="autodoc-title" id="summary_5">Summary</h4>
 <p>The function type name.</p>
+<div class="autodoc-description">
+<h4 class="autodoc-title" id="description_1">Description</h4>
+<p>One of: 'class', 'method', 'async generator function'
+'generator function', 'function'</p>
+</div>
 <div class="autodoc-property">
       <var class="autodoc-varname">callable_type_description</var><span class="autodoc-punctuation"> -&gt; </span><span class="autodoc-vartype">str</span>
     </div>
 <div class="autodoc-raises">
 
-</div>
-<div class="autodoc-description">
-<h4 class="autodoc-title" id="description_1">Description</h4>
-<p>One of: 'class', 'method', 'async generator function'
-'generator function', 'function'</p>
 </div>
 <div class="autodoc-examples">
 
@@ -1721,13 +1746,13 @@ raised</p>
 </h3>
 <h4 class="autodoc-title" id="summary_6">Summary</h4>
 <p>The descriptor type</p>
+<div class="autodoc-description">
+
+</div>
 <div class="autodoc-property">
       <var class="autodoc-varname">descriptor_type</var><span class="autodoc-punctuation"> -&gt; </span><span class="autodoc-vartype">str</span>
     </div>
 <div class="autodoc-raises">
-
-</div>
-<div class="autodoc-description">
 
 </div>
 <div class="autodoc-examples">
@@ -1742,6 +1767,9 @@ raised</p>
 </h3>
 <h4 class="autodoc-title" id="summary_7">Summary</h4>
 <p>Create a callable descriptor from a callable</p>
+<div class="autodoc-description">
+
+</div>
 <div class="autodoc-signature"><span class="autodoc-qualifier">CallableDescriptor</span><span class="autodoc-punctuation">.</span><var class="autodoc-varname">create</var><span class="autodoc-punctuation">(</span><br />
 <div class="autodoc-argument">
         <var class="autodoc-varname">signature</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[Signature]</span><span class="autodoc-punctuation">,</span></div>
@@ -1754,16 +1782,17 @@ raised</p>
 <div class="autodoc-argument">
         <var class="autodoc-varname">qualifier</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[str]</span></div>
 <span class="autodoc-punctuation">)</span><span class="autodoc-punctuation"> -&gt; </span><span class="autodoc-vartype">CallableDescriptor</span></div>
+<br />
 <div class="autodoc-parameters">
 <h4 class="autodoc-title" id="parameters_2">Parameters</h4>
-<var class="autodoc-varname">signature</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[Signature]</span><p>The signature. Defaults
+<var class="autodoc-varname">signature</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[Signature]</span><span class="autodoc-punctuation"> (optional)</span><p>The signature. Defaults
 to None.</p>
-<var class="autodoc-varname">docstring</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[Docstring]</span><p>The docstring. Defaults
+<var class="autodoc-varname">docstring</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[Docstring]</span><span class="autodoc-punctuation"> (optional)</span><p>The docstring. Defaults
 to None.</p>
-<var class="autodoc-varname">callable_type</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">CallableType</span><p>The function type. Defaults
+<var class="autodoc-varname">callable_type</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">CallableType</span><span class="autodoc-punctuation"> (optional)</span><p>The function type. Defaults
 to CallableType.FUNCTION.</p>
-<var class="autodoc-varname">prefer_docstring</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">bool</span><p>If true prefer the docstring.</p>
-<var class="autodoc-varname">qualifier</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[str]</span><p>An overload for the qualifier.
+<var class="autodoc-varname">prefer_docstring</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">bool</span><span class="autodoc-punctuation"> (optional)</span><p>If true prefer the docstring.</p>
+<var class="autodoc-varname">qualifier</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[str]</span><span class="autodoc-punctuation"> (optional)</span><p>An overload for the qualifier.
 Defaults to None.</p>
 </div>
 <div class="autodoc-returns">
@@ -1772,9 +1801,6 @@ Defaults to None.</p>
 <span class="autodoc-summary">A callable descriptor</span>
 </div>
 <div class="autodoc-raises">
-
-</div>
-<div class="autodoc-description">
 
 </div>
 <div class="autodoc-examples">
@@ -1794,7 +1820,12 @@ Defaults to None.</p>
 </h3>
 <h4 class="autodoc-title" id="summary_8">Summary</h4>
 <p>An enum indicating the type of a callable</p>
+<div class="autodoc-description">
+
+</div>
 <div class="autodoc-signature"><span class="autodoc-qualifier">jetblack_markdown.metadata</span><span class="autodoc-punctuation">.</span><var class="autodoc-varname">CallableType</var><span class="autodoc-punctuation">(</span><br />
+<div class="autodoc-argument">
+        <var class="autodoc-varname">value</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Any</span><span class="autodoc-punctuation">,</span></div>
 <div class="autodoc-argument">
         <var class="autodoc-varname">names</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Any</span><span class="autodoc-punctuation">,</span></div>
 <div class="autodoc-argument">
@@ -1808,16 +1839,15 @@ Defaults to None.</p>
 <div class="autodoc-argument">
         <var class="autodoc-varname">start</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Any</span></div>
 <span class="autodoc-punctuation">)</span><span class="autodoc-punctuation"> -&gt; </span><span class="autodoc-vartype">None</span></div>
+<br />
 <div class="autodoc-parameters">
 <h4 class="autodoc-title" id="parameters_3">Parameters</h4>
-<var class="autodoc-varname">names</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Any</span><p></p>
-<var class="autodoc-varname">module</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Any</span><p></p>
-<var class="autodoc-varname">qualname</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Any</span><p></p>
-<var class="autodoc-varname">type</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Any</span><p></p>
-<var class="autodoc-varname">start</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Any</span><p></p>
-</div>
-<div class="autodoc-description">
-
+<var class="autodoc-varname">value</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Any</span><p></p>
+<var class="autodoc-varname">names</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Any</span><span class="autodoc-punctuation"> (optional)</span><p></p>
+<var class="autodoc-varname">module</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Any</span><span class="autodoc-punctuation"> (optional)</span><p></p>
+<var class="autodoc-varname">qualname</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Any</span><span class="autodoc-punctuation"> (optional)</span><p></p>
+<var class="autodoc-varname">type</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Any</span><span class="autodoc-punctuation"> (optional)</span><p></p>
+<var class="autodoc-varname">start</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Any</span><span class="autodoc-punctuation"> (optional)</span><p></p>
 </div>
 <div class="autodoc-attributes">
 
@@ -1838,13 +1868,18 @@ Defaults to None.</p>
 </h3>
 <h4 class="autodoc-title" id="summary_9">Summary</h4>
 <p>A class descriptor</p>
+<div class="autodoc-description">
+
+</div>
 <div class="autodoc-signature"><span class="autodoc-qualifier">jetblack_markdown.metadata</span><span class="autodoc-punctuation">.</span><var class="autodoc-varname">ClassDescriptor</var><span class="autodoc-punctuation">(</span><br />
+<div class="autodoc-argument">
+        <var class="autodoc-varname">name</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">str</span><span class="autodoc-punctuation">,</span></div>
 <div class="autodoc-argument">
         <var class="autodoc-varname">summary</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[str]</span><span class="autodoc-punctuation">,</span></div>
 <div class="autodoc-argument">
         <var class="autodoc-varname">description</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[str]</span><span class="autodoc-punctuation">,</span></div>
 <div class="autodoc-argument">
-        <var class="autodoc-varname">constructor</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">CallableDescriptor</span><span class="autodoc-punctuation">,</span></div>
+        <var class="autodoc-varname">constructor</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[CallableDescriptor]</span><span class="autodoc-punctuation">,</span></div>
 <div class="autodoc-argument">
         <var class="autodoc-varname">attributes</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">List[ArgumentDescriptor]</span><span class="autodoc-punctuation">,</span></div>
 <div class="autodoc-argument">
@@ -1864,23 +1899,22 @@ Defaults to None.</p>
 <div class="autodoc-argument">
         <var class="autodoc-varname">bases</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">List[ClassDescription]</span></div>
 <span class="autodoc-punctuation">)</span><span class="autodoc-punctuation"> -&gt; </span><span class="autodoc-vartype">None</span></div>
+<br />
 <div class="autodoc-parameters">
 <h4 class="autodoc-title" id="parameters_4">Parameters</h4>
-<var class="autodoc-varname">summary</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[str]</span><span class="autodoc-punctuation"> (optional)</span><p>The docstring summary</p>
-<var class="autodoc-varname">description</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[str]</span><span class="autodoc-punctuation"> (optional)</span><p>The docstring description</p>
-<var class="autodoc-varname">constructor</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">CallableDescriptor</span><span class="autodoc-punctuation"> (optional)</span><p>The constructor</p>
-<var class="autodoc-varname">attributes</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">List[ArgumentDescriptor]</span><span class="autodoc-punctuation"> (optional)</span><p>The class attributes</p>
-<var class="autodoc-varname">properties</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">List[PropertyDescriptor]</span><span class="autodoc-punctuation"> (optional)</span><p>The class properties</p>
-<var class="autodoc-varname">class_methods</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">List[CallableDescriptor]</span><span class="autodoc-punctuation"> (optional)</span><p>The class methods</p>
-<var class="autodoc-varname">methods</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">List[CallableDescriptor]</span><span class="autodoc-punctuation"> (optional)</span><p>The class methods</p>
-<var class="autodoc-varname">examples</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[List[str]]</span><span class="autodoc-punctuation"> (optional)</span><p>Examples from the docstring</p>
-<var class="autodoc-varname">module</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">str</span><span class="autodoc-punctuation"> (optional)</span><p>The module</p>
-<var class="autodoc-varname">package</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[str]</span><span class="autodoc-punctuation"> (optional)</span><p>The package</p>
-<var class="autodoc-varname">file</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[str]</span><span class="autodoc-punctuation"> (optional)</span><p>The file,</p>
-<var class="autodoc-varname">bases</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">List[ClassDescription]</span><span class="autodoc-punctuation"> (optional)</span><p>The base classes</p>
-</div>
-<div class="autodoc-description">
-
+<var class="autodoc-varname">name</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">str</span><p>The class name</p>
+<var class="autodoc-varname">summary</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[str]</span><p>The docstring summary</p>
+<var class="autodoc-varname">description</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[str]</span><p>The docstring description</p>
+<var class="autodoc-varname">constructor</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[CallableDescriptor]</span><p>The constructor</p>
+<var class="autodoc-varname">attributes</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">List[ArgumentDescriptor]</span><p>The class attributes</p>
+<var class="autodoc-varname">properties</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">List[PropertyDescriptor]</span><p>The class properties</p>
+<var class="autodoc-varname">class_methods</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">List[CallableDescriptor]</span><p>The class methods</p>
+<var class="autodoc-varname">methods</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">List[CallableDescriptor]</span><p>The class methods</p>
+<var class="autodoc-varname">examples</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[List[str]]</span><p>Examples from the docstring</p>
+<var class="autodoc-varname">module</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">str</span><p>The module</p>
+<var class="autodoc-varname">package</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[str]</span><p>The package</p>
+<var class="autodoc-varname">file</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[str]</span><p>The file,</p>
+<var class="autodoc-varname">bases</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">List[ClassDescription]</span><p>The base classes</p>
 </div>
 <div class="autodoc-attributes">
 
@@ -1892,13 +1926,13 @@ Defaults to None.</p>
 </h3>
 <h4 class="autodoc-title" id="summary_10">Summary</h4>
 <p>The descriptor type</p>
+<div class="autodoc-description">
+
+</div>
 <div class="autodoc-property">
       <var class="autodoc-varname">descriptor_type</var><span class="autodoc-punctuation"> -&gt; </span><span class="autodoc-vartype">str</span>
     </div>
 <div class="autodoc-raises">
-
-</div>
-<div class="autodoc-description">
 
 </div>
 <div class="autodoc-examples">
@@ -1913,6 +1947,9 @@ Defaults to None.</p>
 </h3>
 <h4 class="autodoc-title" id="summary_11">Summary</h4>
 <p>Create a class</p>
+<div class="autodoc-description">
+
+</div>
 <div class="autodoc-signature"><span class="autodoc-qualifier">ClassDescriptor</span><span class="autodoc-punctuation">.</span><var class="autodoc-varname">create</var><span class="autodoc-punctuation">(</span><br />
 <div class="autodoc-argument">
         <var class="autodoc-varname">class_from_init</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">bool</span><span class="autodoc-punctuation">,</span></div>
@@ -1927,16 +1964,17 @@ Defaults to None.</p>
 <div class="autodoc-argument">
         <var class="autodoc-varname">prefer_docstring</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">bool</span></div>
 <span class="autodoc-punctuation">)</span><span class="autodoc-punctuation"> -&gt; </span><span class="autodoc-vartype">ClassDescriptor</span></div>
+<br />
 <div class="autodoc-parameters">
 <h4 class="autodoc-title" id="parameters_5">Parameters</h4>
-<var class="autodoc-varname">class_from_init</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">bool</span><span class="autodoc-punctuation"> (optional)</span><p>If True take the docstring from the init function</p>
-<var class="autodoc-varname">ignore_dunder</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">bool</span><span class="autodoc-punctuation"> (optional)</span><p>If True ignore
+<var class="autodoc-varname">class_from_init</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">bool</span><p>If True take the docstring from the init function</p>
+<var class="autodoc-varname">ignore_dunder</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">bool</span><p>If True ignore
 <span>__</span>XXX<span>__</span> functions</p>
-<var class="autodoc-varname">ignore_private</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">bool</span><span class="autodoc-punctuation"> (optional)</span><p>If True ignore private methods (those
+<var class="autodoc-varname">ignore_private</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">bool</span><p>If True ignore private methods (those
 prefixed <span>_</span>XXX)</p>
-<var class="autodoc-varname">ignore_inherited</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">bool</span><span class="autodoc-punctuation"> (optional)</span><p>If True ignore inherited methods</p>
-<var class="autodoc-varname">importing_module</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[str]</span><p>The importing module, defaults to None</p>
-<var class="autodoc-varname">prefer_docstring</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">bool</span><p>If true prefer the docstring.</p>
+<var class="autodoc-varname">ignore_inherited</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">bool</span><p>If True ignore inherited methods</p>
+<var class="autodoc-varname">importing_module</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[str]</span><span class="autodoc-punctuation"> (optional)</span><p>The importing module, defaults to None</p>
+<var class="autodoc-varname">prefer_docstring</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">bool</span><span class="autodoc-punctuation"> (optional)</span><p>If true prefer the docstring.</p>
 </div>
 <div class="autodoc-returns">
 <h4 class="autodoc-title" id="returns_1">Returns</h4>
@@ -1944,9 +1982,6 @@ prefixed <span>_</span>XXX)</p>
 <span class="autodoc-summary">The class descriptor</span>
 </div>
 <div class="autodoc-raises">
-
-</div>
-<div class="autodoc-description">
 
 </div>
 <div class="autodoc-examples">
@@ -1966,13 +2001,11 @@ prefixed <span>_</span>XXX)</p>
 </h3>
 <h4 class="autodoc-title" id="summary_12">Summary</h4>
 <p>The descriptor base class</p>
-<div class="autodoc-signature"><span class="autodoc-qualifier">jetblack_markdown.metadata</span><span class="autodoc-punctuation">.</span><var class="autodoc-varname">Descriptor</var><span class="autodoc-punctuation">(</span><span class="autodoc-punctuation">)</span><span class="autodoc-punctuation"> -&gt; </span><span class="autodoc-vartype">None</span></div>
-<div class="autodoc-parameters">
-<h4 class="autodoc-title" id="parameters_6">Parameters</h4>
-</div>
 <div class="autodoc-description">
 
 </div>
+<div class="autodoc-signature"><span class="autodoc-qualifier">jetblack_markdown.metadata</span><span class="autodoc-punctuation">.</span><var class="autodoc-varname">Descriptor</var><span class="autodoc-punctuation">(</span><span class="autodoc-punctuation">)</span><span class="autodoc-punctuation"> -&gt; </span><span class="autodoc-vartype">None</span></div>
+<br />
 <div class="autodoc-attributes">
 
 </div>
@@ -1983,13 +2016,13 @@ prefixed <span>_</span>XXX)</p>
 </h3>
 <h4 class="autodoc-title" id="summary_13">Summary</h4>
 <p>The descriptor type</p>
+<div class="autodoc-description">
+
+</div>
 <div class="autodoc-property">
       <var class="autodoc-varname">descriptor_type</var><span class="autodoc-punctuation"> -&gt; </span><span class="autodoc-vartype">str</span>
     </div>
 <div class="autodoc-raises">
-
-</div>
-<div class="autodoc-description">
 
 </div>
 <div class="autodoc-examples">
@@ -2010,7 +2043,12 @@ prefixed <span>_</span>XXX)</p>
 </h3>
 <h4 class="autodoc-title" id="summary_14">Summary</h4>
 <p>A module descriptor</p>
+<div class="autodoc-description">
+
+</div>
 <div class="autodoc-signature"><span class="autodoc-qualifier">jetblack_markdown.metadata</span><span class="autodoc-punctuation">.</span><var class="autodoc-varname">ModuleDescriptor</var><span class="autodoc-punctuation">(</span><br />
+<div class="autodoc-argument">
+        <var class="autodoc-varname">name</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">str</span><span class="autodoc-punctuation">,</span></div>
 <div class="autodoc-argument">
         <var class="autodoc-varname">summary</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[str]</span><span class="autodoc-punctuation">,</span></div>
 <div class="autodoc-argument">
@@ -2030,20 +2068,19 @@ prefixed <span>_</span>XXX)</p>
 <div class="autodoc-argument">
         <var class="autodoc-varname">modules</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">List[ModuleDescriptor]</span></div>
 <span class="autodoc-punctuation">)</span><span class="autodoc-punctuation"> -&gt; </span><span class="autodoc-vartype">None</span></div>
+<br />
 <div class="autodoc-parameters">
-<h4 class="autodoc-title" id="parameters_7">Parameters</h4>
-<var class="autodoc-varname">summary</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[str]</span><span class="autodoc-punctuation"> (optional)</span><p>The module summary</p>
-<var class="autodoc-varname">description</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[str]</span><span class="autodoc-punctuation"> (optional)</span><p>The module description</p>
-<var class="autodoc-varname">attributes</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">List[ArgumentDescriptor]</span><span class="autodoc-punctuation"> (optional)</span><p>The attribute list</p>
-<var class="autodoc-varname">examples</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[List[str]]</span><span class="autodoc-punctuation"> (optional)</span><p>Examples from the docstring</p>
-<var class="autodoc-varname">package</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[str]</span><span class="autodoc-punctuation"> (optional)</span><p>The package name</p>
-<var class="autodoc-varname">file</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[str]</span><span class="autodoc-punctuation"> (optional)</span><p>The file name</p>
-<var class="autodoc-varname">classes</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">List[ClassDescriptor]</span><span class="autodoc-punctuation"> (optional)</span><p>Classes in the module</p>
-<var class="autodoc-varname">functions</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">List[CallableDescriptor]</span><span class="autodoc-punctuation"> (optional)</span><p>Functions in the module</p>
-<var class="autodoc-varname">modules</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">List[ModuleDescriptor]</span><span class="autodoc-punctuation"> (optional)</span><p>The child modules</p>
-</div>
-<div class="autodoc-description">
-
+<h4 class="autodoc-title" id="parameters_6">Parameters</h4>
+<var class="autodoc-varname">name</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">str</span><p>The module name</p>
+<var class="autodoc-varname">summary</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[str]</span><p>The module summary</p>
+<var class="autodoc-varname">description</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[str]</span><p>The module description</p>
+<var class="autodoc-varname">attributes</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">List[ArgumentDescriptor]</span><p>The attribute list</p>
+<var class="autodoc-varname">examples</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[List[str]]</span><p>Examples from the docstring</p>
+<var class="autodoc-varname">package</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[str]</span><p>The package name</p>
+<var class="autodoc-varname">file</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[str]</span><p>The file name</p>
+<var class="autodoc-varname">classes</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">List[ClassDescriptor]</span><p>Classes in the module</p>
+<var class="autodoc-varname">functions</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">List[CallableDescriptor]</span><p>Functions in the module</p>
+<var class="autodoc-varname">modules</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">List[ModuleDescriptor]</span><p>The child modules</p>
 </div>
 <div class="autodoc-attributes">
 
@@ -2055,13 +2092,13 @@ prefixed <span>_</span>XXX)</p>
 </h3>
 <h4 class="autodoc-title" id="summary_15">Summary</h4>
 <p>The descriptor type</p>
+<div class="autodoc-description">
+
+</div>
 <div class="autodoc-property">
       <var class="autodoc-varname">descriptor_type</var><span class="autodoc-punctuation"> -&gt; </span><span class="autodoc-vartype">str</span>
     </div>
 <div class="autodoc-raises">
-
-</div>
-<div class="autodoc-description">
 
 </div>
 <div class="autodoc-examples">
@@ -2076,6 +2113,9 @@ prefixed <span>_</span>XXX)</p>
 </h3>
 <h4 class="autodoc-title" id="summary_16">Summary</h4>
 <p>Create a module descriptor</p>
+<div class="autodoc-description">
+
+</div>
 <div class="autodoc-signature"><span class="autodoc-qualifier">ModuleDescriptor</span><span class="autodoc-punctuation">.</span><var class="autodoc-varname">create</var><span class="autodoc-punctuation">(</span><br />
 <div class="autodoc-argument">
         <var class="autodoc-varname">class_from_init</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">bool</span><span class="autodoc-punctuation">,</span></div>
@@ -2092,19 +2132,20 @@ prefixed <span>_</span>XXX)</p>
 <div class="autodoc-argument">
         <var class="autodoc-varname">follow_module_tree</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">bool</span></div>
 <span class="autodoc-punctuation">)</span><span class="autodoc-punctuation"> -&gt; </span><span class="autodoc-vartype">ModuleDescriptor</span></div>
+<br />
 <div class="autodoc-parameters">
-<h4 class="autodoc-title" id="parameters_8">Parameters</h4>
-<var class="autodoc-varname">class_from_init</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">bool</span><span class="autodoc-punctuation"> (optional)</span><p>If True take the docstring from the init
+<h4 class="autodoc-title" id="parameters_7">Parameters</h4>
+<var class="autodoc-varname">class_from_init</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">bool</span><p>If True take the docstring from the init
 function</p>
-<var class="autodoc-varname">ignore_dunder</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">bool</span><span class="autodoc-punctuation"> (optional)</span><p>If True ignore
+<var class="autodoc-varname">ignore_dunder</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">bool</span><p>If True ignore
 <span>__</span>XXX<span>__</span> functions</p>
-<var class="autodoc-varname">ignore_private</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">bool</span><span class="autodoc-punctuation"> (optional)</span><p>If True ignore private methods
+<var class="autodoc-varname">ignore_private</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">bool</span><p>If True ignore private methods
 (those prefixed _XXX)</p>
-<var class="autodoc-varname">ignore_all</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">bool</span><span class="autodoc-punctuation"> (optional)</span><p>If True ignore the
+<var class="autodoc-varname">ignore_all</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">bool</span><p>If True ignore the
 <span>__</span>all<span>__</span> member.</p>
-<var class="autodoc-varname">ignore_inherited</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">bool</span><span class="autodoc-punctuation"> (optional)</span><p></p>
-<var class="autodoc-varname">prefer_docstring</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">bool</span><span class="autodoc-punctuation"> (optional)</span><p>If true prefer the docstring</p>
-<var class="autodoc-varname">follow_module_tree</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">bool</span><span class="autodoc-punctuation"> (optional)</span><p>If true follow the module tree</p>
+<var class="autodoc-varname">ignore_inherited</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">bool</span><p></p>
+<var class="autodoc-varname">prefer_docstring</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">bool</span><p>If true prefer the docstring</p>
+<var class="autodoc-varname">follow_module_tree</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">bool</span><p>If true follow the module tree</p>
 </div>
 <div class="autodoc-returns">
 <h4 class="autodoc-title" id="returns_2">Returns</h4>
@@ -2112,9 +2153,6 @@ function</p>
 <span class="autodoc-summary">A module descriptor</span>
 </div>
 <div class="autodoc-raises">
-
-</div>
-<div class="autodoc-description">
 
 </div>
 <div class="autodoc-examples">
@@ -2134,7 +2172,12 @@ function</p>
 </h3>
 <h4 class="autodoc-title" id="summary_17">Summary</h4>
 <p>A properties descriptor</p>
+<div class="autodoc-description">
+
+</div>
 <div class="autodoc-signature"><span class="autodoc-qualifier">jetblack_markdown.metadata</span><span class="autodoc-punctuation">.</span><var class="autodoc-varname">PropertyDescriptor</var><span class="autodoc-punctuation">(</span><br />
+<div class="autodoc-argument">
+        <var class="autodoc-varname">qualifier</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">str</span><span class="autodoc-punctuation">,</span></div>
 <div class="autodoc-argument">
         <var class="autodoc-varname">name</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">str</span><span class="autodoc-punctuation">,</span></div>
 <div class="autodoc-argument">
@@ -2152,21 +2195,20 @@ function</p>
 <div class="autodoc-argument">
         <var class="autodoc-varname">examples</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[List[str]]</span></div>
 <span class="autodoc-punctuation">)</span><span class="autodoc-punctuation"> -&gt; </span><span class="autodoc-vartype">None</span></div>
+<br />
 <div class="autodoc-parameters">
-<h4 class="autodoc-title" id="parameters_9">Parameters</h4>
-<var class="autodoc-varname">name</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">str</span><span class="autodoc-punctuation"> (optional)</span><p>The property name</p>
-<var class="autodoc-varname">summary</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[str]</span><span class="autodoc-punctuation"> (optional)</span><p>The summary from the docstring</p>
-<var class="autodoc-varname">description</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[str]</span><span class="autodoc-punctuation"> (optional)</span><p>The description from the docstring</p>
-<var class="autodoc-varname">type_</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[str]</span><span class="autodoc-punctuation"> (optional)</span><p>The property type</p>
-<var class="autodoc-varname">is_settable</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">bool</span><span class="autodoc-punctuation"> (optional)</span><p>If True the property can be set</p>
-<var class="autodoc-varname">is_deletable</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">bool</span><span class="autodoc-punctuation"> (optional)</span><p>If True the property can be deleted</p>
-<var class="autodoc-varname">raises</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[List[RaisesDescriptor]]</span><span class="autodoc-punctuation"> (optional)</span><p>A list of the exceptions
+<h4 class="autodoc-title" id="parameters_8">Parameters</h4>
+<var class="autodoc-varname">qualifier</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">str</span><p>The qualifier</p>
+<var class="autodoc-varname">name</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">str</span><p>The property name</p>
+<var class="autodoc-varname">summary</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[str]</span><p>The summary from the docstring</p>
+<var class="autodoc-varname">description</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[str]</span><p>The description from the docstring</p>
+<var class="autodoc-varname">type_</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[str]</span><p>The property type</p>
+<var class="autodoc-varname">is_settable</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">bool</span><p>If True the property can be set</p>
+<var class="autodoc-varname">is_deletable</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">bool</span><p>If True the property can be deleted</p>
+<var class="autodoc-varname">raises</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[List[RaisesDescriptor]]</span><p>A list of the exceptions
 the property might raise.</p>
-<var class="autodoc-varname">examples</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[List[str]]</span><span class="autodoc-punctuation"> (optional)</span><p>A list of examples from the
+<var class="autodoc-varname">examples</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[List[str]]</span><p>A list of examples from the
 docstring</p>
-</div>
-<div class="autodoc-description">
-
 </div>
 <div class="autodoc-attributes">
 
@@ -2178,13 +2220,13 @@ docstring</p>
 </h3>
 <h4 class="autodoc-title" id="summary_18">Summary</h4>
 <p>The descriptor type</p>
+<div class="autodoc-description">
+
+</div>
 <div class="autodoc-property">
       <var class="autodoc-varname">descriptor_type</var><span class="autodoc-punctuation"> -&gt; </span><span class="autodoc-vartype">str</span>
     </div>
 <div class="autodoc-raises">
-
-</div>
-<div class="autodoc-description">
 
 </div>
 <div class="autodoc-examples">
@@ -2199,16 +2241,20 @@ docstring</p>
 </h3>
 <h4 class="autodoc-title" id="summary_19">Summary</h4>
 <p>Create a property descriptor from</p>
+<div class="autodoc-description">
+
+</div>
 <div class="autodoc-signature"><span class="autodoc-qualifier">PropertyDescriptor</span><span class="autodoc-punctuation">.</span><var class="autodoc-varname">create</var><span class="autodoc-punctuation">(</span><br />
 <div class="autodoc-argument">
         <var class="autodoc-varname">klass</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Any</span><span class="autodoc-punctuation">,</span></div>
 <div class="autodoc-argument">
         <var class="autodoc-varname">property_name</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">str</span></div>
 <span class="autodoc-punctuation">)</span><span class="autodoc-punctuation"> -&gt; </span><span class="autodoc-vartype">PropertyDescriptor</span></div>
+<br />
 <div class="autodoc-parameters">
-<h4 class="autodoc-title" id="parameters_10">Parameters</h4>
-<var class="autodoc-varname">klass</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Any</span><span class="autodoc-punctuation"> (optional)</span><p>The class object</p>
-<var class="autodoc-varname">property_name</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">str</span><span class="autodoc-punctuation"> (optional)</span><p>The name of the property</p>
+<h4 class="autodoc-title" id="parameters_9">Parameters</h4>
+<var class="autodoc-varname">klass</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Any</span><p>The class object</p>
+<var class="autodoc-varname">property_name</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">str</span><p>The name of the property</p>
 </div>
 <div class="autodoc-returns">
 <h4 class="autodoc-title" id="returns_3">Returns</h4>
@@ -2216,9 +2262,6 @@ docstring</p>
 <span class="autodoc-summary">A property descriptor</span>
 </div>
 <div class="autodoc-raises">
-
-</div>
-<div class="autodoc-description">
 
 </div>
 <div class="autodoc-examples">
@@ -2238,16 +2281,20 @@ docstring</p>
 </h3>
 <h4 class="autodoc-title" id="summary_20">Summary</h4>
 <p>A raises descriptor</p>
+<div class="autodoc-description">
+
+</div>
 <div class="autodoc-signature"><span class="autodoc-qualifier">jetblack_markdown.metadata</span><span class="autodoc-punctuation">.</span><var class="autodoc-varname">RaisesDescriptor</var><span class="autodoc-punctuation">(</span><br />
+<div class="autodoc-argument">
+        <var class="autodoc-varname">type_</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">str</span><span class="autodoc-punctuation">,</span></div>
 <div class="autodoc-argument">
         <var class="autodoc-varname">description</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">str</span></div>
 <span class="autodoc-punctuation">)</span><span class="autodoc-punctuation"> -&gt; </span><span class="autodoc-vartype">None</span></div>
+<br />
 <div class="autodoc-parameters">
-<h4 class="autodoc-title" id="parameters_11">Parameters</h4>
-<var class="autodoc-varname">description</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">str</span><span class="autodoc-punctuation"> (optional)</span><p>The exception description</p>
-</div>
-<div class="autodoc-description">
-
+<h4 class="autodoc-title" id="parameters_10">Parameters</h4>
+<var class="autodoc-varname">type_</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">str</span><p>The type of exception raised</p>
+<var class="autodoc-varname">description</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">str</span><p>The exception description</p>
 </div>
 <div class="autodoc-attributes">
 
@@ -2259,13 +2306,13 @@ docstring</p>
 </h3>
 <h4 class="autodoc-title" id="summary_21">Summary</h4>
 <p>The descriptor type</p>
+<div class="autodoc-description">
+
+</div>
 <div class="autodoc-property">
       <var class="autodoc-varname">descriptor_type</var><span class="autodoc-punctuation"> -&gt; </span><span class="autodoc-vartype">str</span>
     </div>
 <div class="autodoc-raises">
-
-</div>
-<div class="autodoc-description">
 
 </div>
 <div class="autodoc-examples">
@@ -2282,65 +2329,68 @@ docstring</p>
 <hr />
 </div>
 </p>
-                
-                  
-                
-                
-              
-              
-                
 
 
-              
-            </article>
-          </div>
+
+
+
+                
+              </article>
+            </div>
+          
+          
         </div>
+        
       </main>
       
-        
-<footer class="md-footer">
+        <footer class="md-footer">
   
-    <div class="md-footer-nav">
-      <nav class="md-footer-nav__inner md-grid">
+    
+    <nav class="md-footer__inner md-grid" aria-label="Footer" >
+      
         
-          <a href="../jetblack_markdown.autodoc/" title="jetblack_markdown.autodoc" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
-            <div class="md-flex__cell md-flex__cell--shrink">
-              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
-            </div>
-            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
-              <span class="md-flex__ellipsis">
-                <span class="md-footer-nav__direction">
-                  Previous
-                </span>
-                jetblack_markdown.autodoc
+        <a href="../jetblack_markdown.autodoc/" class="md-footer__link md-footer__link--prev" aria-label="Previous: jetblack_markdown.autodoc" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
               </span>
+              jetblack_markdown.autodoc
             </div>
-          </a>
-        
-        
-      </nav>
-    </div>
+          </div>
+        </a>
+      
+      
+    </nav>
   
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
-      <div class="md-footer-copyright">
-        
-        powered by
-        <a href="https://www.mkdocs.org">MkDocs</a>
-        and
-        <a href="https://squidfunk.github.io/mkdocs-material/">
-          Material for MkDocs</a>
-      </div>
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
       
     </div>
   </div>
 </footer>
       
     </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
     
-      <script src="../../assets/javascripts/application.808e90bb.js"></script>
-      
-      <script>app.initialize({version:"1.0.4",url:{base:"../.."}})</script>
+    <script id="__config" type="application/json">{"base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.5bf1dace.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.37e9125f.min.js"></script>
       
     
   </body>
