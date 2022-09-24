@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "jetblack-markdown"
-version = "1.0.0-rc1"
+version = "1.0.0"
 description = "A markdown extension for python documentation"
 repository = "https://github.com/rob-blackbourn/jetblack-markdown"
 authors = ["Rob Blackbourn <rob.blackbourn@gmail.com>"]
