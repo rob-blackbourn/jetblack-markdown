@@ -33,6 +33,7 @@ markdown_extensions:
       ignore_inherited: true
       follow_module_tree: false
       prefer_docstring: true
+  - jetblack_markdown.latex2mathml
 
 extra_css:
     - css/custom.css
