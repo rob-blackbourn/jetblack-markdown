@@ -14,7 +14,9 @@ __all__ = [
 
 class Latex2MathMLExtension(Extension):
 
-    RE = r'\$([^\$]+)\$'
+    # RE = r'\$([^\$]+)\$'
+    # RE = r'\\((.*)\\)'
+    RE = r'(?:(?<!\\)((?:\\{2})+)(?=\$)|(?<!\\)(\$)((?:\\.|[^\\$])+?)(?:\$))'
 
     def __init__(self, *args, **kwargs) -> None:
         self.config = {}

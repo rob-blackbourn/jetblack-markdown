@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "jetblack-markdown"
-version = "1.2.0a0"
+version = "1.2.0a2"
 authors = [
   { name="Rob Blackbourn", email="rob.blackbourn@gmail.com" },
 ]
@@ -19,7 +19,7 @@ readme = "README.md"
 dependencies = [
     "markdown>=3.5.1,<4",
     "docstring-parser==0.15",
-    "latex2mathml==3.76.0"
+    "latex2mathml==3.77.0"
 ]
 license = {text = "Apache-2.0"}
 
@@ -27,3 +27,6 @@ license = {text = "Apache-2.0"}
 Repository = "https://github.com/rob-blackbourn/jetblack-markdown"
 Documentation = "https://rob-blackbourn.github.io/jetblack-markdown"
 Issues = "https://github.com/rob-blackbourn/jetblack-markdown/issues"
+
+[tool.setuptools.package-data]
+"jetblack_markdown.templates" = ["*.jinja2"]
