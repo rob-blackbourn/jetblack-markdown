@@ -36,7 +36,7 @@ class AutodocInlineProcessor(InlineProcessor):
     def __init__(
             self,
             pattern,
-            md: Markdown = None,
+            md: Optional[Markdown] = None,
             *,
             class_from_init: bool = True,
             ignore_dunder: bool = True,
@@ -52,7 +52,7 @@ class AutodocInlineProcessor(InlineProcessor):
 
         Args:
             pattern ([type]): The regular expression to match
-            md (Markdown, optional): The markdown object provided by the
+            md (Optional[Markdown], optional): The markdown object provided by the
                 extension. Defaults to None.
             class_from_init (bool, optional): If True use the docstring from
                 the <span>&#95;&#95;</span>init<span>&#95;&#95;</span> function
