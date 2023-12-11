@@ -14,6 +14,8 @@
         <link rel="prev" href="../jetblack_markdown.autodoc/">
       
       
+        <link rel="next" href="../jetblack_markdown.latex2mathml/">
+      
       
       <link rel="icon" href="../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.14">
@@ -1156,6 +1158,27 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../jetblack_markdown.latex2mathml/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    jetblack_markdown.latex2mathml
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -1885,13 +1908,14 @@
 
   <h1>jetblack_markdown.metadata</h1>
 
-<p>
 <div class="autodoc-module">
 <h3 class="autodoc-title" id="module-jetblack_markdownmetadata">
       <span class="autodoc-title-type">module </span><span class="autodoc-title-name">jetblack_markdown.metadata</span>
   </h3>
 <h4 class="autodoc-title" id="summary">Summary</h4>
+<div>
 <p>Meta data</p>
+</div>
 <div class="autodoc-description">
 
 </div>
@@ -1906,7 +1930,9 @@
   <span class="autodoc-title-type">class </span><span class="autodoc-title-name">ArgumentDescriptor</span><span class="autodoc-punctuation">(</span><span class="autodoc-type">Descriptor</span><span class="autodoc-punctuation">)</span>
 </h3>
 <h4 class="autodoc-title" id="summary_1">Summary</h4>
+<div>
 <p>A descriptor for arguments</p>
+</div>
 <div class="autodoc-description">
 
 </div>
@@ -1923,10 +1949,18 @@
 <br />
 <div class="autodoc-parameters">
 <h4 class="autodoc-title" id="parameters">Parameters</h4>
-<var class="autodoc-varname">name</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">str</span><p>The argument name</p>
-<var class="autodoc-varname">type_</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[str]</span><p>The argument type</p>
-<var class="autodoc-varname">description</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[str]</span><p>The arguments description</p>
-<var class="autodoc-varname">default</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[str]</span><span class="autodoc-punctuation"> (optional)</span><p>The default value. Defaults to ARG_DESCRIPTOR_EMPTY.</p>
+<var class="autodoc-varname">name</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">str</span><div>
+<p>The argument name</p>
+</div>
+<var class="autodoc-varname">type_</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[str]</span><div>
+<p>The argument type</p>
+</div>
+<var class="autodoc-varname">description</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[str]</span><div>
+<p>The arguments description</p>
+</div>
+<var class="autodoc-varname">default</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[str]</span><span class="autodoc-punctuation"> (optional)</span><div>
+<p>The default value. Defaults to ARG_DESCRIPTOR_EMPTY.</p>
+</div>
 </div>
 <div class="autodoc-attributes">
 
@@ -1937,7 +1971,9 @@
   <span class="autodoc-title-type">property </span><span class="autodoc-qualifier">ArgumentDescriptor</span><span class="autodoc-punctuation">.</span><span class="autodoc-title-name">descriptor_type</span>
 </h3>
 <h4 class="autodoc-title" id="summary_2">Summary</h4>
+<div>
 <p>The descriptor type</p>
+</div>
 <div class="autodoc-description">
 
 </div>
@@ -1956,11 +1992,15 @@
   <span class="autodoc-title-type">property </span><span class="autodoc-qualifier">ArgumentDescriptor</span><span class="autodoc-punctuation">.</span><span class="autodoc-title-name">is_optional</span>
 </h3>
 <h4 class="autodoc-title" id="summary_3">Summary</h4>
+<div>
 <p>Indicates whether the argument is optional</p>
+</div>
 <div class="autodoc-description">
 <h4 class="autodoc-title" id="description">Description</h4>
+<div>
 <p>Note that an argument is optional if it has a default value, not if it
 has the Optional[...] type decoration.</p>
+</div>
 </div>
 <div class="autodoc-property">
       <var class="autodoc-varname">is_optional</var><span class="autodoc-punctuation"> -&gt; </span><span class="autodoc-vartype">bool</span>
@@ -1985,7 +2025,9 @@ has the Optional[...] type decoration.</p>
   <span class="autodoc-title-type">class </span><span class="autodoc-title-name">CallableDescriptor</span><span class="autodoc-punctuation">(</span><span class="autodoc-type">Descriptor</span><span class="autodoc-punctuation">)</span>
 </h3>
 <h4 class="autodoc-title" id="summary_4">Summary</h4>
+<div>
 <p>A descriptor for a callable</p>
+</div>
 <div class="autodoc-description">
 
 </div>
@@ -2024,22 +2066,52 @@ has the Optional[...] type decoration.</p>
 <br />
 <div class="autodoc-parameters">
 <h4 class="autodoc-title" id="parameters_1">Parameters</h4>
-<var class="autodoc-varname">qualifier</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">str</span><p>The qualifier part of the name</p>
-<var class="autodoc-varname">name</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">str</span><p>The name of the callable</p>
-<var class="autodoc-varname">summary</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[str]</span><p>The callables summary docstring</p>
-<var class="autodoc-varname">description</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[str]</span><p>The callables description docstring</p>
-<var class="autodoc-varname">arguments</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">List[ArgumentDescriptor]</span><p>The callables arguments</p>
-<var class="autodoc-varname">return_type</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">str</span><p>The callables return type</p>
-<var class="autodoc-varname">return_description</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[str]</span><p>The callables return description</p>
-<var class="autodoc-varname">callable_type</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">CallableType</span><p>The type of callable</p>
-<var class="autodoc-varname">is_async</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">bool</span><p>True if the callable is async</p>
-<var class="autodoc-varname">is_generator</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">bool</span><p>True if the callable is a generator</p>
-<var class="autodoc-varname">raises</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[List[RaisesDescriptor]]</span><p>A list of the exceptions
+<var class="autodoc-varname">qualifier</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">str</span><div>
+<p>The qualifier part of the name</p>
+</div>
+<var class="autodoc-varname">name</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">str</span><div>
+<p>The name of the callable</p>
+</div>
+<var class="autodoc-varname">summary</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[str]</span><div>
+<p>The callables summary docstring</p>
+</div>
+<var class="autodoc-varname">description</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[str]</span><div>
+<p>The callables description docstring</p>
+</div>
+<var class="autodoc-varname">arguments</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">List[ArgumentDescriptor]</span><div>
+<p>The callables arguments</p>
+</div>
+<var class="autodoc-varname">return_type</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">str</span><div>
+<p>The callables return type</p>
+</div>
+<var class="autodoc-varname">return_description</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[str]</span><div>
+<p>The callables return description</p>
+</div>
+<var class="autodoc-varname">callable_type</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">CallableType</span><div>
+<p>The type of callable</p>
+</div>
+<var class="autodoc-varname">is_async</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">bool</span><div>
+<p>True if the callable is async</p>
+</div>
+<var class="autodoc-varname">is_generator</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">bool</span><div>
+<p>True if the callable is a generator</p>
+</div>
+<var class="autodoc-varname">raises</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[List[RaisesDescriptor]]</span><div>
+<p>A list of the exceptions
 raised</p>
-<var class="autodoc-varname">examples</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[List[str]]</span><p>A list of examples</p>
-<var class="autodoc-varname">module</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">str</span><p>The module name</p>
-<var class="autodoc-varname">package</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[str]</span><p>The package name</p>
-<var class="autodoc-varname">file</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[str]</span><p>The file name</p>
+</div>
+<var class="autodoc-varname">examples</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[List[str]]</span><div>
+<p>A list of examples</p>
+</div>
+<var class="autodoc-varname">module</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">str</span><div>
+<p>The module name</p>
+</div>
+<var class="autodoc-varname">package</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[str]</span><div>
+<p>The package name</p>
+</div>
+<var class="autodoc-varname">file</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[str]</span><div>
+<p>The file name</p>
+</div>
 </div>
 <div class="autodoc-attributes">
 
@@ -2050,11 +2122,15 @@ raised</p>
   <span class="autodoc-title-type">property </span><span class="autodoc-qualifier">CallableDescriptor</span><span class="autodoc-punctuation">.</span><span class="autodoc-title-name">callable_type_description</span>
 </h3>
 <h4 class="autodoc-title" id="summary_5">Summary</h4>
+<div>
 <p>The function type name.</p>
+</div>
 <div class="autodoc-description">
 <h4 class="autodoc-title" id="description_1">Description</h4>
+<div>
 <p>One of: 'class', 'method', 'async generator function'
 'generator function', 'function'</p>
+</div>
 </div>
 <div class="autodoc-property">
       <var class="autodoc-varname">callable_type_description</var><span class="autodoc-punctuation"> -&gt; </span><span class="autodoc-vartype">str</span>
@@ -2071,7 +2147,9 @@ raised</p>
   <span class="autodoc-title-type">property </span><span class="autodoc-qualifier">CallableDescriptor</span><span class="autodoc-punctuation">.</span><span class="autodoc-title-name">descriptor_type</span>
 </h3>
 <h4 class="autodoc-title" id="summary_6">Summary</h4>
+<div>
 <p>The descriptor type</p>
+</div>
 <div class="autodoc-description">
 
 </div>
@@ -2092,7 +2170,9 @@ raised</p>
   <span class="autodoc-title-type">class method </span><span class="autodoc-qualifier">CallableDescriptor</span><span class="autodoc-punctuation">.</span><span class="autodoc-title-name">create</span>
 </h3>
 <h4 class="autodoc-title" id="summary_7">Summary</h4>
+<div>
 <p>Create a callable descriptor from a callable</p>
+</div>
 <div class="autodoc-description">
 
 </div>
@@ -2111,15 +2191,25 @@ raised</p>
 <br />
 <div class="autodoc-parameters">
 <h4 class="autodoc-title" id="parameters_2">Parameters</h4>
-<var class="autodoc-varname">signature</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[Signature]</span><span class="autodoc-punctuation"> (optional)</span><p>The signature. Defaults
+<var class="autodoc-varname">signature</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[Signature]</span><span class="autodoc-punctuation"> (optional)</span><div>
+<p>The signature. Defaults
 to None.</p>
-<var class="autodoc-varname">docstring</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[Docstring]</span><span class="autodoc-punctuation"> (optional)</span><p>The docstring. Defaults
+</div>
+<var class="autodoc-varname">docstring</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[Docstring]</span><span class="autodoc-punctuation"> (optional)</span><div>
+<p>The docstring. Defaults
 to None.</p>
-<var class="autodoc-varname">callable_type</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">CallableType</span><span class="autodoc-punctuation"> (optional)</span><p>The function type. Defaults
+</div>
+<var class="autodoc-varname">callable_type</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">CallableType</span><span class="autodoc-punctuation"> (optional)</span><div>
+<p>The function type. Defaults
 to CallableType.FUNCTION.</p>
-<var class="autodoc-varname">prefer_docstring</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">bool</span><span class="autodoc-punctuation"> (optional)</span><p>If true prefer the docstring.</p>
-<var class="autodoc-varname">qualifier</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[str]</span><span class="autodoc-punctuation"> (optional)</span><p>An overload for the qualifier.
+</div>
+<var class="autodoc-varname">prefer_docstring</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">bool</span><span class="autodoc-punctuation"> (optional)</span><div>
+<p>If true prefer the docstring.</p>
+</div>
+<var class="autodoc-varname">qualifier</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[str]</span><span class="autodoc-punctuation"> (optional)</span><div>
+<p>An overload for the qualifier.
 Defaults to None.</p>
+</div>
 </div>
 <div class="autodoc-returns">
 <h4 class="autodoc-title" id="returns">Returns</h4>
@@ -2145,7 +2235,9 @@ Defaults to None.</p>
   <span class="autodoc-title-type">class </span><span class="autodoc-title-name">CallableType</span><span class="autodoc-punctuation">(</span><span class="autodoc-type">Enum</span><span class="autodoc-punctuation">)</span>
 </h3>
 <h4 class="autodoc-title" id="summary_8">Summary</h4>
+<div>
 <p>An enum indicating the type of a callable</p>
+</div>
 <div class="autodoc-description">
 
 </div>
@@ -2193,7 +2285,9 @@ Defaults to None.</p>
   <span class="autodoc-title-type">class </span><span class="autodoc-title-name">ClassDescriptor</span><span class="autodoc-punctuation">(</span><span class="autodoc-type">Descriptor</span><span class="autodoc-punctuation">)</span>
 </h3>
 <h4 class="autodoc-title" id="summary_9">Summary</h4>
+<div>
 <p>A class descriptor</p>
+</div>
 <div class="autodoc-description">
 
 </div>
@@ -2228,19 +2322,45 @@ Defaults to None.</p>
 <br />
 <div class="autodoc-parameters">
 <h4 class="autodoc-title" id="parameters_4">Parameters</h4>
-<var class="autodoc-varname">name</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">str</span><p>The class name</p>
-<var class="autodoc-varname">summary</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[str]</span><p>The docstring summary</p>
-<var class="autodoc-varname">description</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[str]</span><p>The docstring description</p>
-<var class="autodoc-varname">constructor</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[CallableDescriptor]</span><p>The constructor</p>
-<var class="autodoc-varname">attributes</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">List[ArgumentDescriptor]</span><p>The class attributes</p>
-<var class="autodoc-varname">properties</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">List[PropertyDescriptor]</span><p>The class properties</p>
-<var class="autodoc-varname">class_methods</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">List[CallableDescriptor]</span><p>The class methods</p>
-<var class="autodoc-varname">methods</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">List[CallableDescriptor]</span><p>The class methods</p>
-<var class="autodoc-varname">examples</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[List[str]]</span><p>Examples from the docstring</p>
-<var class="autodoc-varname">module</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">str</span><p>The module</p>
-<var class="autodoc-varname">package</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[str]</span><p>The package</p>
-<var class="autodoc-varname">file</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[str]</span><p>The file,</p>
-<var class="autodoc-varname">bases</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">List[ClassDescription]</span><p>The base classes</p>
+<var class="autodoc-varname">name</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">str</span><div>
+<p>The class name</p>
+</div>
+<var class="autodoc-varname">summary</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[str]</span><div>
+<p>The docstring summary</p>
+</div>
+<var class="autodoc-varname">description</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[str]</span><div>
+<p>The docstring description</p>
+</div>
+<var class="autodoc-varname">constructor</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[CallableDescriptor]</span><div>
+<p>The constructor</p>
+</div>
+<var class="autodoc-varname">attributes</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">List[ArgumentDescriptor]</span><div>
+<p>The class attributes</p>
+</div>
+<var class="autodoc-varname">properties</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">List[PropertyDescriptor]</span><div>
+<p>The class properties</p>
+</div>
+<var class="autodoc-varname">class_methods</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">List[CallableDescriptor]</span><div>
+<p>The class methods</p>
+</div>
+<var class="autodoc-varname">methods</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">List[CallableDescriptor]</span><div>
+<p>The class methods</p>
+</div>
+<var class="autodoc-varname">examples</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[List[str]]</span><div>
+<p>Examples from the docstring</p>
+</div>
+<var class="autodoc-varname">module</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">str</span><div>
+<p>The module</p>
+</div>
+<var class="autodoc-varname">package</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[str]</span><div>
+<p>The package</p>
+</div>
+<var class="autodoc-varname">file</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[str]</span><div>
+<p>The file,</p>
+</div>
+<var class="autodoc-varname">bases</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">List[ClassDescription]</span><div>
+<p>The base classes</p>
+</div>
 </div>
 <div class="autodoc-attributes">
 
@@ -2251,7 +2371,9 @@ Defaults to None.</p>
   <span class="autodoc-title-type">property </span><span class="autodoc-qualifier">ClassDescriptor</span><span class="autodoc-punctuation">.</span><span class="autodoc-title-name">descriptor_type</span>
 </h3>
 <h4 class="autodoc-title" id="summary_10">Summary</h4>
+<div>
 <p>The descriptor type</p>
+</div>
 <div class="autodoc-description">
 
 </div>
@@ -2272,7 +2394,9 @@ Defaults to None.</p>
   <span class="autodoc-title-type">class method </span><span class="autodoc-qualifier">ClassDescriptor</span><span class="autodoc-punctuation">.</span><span class="autodoc-title-name">create</span>
 </h3>
 <h4 class="autodoc-title" id="summary_11">Summary</h4>
+<div>
 <p>Create a class</p>
+</div>
 <div class="autodoc-description">
 
 </div>
@@ -2293,14 +2417,26 @@ Defaults to None.</p>
 <br />
 <div class="autodoc-parameters">
 <h4 class="autodoc-title" id="parameters_5">Parameters</h4>
-<var class="autodoc-varname">class_from_init</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">bool</span><p>If True take the docstring from the init function</p>
-<var class="autodoc-varname">ignore_dunder</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">bool</span><p>If True ignore
-<span>__</span>XXX<span>__</span> functions</p>
-<var class="autodoc-varname">ignore_private</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">bool</span><p>If True ignore private methods (those
-prefixed <span>_</span>XXX)</p>
-<var class="autodoc-varname">ignore_inherited</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">bool</span><p>If True ignore inherited methods</p>
-<var class="autodoc-varname">importing_module</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[str]</span><span class="autodoc-punctuation"> (optional)</span><p>The importing module, defaults to None</p>
-<var class="autodoc-varname">prefer_docstring</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">bool</span><span class="autodoc-punctuation"> (optional)</span><p>If true prefer the docstring.</p>
+<var class="autodoc-varname">class_from_init</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">bool</span><div>
+<p>If True take the docstring from the init function</p>
+</div>
+<var class="autodoc-varname">ignore_dunder</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">bool</span><div>
+<p>If True ignore
+<span>&#95;&#95;</span>XXX<span>&#95;&#95;</span> functions</p>
+</div>
+<var class="autodoc-varname">ignore_private</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">bool</span><div>
+<p>If True ignore private methods (those
+prefixed <span>&#95;</span>XXX)</p>
+</div>
+<var class="autodoc-varname">ignore_inherited</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">bool</span><div>
+<p>If True ignore inherited methods</p>
+</div>
+<var class="autodoc-varname">importing_module</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[str]</span><span class="autodoc-punctuation"> (optional)</span><div>
+<p>The importing module, defaults to None</p>
+</div>
+<var class="autodoc-varname">prefer_docstring</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">bool</span><span class="autodoc-punctuation"> (optional)</span><div>
+<p>If true prefer the docstring.</p>
+</div>
 </div>
 <div class="autodoc-returns">
 <h4 class="autodoc-title" id="returns_1">Returns</h4>
@@ -2326,7 +2462,9 @@ prefixed <span>_</span>XXX)</p>
   <span class="autodoc-title-type">class </span><span class="autodoc-title-name">Descriptor</span>
 </h3>
 <h4 class="autodoc-title" id="summary_12">Summary</h4>
+<div>
 <p>The descriptor base class</p>
+</div>
 <div class="autodoc-description">
 
 </div>
@@ -2341,7 +2479,9 @@ prefixed <span>_</span>XXX)</p>
   <span class="autodoc-title-type">property </span><span class="autodoc-qualifier">Descriptor</span><span class="autodoc-punctuation">.</span><span class="autodoc-title-name">descriptor_type</span>
 </h3>
 <h4 class="autodoc-title" id="summary_13">Summary</h4>
+<div>
 <p>The descriptor type</p>
+</div>
 <div class="autodoc-description">
 
 </div>
@@ -2368,7 +2508,9 @@ prefixed <span>_</span>XXX)</p>
   <span class="autodoc-title-type">class </span><span class="autodoc-title-name">ModuleDescriptor</span><span class="autodoc-punctuation">(</span><span class="autodoc-type">Descriptor</span><span class="autodoc-punctuation">)</span>
 </h3>
 <h4 class="autodoc-title" id="summary_14">Summary</h4>
+<div>
 <p>A module descriptor</p>
+</div>
 <div class="autodoc-description">
 
 </div>
@@ -2397,16 +2539,36 @@ prefixed <span>_</span>XXX)</p>
 <br />
 <div class="autodoc-parameters">
 <h4 class="autodoc-title" id="parameters_6">Parameters</h4>
-<var class="autodoc-varname">name</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">str</span><p>The module name</p>
-<var class="autodoc-varname">summary</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[str]</span><p>The module summary</p>
-<var class="autodoc-varname">description</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[str]</span><p>The module description</p>
-<var class="autodoc-varname">attributes</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">List[ArgumentDescriptor]</span><p>The attribute list</p>
-<var class="autodoc-varname">examples</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[List[str]]</span><p>Examples from the docstring</p>
-<var class="autodoc-varname">package</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[str]</span><p>The package name</p>
-<var class="autodoc-varname">file</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[str]</span><p>The file name</p>
-<var class="autodoc-varname">classes</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">List[ClassDescriptor]</span><p>Classes in the module</p>
-<var class="autodoc-varname">functions</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">List[CallableDescriptor]</span><p>Functions in the module</p>
-<var class="autodoc-varname">modules</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">List[ModuleDescriptor]</span><p>The child modules</p>
+<var class="autodoc-varname">name</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">str</span><div>
+<p>The module name</p>
+</div>
+<var class="autodoc-varname">summary</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[str]</span><div>
+<p>The module summary</p>
+</div>
+<var class="autodoc-varname">description</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[str]</span><div>
+<p>The module description</p>
+</div>
+<var class="autodoc-varname">attributes</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">List[ArgumentDescriptor]</span><div>
+<p>The attribute list</p>
+</div>
+<var class="autodoc-varname">examples</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[List[str]]</span><div>
+<p>Examples from the docstring</p>
+</div>
+<var class="autodoc-varname">package</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[str]</span><div>
+<p>The package name</p>
+</div>
+<var class="autodoc-varname">file</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[str]</span><div>
+<p>The file name</p>
+</div>
+<var class="autodoc-varname">classes</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">List[ClassDescriptor]</span><div>
+<p>Classes in the module</p>
+</div>
+<var class="autodoc-varname">functions</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">List[CallableDescriptor]</span><div>
+<p>Functions in the module</p>
+</div>
+<var class="autodoc-varname">modules</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">List[ModuleDescriptor]</span><div>
+<p>The child modules</p>
+</div>
 </div>
 <div class="autodoc-attributes">
 
@@ -2417,7 +2579,9 @@ prefixed <span>_</span>XXX)</p>
   <span class="autodoc-title-type">property </span><span class="autodoc-qualifier">ModuleDescriptor</span><span class="autodoc-punctuation">.</span><span class="autodoc-title-name">descriptor_type</span>
 </h3>
 <h4 class="autodoc-title" id="summary_15">Summary</h4>
+<div>
 <p>The descriptor type</p>
+</div>
 <div class="autodoc-description">
 
 </div>
@@ -2438,7 +2602,9 @@ prefixed <span>_</span>XXX)</p>
   <span class="autodoc-title-type">class method </span><span class="autodoc-qualifier">ModuleDescriptor</span><span class="autodoc-punctuation">.</span><span class="autodoc-title-name">create</span>
 </h3>
 <h4 class="autodoc-title" id="summary_16">Summary</h4>
+<div>
 <p>Create a module descriptor</p>
+</div>
 <div class="autodoc-description">
 
 </div>
@@ -2461,17 +2627,29 @@ prefixed <span>_</span>XXX)</p>
 <br />
 <div class="autodoc-parameters">
 <h4 class="autodoc-title" id="parameters_7">Parameters</h4>
-<var class="autodoc-varname">class_from_init</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">bool</span><p>If True take the docstring from the init
+<var class="autodoc-varname">class_from_init</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">bool</span><div>
+<p>If True take the docstring from the init
 function</p>
-<var class="autodoc-varname">ignore_dunder</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">bool</span><p>If True ignore
-<span>__</span>XXX<span>__</span> functions</p>
-<var class="autodoc-varname">ignore_private</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">bool</span><p>If True ignore private methods
-(those prefixed _XXX)</p>
-<var class="autodoc-varname">ignore_all</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">bool</span><p>If True ignore the
-<span>__</span>all<span>__</span> member.</p>
+</div>
+<var class="autodoc-varname">ignore_dunder</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">bool</span><div>
+<p>If True ignore
+<span>&#95;&#95;</span>XXX<span>&#95;&#95;</span> functions</p>
+</div>
+<var class="autodoc-varname">ignore_private</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">bool</span><div>
+<p>If True ignore private methods
+(those prefixed &#95;XXX)</p>
+</div>
+<var class="autodoc-varname">ignore_all</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">bool</span><div>
+<p>If True ignore the
+<span>&#95;&#95;</span>all<span>&#95;&#95;</span> member.</p>
+</div>
 <var class="autodoc-varname">ignore_inherited</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">bool</span><p></p>
-<var class="autodoc-varname">prefer_docstring</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">bool</span><p>If true prefer the docstring</p>
-<var class="autodoc-varname">follow_module_tree</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">bool</span><p>If true follow the module tree</p>
+<var class="autodoc-varname">prefer_docstring</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">bool</span><div>
+<p>If true prefer the docstring</p>
+</div>
+<var class="autodoc-varname">follow_module_tree</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">bool</span><div>
+<p>If true follow the module tree</p>
+</div>
 </div>
 <div class="autodoc-returns">
 <h4 class="autodoc-title" id="returns_2">Returns</h4>
@@ -2497,7 +2675,9 @@ function</p>
   <span class="autodoc-title-type">class </span><span class="autodoc-title-name">PropertyDescriptor</span><span class="autodoc-punctuation">(</span><span class="autodoc-type">Descriptor</span><span class="autodoc-punctuation">)</span>
 </h3>
 <h4 class="autodoc-title" id="summary_17">Summary</h4>
+<div>
 <p>A properties descriptor</p>
+</div>
 <div class="autodoc-description">
 
 </div>
@@ -2524,17 +2704,35 @@ function</p>
 <br />
 <div class="autodoc-parameters">
 <h4 class="autodoc-title" id="parameters_8">Parameters</h4>
-<var class="autodoc-varname">qualifier</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">str</span><p>The qualifier</p>
-<var class="autodoc-varname">name</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">str</span><p>The property name</p>
-<var class="autodoc-varname">summary</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[str]</span><p>The summary from the docstring</p>
-<var class="autodoc-varname">description</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[str]</span><p>The description from the docstring</p>
-<var class="autodoc-varname">type_</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[str]</span><p>The property type</p>
-<var class="autodoc-varname">is_settable</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">bool</span><p>If True the property can be set</p>
-<var class="autodoc-varname">is_deletable</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">bool</span><p>If True the property can be deleted</p>
-<var class="autodoc-varname">raises</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[List[RaisesDescriptor]]</span><p>A list of the exceptions
+<var class="autodoc-varname">qualifier</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">str</span><div>
+<p>The qualifier</p>
+</div>
+<var class="autodoc-varname">name</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">str</span><div>
+<p>The property name</p>
+</div>
+<var class="autodoc-varname">summary</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[str]</span><div>
+<p>The summary from the docstring</p>
+</div>
+<var class="autodoc-varname">description</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[str]</span><div>
+<p>The description from the docstring</p>
+</div>
+<var class="autodoc-varname">type_</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[str]</span><div>
+<p>The property type</p>
+</div>
+<var class="autodoc-varname">is_settable</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">bool</span><div>
+<p>If True the property can be set</p>
+</div>
+<var class="autodoc-varname">is_deletable</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">bool</span><div>
+<p>If True the property can be deleted</p>
+</div>
+<var class="autodoc-varname">raises</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[List[RaisesDescriptor]]</span><div>
+<p>A list of the exceptions
 the property might raise.</p>
-<var class="autodoc-varname">examples</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[List[str]]</span><p>A list of examples from the
+</div>
+<var class="autodoc-varname">examples</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Optional[List[str]]</span><div>
+<p>A list of examples from the
 docstring</p>
+</div>
 </div>
 <div class="autodoc-attributes">
 
@@ -2545,7 +2743,9 @@ docstring</p>
   <span class="autodoc-title-type">property </span><span class="autodoc-qualifier">PropertyDescriptor</span><span class="autodoc-punctuation">.</span><span class="autodoc-title-name">descriptor_type</span>
 </h3>
 <h4 class="autodoc-title" id="summary_18">Summary</h4>
+<div>
 <p>The descriptor type</p>
+</div>
 <div class="autodoc-description">
 
 </div>
@@ -2566,7 +2766,9 @@ docstring</p>
   <span class="autodoc-title-type">class method </span><span class="autodoc-qualifier">PropertyDescriptor</span><span class="autodoc-punctuation">.</span><span class="autodoc-title-name">create</span>
 </h3>
 <h4 class="autodoc-title" id="summary_19">Summary</h4>
+<div>
 <p>Create a property descriptor from</p>
+</div>
 <div class="autodoc-description">
 
 </div>
@@ -2579,8 +2781,12 @@ docstring</p>
 <br />
 <div class="autodoc-parameters">
 <h4 class="autodoc-title" id="parameters_9">Parameters</h4>
-<var class="autodoc-varname">klass</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Any</span><p>The class object</p>
-<var class="autodoc-varname">property_name</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">str</span><p>The name of the property</p>
+<var class="autodoc-varname">klass</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">Any</span><div>
+<p>The class object</p>
+</div>
+<var class="autodoc-varname">property_name</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">str</span><div>
+<p>The name of the property</p>
+</div>
 </div>
 <div class="autodoc-returns">
 <h4 class="autodoc-title" id="returns_3">Returns</h4>
@@ -2606,7 +2812,9 @@ docstring</p>
   <span class="autodoc-title-type">class </span><span class="autodoc-title-name">RaisesDescriptor</span><span class="autodoc-punctuation">(</span><span class="autodoc-type">Descriptor</span><span class="autodoc-punctuation">)</span>
 </h3>
 <h4 class="autodoc-title" id="summary_20">Summary</h4>
+<div>
 <p>A raises descriptor</p>
+</div>
 <div class="autodoc-description">
 
 </div>
@@ -2619,8 +2827,12 @@ docstring</p>
 <br />
 <div class="autodoc-parameters">
 <h4 class="autodoc-title" id="parameters_10">Parameters</h4>
-<var class="autodoc-varname">type_</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">str</span><p>The type of exception raised</p>
-<var class="autodoc-varname">description</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">str</span><p>The exception description</p>
+<var class="autodoc-varname">type_</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">str</span><div>
+<p>The type of exception raised</p>
+</div>
+<var class="autodoc-varname">description</var><span class="autodoc-punctuation">: </span><span class="autodoc-vartype">str</span><div>
+<p>The exception description</p>
+</div>
 </div>
 <div class="autodoc-attributes">
 
@@ -2631,7 +2843,9 @@ docstring</p>
   <span class="autodoc-title-type">property </span><span class="autodoc-qualifier">RaisesDescriptor</span><span class="autodoc-punctuation">.</span><span class="autodoc-title-name">descriptor_type</span>
 </h3>
 <h4 class="autodoc-title" id="summary_21">Summary</h4>
+<div>
 <p>The descriptor type</p>
+</div>
 <div class="autodoc-description">
 
 </div>
@@ -2654,7 +2868,6 @@ docstring</p>
 </div>
 <hr />
 </div>
-</p>
 
 
 

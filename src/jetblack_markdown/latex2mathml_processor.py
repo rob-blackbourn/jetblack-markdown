@@ -1,4 +1,4 @@
-"""A mathml markdown processor"""
+"""A Latex to MathML markdown processor"""
 
 from functools import partial
 import re
@@ -9,7 +9,7 @@ from typing import (
     Union
 )
 import xml.etree.ElementTree as etree
-from xml.etree.cElementTree import Element, SubElement
+from xml.etree.cElementTree import Element
 
 from markdown import Markdown
 from markdown.inlinepatterns import InlineProcessor
@@ -22,7 +22,7 @@ HTML_CLASS = "latex2mathml"
 
 
 class Latex2MathMLInlineProcessor(InlineProcessor):
-    """An inline processor for Python documentation"""
+    """An inline processor for converting Latex to MathML"""
 
     def __init__(
             self,
@@ -31,13 +31,12 @@ class Latex2MathMLInlineProcessor(InlineProcessor):
     ) -> None:
         super().__init__(pattern, md=md)
 
-    # pylint: disable=arguments-differ
     def handleMatch(
             self,
             matches: re.Match,
             data: str
-    ) -> Union[Tuple[etree.Element, int, int], Tuple[None, None, None]]:
-        latex = matches.group(3)
+    ) -> Tuple[Optional[Union[etree.Element, str]], Optional[int], Optional[int]]:
+        latex = matches.group(1)
         element = convert_to_element(latex)
         start = matches.start(0)
         end = matches.end(0)
@@ -45,11 +44,12 @@ class Latex2MathMLInlineProcessor(InlineProcessor):
 
 
 class Latex2MathMLBlockProcessor(BlockProcessor):
+    """An block processor for converting Latex to MathML"""
 
     def __init__(self, parser: BlockParser):
         super().__init__(parser)
         self._pattern = re.compile(
-            r'(?P<dollar>[$]{2})(?P<math>((?:\\.|[^\\])+?))(?P=dollar)'
+            r' *\$\$\n(.*)\n\$\$ *'
         )
         self._match: Optional[re.Match[str]] = None
 
@@ -60,14 +60,15 @@ class Latex2MathMLBlockProcessor(BlockProcessor):
     def run(self, parent: Element, blocks: List[str]) -> Optional[bool]:
 
         assert self._match is not None
-        latex = self._match.group('math')
+        latex = self._match.group(1)
         if not latex:
             return False
 
         element = convert_to_element(
             latex.strip(),
             display='block',
-            parent=parent
+            parent=parent,
+            xmlns=''
         )
         element.set("class", HTML_CLASS)
 

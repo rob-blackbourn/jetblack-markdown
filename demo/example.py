@@ -1,20 +1,24 @@
 import markdown
-from jetblack_markdown import AutodocExtension
+from markdown.extensions.md_in_html import MarkdownInHtmlExtension
+
+from jetblack_markdown import AutodocExtension, Latex2MathMLExtension
 
 if __name__ == "__main__":
     content = """
 
 # autodoc
 
-@[jetblack_markdown]
+* Item *one*.
+* Item **two**.
+
+@[jetblack_markdown.doc_example]
 
 """
-    extension = AutodocExtension(class_from_init=True, follow_module_tree=True)
-    output = markdown.markdown(
-        content, extensions=[
-            "admonition",
-            "codehilite",
-            extension,
-        ])
+    extensions = [
+        MarkdownInHtmlExtension(),
+        AutodocExtension(class_from_init=True, follow_module_tree=True),
+        Latex2MathMLExtension()
+    ]
+    output = markdown.markdown(content, extensions=extensions)
     print(output)
     assert output is not None

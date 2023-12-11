@@ -1,4 +1,13 @@
-"""A markdown extension for creating documentation"""
+r"""A Latex to MathML markdown extension.
+
+Documentation can be written inline like this: $ x=\frac{-b\pm\sqrt{b^2-4ac} }{2a} $.
+
+Or in a block style:
+
+$$
+x=\frac{-b\pm\sqrt{b^2-4ac} }{2a}
+$$
+"""
 
 from markdown import Markdown
 from markdown.extensions import Extension
@@ -14,9 +23,7 @@ __all__ = [
 
 class Latex2MathMLExtension(Extension):
 
-    # RE = r'\$([^\$]+)\$'
-    # RE = r'\\((.*)\\)'
-    RE = r'(?:(?<!\\)((?:\\{2})+)(?=\$)|(?<!\\)(\$)((?:\\.|[^\\$])+?)(?:\$))'
+    RE = r'\$([^$\n]+)\$'
 
     def __init__(self, *args, **kwargs) -> None:
         self.config = {}
@@ -29,15 +36,37 @@ class Latex2MathMLExtension(Extension):
                 md,
             ),
             'mathml',
-            175
+            50
         )
         md.parser.blockprocessors.register(
             Latex2MathMLBlockProcessor(md.parser),
             'mathml',
-            175
+            50
         )
 
 
 # pylint: disable=invalid-name
 def makeExtension(*args, **kwargs) -> Extension:
+    """Make the extension
+
+    This hook *function* gets picked up by the markdown processor when the
+    extension is listed
+
+    ```python
+    output = markdown.markdown(
+        content, extensions=[
+            "admonition",
+            "codehilite",
+            "jetblack_markdown.latex2mathml",
+        ])
+    print(output)
+    ```
+
+    Args:
+        *args: Positional arguments from the markdown processor
+        **kwargs: Keyword arguments from the markdown processor
+
+    Returns:
+        Extension: The markdown extension
+    """
     return Latex2MathMLExtension(*args, **kwargs)

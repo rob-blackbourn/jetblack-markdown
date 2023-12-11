@@ -10,44 +10,28 @@ from jetblack_markdown.latex2mathml import Latex2MathMLExtension
 
 def test_smoketest():
     content = """
+An inline formula looks like: $x=\frac{-b\pm\sqrt{b^2-4ac} }{2a}$.
 
-@[jetblack_markdown]
+A block looks like:
 
-Something else
+$$
+x=\frac{-b\pm\sqrt{b^2-4ac} }{2a}
+$$
+
+The outer `<math>` tag has the HTML class `"latex2mathml"`.
+
+Here is some API documentation.
+
+@[jetblack_markdown.latex2mathml]
 """
-    extension = AutodocExtension(class_from_init=True)
-    output = markdown.markdown(content, extensions=[extension])
+    extensions = [
+        AutodocExtension(class_from_init=True),
+        Latex2MathMLExtension()
+    ]
+    output = markdown.markdown(content, extensions=extensions)
     assert output is not None
 
 
 def test_etree():
     tree = etree.fromstring('<div>Hello</div>')
     print(tree)
-
-
-def test_math():
-    content = r"""Black (1976) Options on futures/forwards
-
-* The discounted futures price $ F $,
-* Strike price $ K $,
-* Risk-free rate $ r $,
-* Annual dividend yield $ q $,
-* Time to maturity $ \tau = T - t $
-* Volatility $ \sigma $.
-
-Most of the formula use one or both of the following terms.
-
-$$
-d_1 = \frac{\ln(F/K) + (\sigma^2/2)T}{\sigma\sqrt{T}}
-$$
-
-$$
-d_2 = \frac{\ln(F/K) - (\sigma^2/2)T}{\sigma\sqrt{T}} = d_1 - \sigma\sqrt{T}
-$$
-
-where N(.) is the cumulative normal distribution function.
-"""
-
-    extension = Latex2MathMLExtension()
-    output = markdown.markdown(content, extensions=[extension])
-    assert output is not None

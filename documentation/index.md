@@ -28,17 +28,12 @@ Modules are referred to as follows:
 
 ### mkdocs integration
 
-This site was generated using `mkdocs` and the following config:
+Add the extension under `markdown_extensions`.
 
 ```yaml
-site_name: jetblack-markdown
-
-docs_dir: documentation
-site_dir: docs
+...
 
 markdown_extensions:
-  - admonition
-  - codehilite
   - jetblack_markdown.autodoc:
       ignore_all: false
       ignore_inherited: true
@@ -47,6 +42,8 @@ markdown_extensions:
 
 extra_css:
     - css/custom.css
+
+...
 ```
 
 ### Customizing
@@ -61,12 +58,12 @@ A markdown extension is provided for converting LaTex style math formula
 to MathML. This uses the [latex2mathml](https://github.com/roniemartinez/latex2mathml)
 package.
 
-An inline formula looks like: $d_1 = \frac{\ln(F/K) + (\sigma^2/2)T}{\sigma\sqrt{T}}$.
+An inline formula looks like: $x=\frac{-b\pm\sqrt{b^2-4ac} }{2a}$.
 
 A block looks like:
 
 $$
-d_1 = \frac{\ln(F/K) + (\sigma^2/2)T}{\sigma\sqrt{T}}
+x=\frac{-b\pm\sqrt{b^2-4ac} }{2a}
 $$
 
 The outer `<math>` tag has the HTML class `"latex2mathml"`.
