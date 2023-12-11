@@ -11,7 +11,7 @@ if __name__ == "__main__":
 * Item *one*.
 * Item **two**.
 
-@[jetblack_markdown.doc_example]
+@[jetblack_markdown.latex2mathml]
 
 """
     extensions = [

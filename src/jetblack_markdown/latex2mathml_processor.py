@@ -37,7 +37,13 @@ class Latex2MathMLInlineProcessor(InlineProcessor):
             data: str
     ) -> Tuple[Optional[Union[etree.Element, str]], Optional[int], Optional[int]]:
         latex = matches.group(1)
-        element = convert_to_element(latex)
+        if not latex:
+            return None, None, None
+
+        element = convert_to_element(latex.strip())
+        element.set("class", HTML_CLASS)
+        del element.attrib['xmlns']
+
         start = matches.start(0)
         end = matches.end(0)
         return element, start, end
@@ -67,10 +73,10 @@ class Latex2MathMLBlockProcessor(BlockProcessor):
         element = convert_to_element(
             latex.strip(),
             display='block',
-            parent=parent,
-            xmlns=''
+            parent=parent
         )
         element.set("class", HTML_CLASS)
+        del element.attrib['xmlns']
 
         blocks.pop(0)
 

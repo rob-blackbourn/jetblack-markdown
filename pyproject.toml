@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "jetblack-markdown"
-version = "1.2.0a2"
+version = "1.2.0a3"
 authors = [
   { name="Rob Blackbourn", email="rob.blackbourn@gmail.com" },
 ]
