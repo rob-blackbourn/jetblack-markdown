@@ -104,7 +104,8 @@ class ClassDescriptor(Descriptor):
             ignore_private: bool,
             ignore_inherited: bool,
             importing_module: Optional[str] = None,
-            prefer_docstring: bool = True
+            prefer_docstring: bool = True,
+            imported_from_all: bool = False
     ) -> ClassDescriptor:
         """Create a class
 
@@ -118,6 +119,7 @@ class ClassDescriptor(Descriptor):
             ignore_inherited (bool): If True ignore inherited methods
             importing_module (Optional[str], optional): The importing module, defaults to None
             prefer_docstring (bool): If true prefer the docstring.
+            imported_from_all (bool): If true the class if defined in the `__init__.py`.
 
         Returns:
             ClassDescriptor: The class descriptor
@@ -135,9 +137,14 @@ class ClassDescriptor(Descriptor):
         }
 
         docstring = _get_docstring(
-            obj, members, class_from_init, is_named_tuple)
+            obj, members,
+            class_from_init,
+            is_named_tuple
+        )
         name = obj.__qualname__ if hasattr(
-            obj, '__qualname__') else obj.__name__
+            obj,
+            '__qualname__'
+        ) else obj.__name__
         summary = docstring.short_description if docstring else None
         description = docstring.long_description if docstring else None
 

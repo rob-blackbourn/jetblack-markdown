@@ -138,7 +138,8 @@ class CallableDescriptor(Descriptor):
             docstring: Optional[Docstring] = None,
             callable_type: CallableType = CallableType.FUNCTION,
             prefer_docstring=False,
-            qualifier: Optional[str] = None
+            qualifier: Optional[str] = None,
+            imported_from_all: bool = False
     ) -> CallableDescriptor:
         """Create a callable descriptor from a callable
 
@@ -153,6 +154,7 @@ class CallableDescriptor(Descriptor):
             prefer_docstring (bool): If true prefer the docstring.
             qualifier (Optional[str], optional): An overload for the qualifier.
                 Defaults to None.
+            imported_from_all (bool): If true the class if defined in the `__init__.py`.
 
         Returns:
             CallableDescriptor: A callable descriptor
@@ -277,7 +279,7 @@ class CallableDescriptor(Descriptor):
         elif hasattr(obj, '__qualname__'):
             qualifier, _, name = obj.__qualname__.rpartition('.')
             if not qualifier:
-                qualifier = package
+                qualifier = package if imported_from_all else module
         else:
             qualifier = package
             name = obj.__name__

@@ -130,6 +130,7 @@ class ModuleDescriptor(Descriptor):
         classes: List[ClassDescriptor] = []
         functions: List[CallableDescriptor] = []
         for member_name, member in members.items():
+            imported_from_all = member_name in valid_members
 
             if (
                     (not ignore_all and member_name not in valid_members)
@@ -143,7 +144,7 @@ class ModuleDescriptor(Descriptor):
             if ignore_private and member_name.startswith('_'):
                 continue
 
-            if ignore_all or not valid_members or member_name in valid_members:
+            if ignore_all or not valid_members or imported_from_all:
 
                 if inspect.isclass(member):
                     classes.append(
@@ -153,14 +154,16 @@ class ModuleDescriptor(Descriptor):
                             ignore_dunder,
                             ignore_private,
                             ignore_inherited,
-                            name
+                            name,
+                            imported_from_all=imported_from_all
                         )
                     )
                 elif inspect.isfunction(member):
                     functions.append(
                         CallableDescriptor.create(
                             member,
-                            prefer_docstring=prefer_docstring
+                            prefer_docstring=prefer_docstring,
+                            imported_from_all=imported_from_all
                         )
                     )
                 else:
