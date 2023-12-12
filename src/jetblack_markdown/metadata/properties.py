@@ -90,9 +90,9 @@ class PropertyDescriptor(Descriptor):
         qualifier = klass.__name__
 
         if is_named_tuple_type(klass) and name in klass._fields:
-            docstring = docstring_parser.parse(inspect.getdoc(klass))
+            docstring = docstring_parser.parse(inspect.getdoc(klass) or '')
             docstring_param = find_docstring_param(name, docstring)
-            field_type = klass._field_types[name] # pylint: disable=protected-access
+            field_type = klass._field_types[name]  # pylint: disable=protected-access
             type_name = get_type_name(
                 field_type,
                 docstring_param
@@ -104,7 +104,7 @@ class PropertyDescriptor(Descriptor):
             is_deletable = False
             examples: Optional[List[str]] = None
         else:
-            docstring = docstring_parser.parse(inspect.getdoc(obj))
+            docstring = docstring_parser.parse(inspect.getdoc(obj) or '')
             signature = inspect.signature(obj.fget)
             type_name = get_type_name(
                 signature.return_annotation,
@@ -113,14 +113,17 @@ class PropertyDescriptor(Descriptor):
             summary = docstring.short_description if docstring else None
             description = docstring.long_description if docstring else None
             raises = [
-                RaisesDescriptor(error.type_name, error.description)
+                RaisesDescriptor(
+                    error.type_name or '',
+                    error.description or ''
+                )
                 for error in docstring.raises
             ] if docstring and docstring.raises else None
 
             is_settable = 'fset' in members and members['fset']
             is_deletable = 'fdel' in members and members['fdel']
             examples = [
-                meta.description
+                meta.description or ''
                 for meta in docstring.meta
                 if 'examples' in meta.args
             ] if docstring is not None else None

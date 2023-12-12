@@ -23,17 +23,17 @@ def _get_docstring(
         members: Dict[str, Any],
         class_from_init: bool,
         is_named_tuple: bool
-) -> docstring.Docstring:
+) -> docstring_parser.Docstring:
     docstring = docstring_parser.parse(
         inspect.getdoc(
             members.get('__init__', obj)
             if class_from_init and not is_named_tuple else obj
-        )
+        ) or ''
     )
 
     # There has to be a better way to detect an empty __init__.
     if docstring.short_description == 'Initialize self.  See help(type(self)) for accurate signature.':
-        docstring = docstring_parser.parse(inspect.getdoc(obj))
+        docstring = docstring_parser.parse(inspect.getdoc(obj) or '')
 
     return docstring
 
@@ -134,7 +134,8 @@ class ClassDescriptor(Descriptor):
             if not ignore_inherited or name in valid_names
         }
 
-        docstring = _get_docstring(obj, members, class_from_init, is_named_tuple)
+        docstring = _get_docstring(
+            obj, members, class_from_init, is_named_tuple)
         name = obj.__qualname__ if hasattr(
             obj, '__qualname__') else obj.__name__
         summary = docstring.short_description if docstring else None
@@ -194,7 +195,7 @@ class ClassDescriptor(Descriptor):
                 )
 
         examples: Optional[List[str]] = [
-            meta.description
+            meta.description or ''
             for meta in docstring.meta
             if 'examples' in meta.args
         ] if docstring is not None else None

@@ -98,13 +98,13 @@ class ModuleDescriptor(Descriptor):
         Returns:
             ModuleDescriptor: A module descriptor
         """
-        docstring = docstring_parser.parse(inspect.getdoc(module))
+        docstring = docstring_parser.parse(inspect.getdoc(module) or '')
 
         name = module.__name__
         summary = docstring.short_description if docstring else None
         description = docstring.long_description if docstring else None
         attrs: List[Tuple[str, str]] = [
-            (meta.args[1], meta.description)
+            (meta.args[1], meta.description or '')
             for meta in docstring.meta
             if 'attribute' in meta.args
         ]
@@ -116,7 +116,7 @@ class ModuleDescriptor(Descriptor):
                 ArgumentDescriptor(attr_name, attr_type, attr_desc)
             )
         examples: Optional[List[str]] = [
-            meta.description
+            meta.description or ''
             for meta in docstring.meta
             if 'examples' in meta.args
         ] if docstring is not None else None

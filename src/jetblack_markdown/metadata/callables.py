@@ -160,7 +160,7 @@ class CallableDescriptor(Descriptor):
         if signature is None:
             signature = inspect.signature(obj)
         if docstring is None:
-            docstring = docstring_parser.parse(inspect.getdoc(obj))
+            docstring = docstring_parser.parse(inspect.getdoc(obj) or '')
 
         is_async = inspect.iscoroutinefunction(
             obj) or inspect.isasyncgenfunction(obj)
@@ -219,7 +219,7 @@ class CallableDescriptor(Descriptor):
                 if parameter.default is Parameter.empty:
                     default = ArgumentDescriptor.EMPTY
                 elif prefer_docstring and docstring_param is not None:
-                    default = docstring_param.default
+                    default = docstring_param.default or ArgumentDescriptor.EMPTY
                 else:
                     default = parameter.default
 
@@ -250,7 +250,7 @@ class CallableDescriptor(Descriptor):
             )
 
         raises: Optional[List[RaisesDescriptor]] = [
-            RaisesDescriptor(error.type_name, error.description)
+            RaisesDescriptor(error.type_name or '', error.description or '')
             for error in docstring.raises
         ] if docstring and docstring.raises else None
 
@@ -258,7 +258,7 @@ class CallableDescriptor(Descriptor):
         description = docstring.long_description if docstring else None
 
         examples: Optional[List[str]] = [
-            meta.description
+            meta.description or ''
             for meta in docstring.meta
             if 'examples' in meta.args
         ] if docstring is not None else None
