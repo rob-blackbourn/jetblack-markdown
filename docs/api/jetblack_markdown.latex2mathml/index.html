@@ -531,6 +531,24 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#summary_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Summary
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#description_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Description
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#parameters" class="md-nav__link">
     <span class="md-ellipsis">
       Parameters
@@ -564,7 +582,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#summary_1" class="md-nav__link">
+  <a href="#summary_2" class="md-nav__link">
     <span class="md-ellipsis">
       Summary
     </span>
@@ -597,7 +615,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#summary_2" class="md-nav__link">
+  <a href="#summary_3" class="md-nav__link">
     <span class="md-ellipsis">
       Summary
     </span>
@@ -606,7 +624,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#description_1" class="md-nav__link">
+  <a href="#description_2" class="md-nav__link">
     <span class="md-ellipsis">
       Description
     </span>
@@ -712,6 +730,24 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#summary_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Summary
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#description_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Description
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#parameters" class="md-nav__link">
     <span class="md-ellipsis">
       Parameters
@@ -745,7 +781,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#summary_1" class="md-nav__link">
+  <a href="#summary_2" class="md-nav__link">
     <span class="md-ellipsis">
       Summary
     </span>
@@ -778,7 +814,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#summary_2" class="md-nav__link">
+  <a href="#summary_3" class="md-nav__link">
     <span class="md-ellipsis">
       Summary
     </span>
@@ -787,7 +823,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#description_1" class="md-nav__link">
+  <a href="#description_2" class="md-nav__link">
     <span class="md-ellipsis">
       Description
     </span>
@@ -832,12 +868,12 @@
   </h3>
 <h4 class="autodoc-title" id="summary">Summary</h4>
 <div>
-<p>A markdown extension for creating documentation</p>
+<p>A Latex to MathML markdown extension.</p>
 </div>
 <div class="autodoc-description">
 <h4 class="autodoc-title" id="description">Description</h4>
 <div>
-<p>Documentation can be written inline like this: <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>x</mi><mo>&#x0003D;</mo><mfrac><mrow><mo>&#x02212;</mo><mi>b</mi><mi>&#x000B1;</mi><msqrt><mrow><msup><mi>b</mi><mn>2</mn></msup><mo>&#x02212;</mo><mn>4</mn><mi>a</mi><mi>c</mi></mrow></msqrt></mrow><mrow><mn>2</mn><mi>a</mi></mrow></mfrac></mrow></math>.</p>
+<p>Documentation can be written inline like this: <math class="latex2mathml" display="inline"><mrow><mi>x</mi><mo>&#x0003D;</mo><mfrac><mrow><mo>&#x02212;</mo><mi>b</mi><mi>&#x000B1;</mi><msqrt><mrow><msup><mi>b</mi><mn>2</mn></msup><mo>&#x02212;</mo><mn>4</mn><mi>a</mi><mi>c</mi></mrow></msqrt></mrow><mrow><mn>2</mn><mi>a</mi></mrow></mfrac></mrow></math>.</p>
 <p>Or in a block style:</p>
 <math class="latex2mathml" display="block"><mrow><mi>x</mi><mo>&#x0003D;</mo><mfrac><mrow><mo>&#x02212;</mo><mi>b</mi><mi>&#x000B1;</mi><msqrt><mrow><msup><mi>b</mi><mn>2</mn></msup><mo>&#x02212;</mo><mn>4</mn><mi>a</mi><mi>c</mi></mrow></msqrt></mrow><mrow><mn>2</mn><mi>a</mi></mrow></mfrac></mrow></math>
 </div>
@@ -852,9 +888,24 @@
 <h3 class="autodoc-title" id="function-jetblack_markdownmakeextension">
   <span class="autodoc-title-type">function </span><span class="autodoc-qualifier">jetblack_markdown</span><span class="autodoc-punctuation">.</span><span class="autodoc-title-name">makeExtension</span>
 </h3>
-<br />
+<h4 class="autodoc-title" id="summary_1">Summary</h4>
+<div>
+<p>Make the extension</p>
+</div>
 <div class="autodoc-description">
-
+<h4 class="autodoc-title" id="description_1">Description</h4>
+<div>
+<p>This hook <em>function</em> gets picked up by the markdown processor when the
+extension is listed</p>
+<p><code>python
+output = markdown.markdown(
+    content, extensions=[
+        "admonition",
+        "codehilite",
+        "jetblack_markdown.latex2mathml",
+    ])
+print(output)</code></p>
+</div>
 </div>
 <div class="autodoc-signature"><span class="autodoc-qualifier">jetblack_markdown</span><span class="autodoc-punctuation">.</span><var class="autodoc-varname">makeExtension</var><span class="autodoc-punctuation">(</span><br />
 <div class="autodoc-argument">
@@ -865,13 +916,13 @@
 <br />
 <div class="autodoc-parameters">
 <h4 class="autodoc-title" id="parameters">Parameters</h4>
-<var class="autodoc-varname">*args</var><p></p>
-<var class="autodoc-varname">**kwargs</var><p></p>
+<var class="autodoc-varname">*args</var><div class="autodoc-vardesc"></div>
+<var class="autodoc-varname">**kwargs</var><div class="autodoc-vardesc"></div>
 </div>
 <div class="autodoc-returns">
 <h4 class="autodoc-title" id="returns">Returns</h4>
 <span class="autodoc-vartype">Extension</span><span class="autodoc-punctuation">: </span>
-
+<span class="autodoc-summary">The markdown extension</span>
 </div>
 <div class="autodoc-raises">
 
@@ -885,14 +936,14 @@
 <h3 class="autodoc-title" id="class-latex2mathmlextensionextension">
   <span class="autodoc-title-type">class </span><span class="autodoc-title-name">Latex2MathMLExtension</span><span class="autodoc-punctuation">(</span><span class="autodoc-type">Extension</span><span class="autodoc-punctuation">)</span>
 </h3>
-<h4 class="autodoc-title" id="summary_1">Summary</h4>
+<h4 class="autodoc-title" id="summary_2">Summary</h4>
 <div>
 <p>Initiate Extension and set up configs. </p>
 </div>
 <div class="autodoc-description">
 
 </div>
-<div class="autodoc-signature"><span class="autodoc-qualifier">jetblack_markdown</span><span class="autodoc-punctuation">.</span><var class="autodoc-varname">Latex2MathMLExtension</var><span class="autodoc-punctuation">(</span><br />
+<div class="autodoc-signature"><span class="autodoc-qualifier">jetblack_markdown.latex2mathml</span><span class="autodoc-punctuation">.</span><var class="autodoc-varname">Latex2MathMLExtension</var><span class="autodoc-punctuation">(</span><br />
 <div class="autodoc-argument">
         <var class="autodoc-varname">*args</var><span class="autodoc-punctuation">,</span></div>
 <div class="autodoc-argument">
@@ -901,8 +952,8 @@
 <br />
 <div class="autodoc-parameters">
 <h4 class="autodoc-title" id="parameters_1">Parameters</h4>
-<var class="autodoc-varname">*args</var><p></p>
-<var class="autodoc-varname">**kwargs</var><p></p>
+<var class="autodoc-varname">*args</var><div class="autodoc-vardesc"></div>
+<var class="autodoc-varname">**kwargs</var><div class="autodoc-vardesc"></div>
 </div>
 <div class="autodoc-attributes">
 
@@ -916,12 +967,12 @@
 <h3 class="autodoc-title" id="method-latex2mathmlextensionextendmarkdown">
   <span class="autodoc-title-type">method </span><span class="autodoc-qualifier">Latex2MathMLExtension</span><span class="autodoc-punctuation">.</span><span class="autodoc-title-name">extendMarkdown</span>
 </h3>
-<h4 class="autodoc-title" id="summary_2">Summary</h4>
+<h4 class="autodoc-title" id="summary_3">Summary</h4>
 <div>
 <p>Add the various processors and patterns to the Markdown Instance.</p>
 </div>
 <div class="autodoc-description">
-<h4 class="autodoc-title" id="description_1">Description</h4>
+<h4 class="autodoc-title" id="description_2">Description</h4>
 <div>
 <p>This method must be overridden by every extension.</p>
 </div>

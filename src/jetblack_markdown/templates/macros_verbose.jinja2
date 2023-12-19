@@ -130,7 +130,7 @@ Render parameters
 {% if argument.description -%}
       {{ argument.description | md_format }}
 {%- else -%}
-      <p />
+      <div class="autodoc-vardesc" />
 {%- endif %}
 {% endfor %}
 </div>
@@ -155,11 +155,11 @@ Render attributes
 {%- if attribute.is_optional -%}
   <span class="autodoc-punctuation"> (optional)</span>
 {%- endif -%}
+  <div class="autodoc-vardesc">
 {% if attribute.description -%}
-  <p>{{ attribute.description }}</p>
-{% else %}
-  <p></p>
+  {{ attribute.description }}
 {% endif %}
+  </div>
 {%- endfor -%}
 {%- endif %}
 </div>

@@ -26,7 +26,6 @@ nav:
 markdown_extensions:
   - admonition
   - codehilite
-  # - md_in_html
   - jetblack_markdown.autodoc:
       class_from_init: true
       ignore_dunder: true

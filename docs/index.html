@@ -671,15 +671,10 @@
 </code></pre></div>
 
 <h3 id="mkdocs-integration">mkdocs integration</h3>
-<p>This site was generated using <code>mkdocs</code> and the following config:</p>
-<div class="codehilite"><pre><span></span><code><span class="nt">site_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">jetblack-markdown</span>
-
-<span class="nt">docs_dir</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">documentation</span>
-<span class="nt">site_dir</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">docs</span>
+<p>Add the extension under <code>markdown_extensions</code>.</p>
+<div class="codehilite"><pre><span></span><code><span class="nn">...</span>
 
 <span class="nt">markdown_extensions</span><span class="p">:</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">admonition</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">codehilite</span>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">jetblack_markdown.autodoc</span><span class="p">:</span>
 <span class="w">      </span><span class="nt">ignore_all</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
 <span class="w">      </span><span class="nt">ignore_inherited</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
@@ -688,6 +683,8 @@
 
 <span class="nt">extra_css</span><span class="p">:</span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">css/custom.css</span>
+
+<span class="nn">...</span>
 </code></pre></div>
 
 <h3 id="customizing">Customizing</h3>
@@ -698,9 +695,9 @@ the <code>mkdocs.yml</code>.</p>
 <p>A markdown extension is provided for converting LaTex style math formula
 to MathML. This uses the <a href="https://github.com/roniemartinez/latex2mathml">latex2mathml</a>
 package.</p>
-<p>An inline formula looks like: <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>x</mi><mo>&#x0003D;</mo><mfrac><mrow><mo>&#x02212;</mo><mi>b</mi><mi>&#x000B1;</mi><msqrt><mrow><msup><mi>b</mi><mn>2</mn></msup><mo>&#x02212;</mo><mn>4</mn><mi>a</mi><mi>c</mi></mrow></msqrt></mrow><mrow><mn>2</mn><mi>a</mi></mrow></mfrac></mrow></math>.</p>
+<p>An inline formula looks like: <math class="latex2mathml" display="inline"><mrow><mi>x</mi><mo>&#x0003D;</mo><mfrac><mrow><mo>&#x02212;</mo><mi>b</mi><mi>&#x000B1;</mi><msqrt><mrow><msup><mi>b</mi><mn>2</mn></msup><mo>&#x02212;</mo><mn>4</mn><mi>a</mi><mi>c</mi></mrow></msqrt></mrow><mrow><mn>2</mn><mi>a</mi></mrow></mfrac></mrow></math>.</p>
 <p>A block looks like:</p>
-<math class="latex2mathml" display="block" xmlns=""><mrow><mi>x</mi><mo>&#x0003D;</mo><mfrac><mrow><mo>&#x02212;</mo><mi>b</mi><mi>&#x000B1;</mi><msqrt><mrow><msup><mi>b</mi><mn>2</mn></msup><mo>&#x02212;</mo><mn>4</mn><mi>a</mi><mi>c</mi></mrow></msqrt></mrow><mrow><mn>2</mn><mi>a</mi></mrow></mfrac></mrow></math>
+<math class="latex2mathml" display="block"><mrow><mi>x</mi><mo>&#x0003D;</mo><mfrac><mrow><mo>&#x02212;</mo><mi>b</mi><mi>&#x000B1;</mi><msqrt><mrow><msup><mi>b</mi><mn>2</mn></msup><mo>&#x02212;</mo><mn>4</mn><mi>a</mi><mi>c</mi></mrow></msqrt></mrow><mrow><mn>2</mn><mi>a</mi></mrow></mfrac></mrow></math>
 <p>The outer <code>&lt;math&gt;</code> tag has the HTML class <code>"latex2mathml"</code>.</p>
 <h2 id="mkdocs-integration_1">mkdocs integration</h2>
 <p>This site was generated using <code>mkdocs</code> and the following config:</p>
