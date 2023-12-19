@@ -2,13 +2,9 @@
 
 import inspect
 import re
-from typing import (
-    Any,
-    Optional,
-    Tuple,
-    Union
-)
+from typing import Any, List, Optional
 import xml.etree.ElementTree as etree
+from xml.etree.cElementTree import Element
 
 from jinja2 import (
     Environment,
@@ -17,8 +13,8 @@ from jinja2 import (
     FileSystemLoader,
     select_autoescape
 )
-from markdown import Markdown
-from markdown.inlinepatterns import InlineProcessor
+from markdown.blockparser import BlockParser
+from markdown.blockprocessors import BlockProcessor
 
 
 from .metadata import (
@@ -30,13 +26,12 @@ from .metadata import (
 from .utils import import_from_string
 
 
-class AutodocInlineProcessor(InlineProcessor):
+class AutodocBlockProcessor(BlockProcessor):
     """An inline processor for Python documentation"""
 
     def __init__(
             self,
-            pattern,
-            md: Markdown = None,
+            parser: BlockParser,
             *,
             class_from_init: bool = True,
             ignore_dunder: bool = True,
@@ -48,12 +43,11 @@ class AutodocInlineProcessor(InlineProcessor):
             template_folder: Optional[str] = None,
             template_file: str = "main.jinja2"
     ) -> None:
-        """An inline processor for Python documentation
+        """An inline processor for **Python** documentation
 
         Args:
             pattern ([type]): The regular expression to match
-            md (Markdown, optional): The markdown object provided by the
-                extension. Defaults to None.
+            md (BlockParser): The parser.
             class_from_init (bool, optional): If True use the docstring from
                 the <span>&#95;&#95;</span>init<span>&#95;&#95;</span> function
                 for classes. Defaults to True.
@@ -72,6 +66,7 @@ class AutodocInlineProcessor(InlineProcessor):
             template_file (Optional[str], optional): The template file to use,
                 Defaults to "main.jinja2".
         """
+        super().__init__(parser)
         self.class_from_init = class_from_init
         self.ignore_dunder = ignore_dunder
         self.ignore_private = ignore_private
@@ -89,38 +84,35 @@ class AutodocInlineProcessor(InlineProcessor):
         )
         self.env.filters['md_format'] = self._md_format
         self.template = self.env.get_template(template_file)
-        super().__init__(pattern, md=md)
+        self._pattern = re.compile(r'@\[([^\]]+)\]')
+        self._match: Optional[re.Match[str]] = None
 
-    # pylint: disable=arguments-differ
-    def handleMatch(
-            self,
-            matches: re.Match,
-            data: str
-    ) -> Union[Tuple[etree.Element, int, int], Tuple[None, None, None]]:
-        """Handle a match
+    def test(self, parent: Element, block: str) -> bool:
+        self._match = self._pattern.match(block)
+        return self._match is not None
 
-        Args:
-            m (re.Match): The regular expression match result
-            data (str): The matched text
+    def run(self, parent: Element, blocks: List[str]) -> Optional[bool]:
 
-        Returns:
-            Union[Tuple[etree.Element, int, int], Tuple[None, None, None]]: The element to insert and the start
-                and end index
-        """
-        import_str = matches.group(1)
+        assert self._match is not None
+        import_str = self._match.group(1)
+        if not import_str:
+            return False
 
-        element = self._render(import_str)
-        start = matches.start(0)
-        end = matches.end(0)
-        return element, start, end
+        html_text = self._render(import_str)
+        element = etree.fromstring(html_text)
+        parent.append(element)
 
-    def _render(self, import_str: str) -> etree.Element:
+        blocks.pop(0)
+
+        return True
+
+    def _render(self, import_str: str) -> str:
         obj = import_from_string(import_str)
         descriptor = self._make_descriptor(obj)
-        html = self.template.render(
+        html_text = self.template.render(
             obj=descriptor
         )
-        return etree.fromstring(html)
+        return html_text
 
     def _make_descriptor(self, obj: Any) -> Descriptor:
         if inspect.ismodule(obj):
@@ -152,6 +144,12 @@ class AutodocInlineProcessor(InlineProcessor):
             raise RuntimeError("Unhandled descriptor")
 
     def _md_format(self, text: str) -> str:
-        md = Markdown(extensions=self.md.registeredExtensions)
-        result = md.convert(text)
-        return result
+        parent = Element("div")
+        self.parser.parseChunk(parent, text)
+        children = next(iter(parent))
+        buf = (
+            etree.tostring(children[0])
+            if len(children) == 1
+            else etree.tostring(parent)
+        )
+        return buf.decode('utf-8')

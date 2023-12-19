@@ -21,6 +21,7 @@ nav:
   - API:
     - jetblack_markdown.autodoc: api/jetblack_markdown.autodoc.md
     - jetblack_markdown.metadata: api/jetblack_markdown.metadata.md
+    - jetblack_markdown.latex2mathml: api/jetblack_markdown.latex2mathml.md
   
 markdown_extensions:
   - admonition
@@ -33,6 +34,7 @@ markdown_extensions:
       ignore_inherited: true
       follow_module_tree: false
       prefer_docstring: true
+  - jetblack_markdown.latex2mathml
 
 extra_css:
     - css/custom.css

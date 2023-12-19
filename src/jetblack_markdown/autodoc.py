@@ -3,7 +3,7 @@
 from markdown import Markdown
 from markdown.extensions import Extension
 
-from .autodoc_processor import AutodocInlineProcessor
+from .autodoc_processor import AutodocBlockProcessor
 
 _DOCSTRING_RE = r'@\[([^\]]+)\]'
 
@@ -43,10 +43,9 @@ class AutodocExtension(Extension):
         follow_module_tree = self.getConfig('follow_module_tree')
         template_folder = self.getConfig('template_folder')
         template_file = self.getConfig('template_file')
-        md.inlinePatterns.register(
-            AutodocInlineProcessor(
-                _DOCSTRING_RE,
-                md,
+        md.parser.blockprocessors.register(
+            AutodocBlockProcessor(
+                md.parser,
                 class_from_init=class_from_init,
                 ignore_dunder=ignore_dunder,
                 ignore_private=ignore_private,
@@ -58,7 +57,7 @@ class AutodocExtension(Extension):
                 template_file=template_file
             ),
             'autodoc',
-            175
+            200
         )
 
 

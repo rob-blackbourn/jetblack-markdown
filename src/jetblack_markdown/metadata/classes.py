@@ -23,17 +23,17 @@ def _get_docstring(
         members: Dict[str, Any],
         class_from_init: bool,
         is_named_tuple: bool
-) -> docstring.Docstring:
+) -> docstring_parser.Docstring:
     docstring = docstring_parser.parse(
         inspect.getdoc(
             members.get('__init__', obj)
             if class_from_init and not is_named_tuple else obj
-        )
+        ) or ''
     )
 
     # There has to be a better way to detect an empty __init__.
     if docstring.short_description == 'Initialize self.  See help(type(self)) for accurate signature.':
-        docstring = docstring_parser.parse(inspect.getdoc(obj))
+        docstring = docstring_parser.parse(inspect.getdoc(obj) or '')
 
     return docstring
 
@@ -104,7 +104,8 @@ class ClassDescriptor(Descriptor):
             ignore_private: bool,
             ignore_inherited: bool,
             importing_module: Optional[str] = None,
-            prefer_docstring: bool = True
+            prefer_docstring: bool = True,
+            imported_from_all: bool = False
     ) -> ClassDescriptor:
         """Create a class
 
@@ -118,6 +119,7 @@ class ClassDescriptor(Descriptor):
             ignore_inherited (bool): If True ignore inherited methods
             importing_module (Optional[str], optional): The importing module, defaults to None
             prefer_docstring (bool): If true prefer the docstring.
+            imported_from_all (bool): If true the class if defined in the `__init__.py`.
 
         Returns:
             ClassDescriptor: The class descriptor
@@ -134,9 +136,15 @@ class ClassDescriptor(Descriptor):
             if not ignore_inherited or name in valid_names
         }
 
-        docstring = _get_docstring(obj, members, class_from_init, is_named_tuple)
+        docstring = _get_docstring(
+            obj, members,
+            class_from_init,
+            is_named_tuple
+        )
         name = obj.__qualname__ if hasattr(
-            obj, '__qualname__') else obj.__name__
+            obj,
+            '__qualname__'
+        ) else obj.__name__
         summary = docstring.short_description if docstring else None
         description = docstring.long_description if docstring else None
 
@@ -194,7 +202,7 @@ class ClassDescriptor(Descriptor):
                 )
 
         examples: Optional[List[str]] = [
-            meta.description
+            meta.description or ''
             for meta in docstring.meta
             if 'examples' in meta.args
         ] if docstring is not None else None

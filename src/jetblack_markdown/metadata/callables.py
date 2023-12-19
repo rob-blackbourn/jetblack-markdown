@@ -138,7 +138,8 @@ class CallableDescriptor(Descriptor):
             docstring: Optional[Docstring] = None,
             callable_type: CallableType = CallableType.FUNCTION,
             prefer_docstring=False,
-            qualifier: Optional[str] = None
+            qualifier: Optional[str] = None,
+            imported_from_all: bool = False
     ) -> CallableDescriptor:
         """Create a callable descriptor from a callable
 
@@ -153,6 +154,7 @@ class CallableDescriptor(Descriptor):
             prefer_docstring (bool): If true prefer the docstring.
             qualifier (Optional[str], optional): An overload for the qualifier.
                 Defaults to None.
+            imported_from_all (bool): If true the class if defined in the `__init__.py`.
 
         Returns:
             CallableDescriptor: A callable descriptor
@@ -160,7 +162,7 @@ class CallableDescriptor(Descriptor):
         if signature is None:
             signature = inspect.signature(obj)
         if docstring is None:
-            docstring = docstring_parser.parse(inspect.getdoc(obj))
+            docstring = docstring_parser.parse(inspect.getdoc(obj) or '')
 
         is_async = inspect.iscoroutinefunction(
             obj) or inspect.isasyncgenfunction(obj)
@@ -219,7 +221,7 @@ class CallableDescriptor(Descriptor):
                 if parameter.default is Parameter.empty:
                     default = ArgumentDescriptor.EMPTY
                 elif prefer_docstring and docstring_param is not None:
-                    default = docstring_param.default
+                    default = docstring_param.default or ArgumentDescriptor.EMPTY
                 else:
                     default = parameter.default
 
@@ -250,7 +252,7 @@ class CallableDescriptor(Descriptor):
             )
 
         raises: Optional[List[RaisesDescriptor]] = [
-            RaisesDescriptor(error.type_name, error.description)
+            RaisesDescriptor(error.type_name or '', error.description or '')
             for error in docstring.raises
         ] if docstring and docstring.raises else None
 
@@ -258,7 +260,7 @@ class CallableDescriptor(Descriptor):
         description = docstring.long_description if docstring else None
 
         examples: Optional[List[str]] = [
-            meta.description
+            meta.description or ''
             for meta in docstring.meta
             if 'examples' in meta.args
         ] if docstring is not None else None
@@ -277,7 +279,7 @@ class CallableDescriptor(Descriptor):
         elif hasattr(obj, '__qualname__'):
             qualifier, _, name = obj.__qualname__.rpartition('.')
             if not qualifier:
-                qualifier = package
+                qualifier = package if imported_from_all else module
         else:
             qualifier = package
             name = obj.__name__
