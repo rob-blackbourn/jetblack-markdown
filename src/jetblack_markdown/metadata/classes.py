@@ -1,13 +1,9 @@
 """Classes"""
 
 from __future__ import annotations
+
 import inspect
-from typing import (
-    Any,
-    Dict,
-    List,
-    Optional
-)
+from typing import Any
 
 import docstring_parser
 
@@ -20,7 +16,7 @@ from .utils import make_file_relative, is_named_tuple_type
 
 def _get_docstring(
         obj: Any,
-        members: Dict[str, Any],
+        members: dict[str, Any],
         class_from_init: bool,
         is_named_tuple: bool
 ) -> docstring_parser.Docstring:
@@ -44,35 +40,35 @@ class ClassDescriptor(Descriptor):
     def __init__(
             self,
             name: str,
-            summary: Optional[str],
-            description: Optional[str],
-            constructor: Optional[CallableDescriptor],
-            attributes: List[ArgumentDescriptor],
-            properties: List[PropertyDescriptor],
-            class_methods: List[CallableDescriptor],
-            methods: List[CallableDescriptor],
-            examples: Optional[List[str]],
+            summary: str | None,
+            description: str | None,
+            constructor: CallableDescriptor | None,
+            attributes: list[ArgumentDescriptor],
+            properties: list[PropertyDescriptor],
+            class_methods: list[CallableDescriptor],
+            methods: list[CallableDescriptor],
+            examples: list[str] | None,
             module: str,
-            package: Optional[str],
-            file: Optional[str],
-            bases: List[ClassDescriptor]
+            package: str | None,
+            file: str | None,
+            bases: list[ClassDescriptor]
     ) -> None:
         """A class descriptor
 
         Args:
             name (str): The class name
-            summary (Optional[str]): The docstring summary
-            description (Optional[str]): The docstring description
-            constructor (Optional[CallableDescriptor]): The constructor
-            attributes (List[ArgumentDescriptor]): The class attributes
-            properties (List[PropertyDescriptor]): The class properties
-            class_methods (List[CallableDescriptor]): The class methods
-            methods (List[CallableDescriptor]): The class methods
-            examples (Optional[List[str]]): Examples from the docstring
+            summary (str | None): The docstring summary
+            description (str | None): The docstring description
+            constructor (CallableDescriptor | None): The constructor
+            attributes (list[ArgumentDescriptor]): The class attributes
+            properties (list[PropertyDescriptor]): The class properties
+            class_methods (list[CallableDescriptor]): The class methods
+            methods (list[CallableDescriptor]): The class methods
+            examples (list[str] | None): Examples from the docstring
             module (str): The module
-            package (Optional[str]): The package
-            file (Optional[str]): The file,
-            bases (List[ClassDescription]): The base classes
+            package (str | None): The package
+            file (str | None): The file,
+            bases (list[ClassDescriptor]): The base classes
         """
         self.name = name
         self.summary = summary
@@ -103,7 +99,7 @@ class ClassDescriptor(Descriptor):
             ignore_dunder: bool,
             ignore_private: bool,
             ignore_inherited: bool,
-            importing_module: Optional[str] = None,
+            importing_module: str | None = None,
             prefer_docstring: bool = True,
             imported_from_all: bool = False
     ) -> ClassDescriptor:
@@ -117,7 +113,7 @@ class ClassDescriptor(Descriptor):
             ignore_private (bool): If True ignore private methods (those
                 prefixed <span>&#95;</span>XXX)
             ignore_inherited (bool): If True ignore inherited methods
-            importing_module (Optional[str], optional): The importing module, defaults to None
+            importing_module (str | None, optional): The importing module, defaults to None
             prefer_docstring (bool): If true prefer the docstring.
             imported_from_all (bool): If true the class if defined in the `__init__.py`.
 
@@ -126,11 +122,11 @@ class ClassDescriptor(Descriptor):
         """
         is_named_tuple = is_named_tuple_type(obj)
 
-        valid_names: List[str] = []
+        valid_names: list[str] = []
         valid_names.extend(getattr(obj, '__dict__', {}).keys())
         valid_names.extend(getattr(obj, '__slots__', []))
 
-        members: Dict[str, Any] = {
+        members: dict[str, Any] = {
             name: value
             for name, value in inspect.getmembers(obj)
             if not ignore_inherited or name in valid_names
@@ -148,7 +144,7 @@ class ClassDescriptor(Descriptor):
         summary = docstring.short_description if docstring else None
         description = docstring.long_description if docstring else None
 
-        attributes: List[ArgumentDescriptor] = []
+        attributes: list[ArgumentDescriptor] = []
         if docstring:
             attrs = [
                 (meta.args[1], meta.description)
@@ -161,9 +157,9 @@ class ClassDescriptor(Descriptor):
                 attributes.append(
                     ArgumentDescriptor(attr_name, attr_type, attr_desc)
                 )
-        properties: List[PropertyDescriptor] = []
-        methods: List[CallableDescriptor] = []
-        class_methods: List[CallableDescriptor] = []
+        properties: list[PropertyDescriptor] = []
+        methods: list[CallableDescriptor] = []
+        class_methods: list[CallableDescriptor] = []
         for member_name, member in members.items():
             if member_name == '__init__' or (
                     ignore_dunder and
@@ -201,7 +197,7 @@ class ClassDescriptor(Descriptor):
                     )
                 )
 
-        examples: Optional[List[str]] = [
+        examples: list[str] | None = [
             meta.description or ''
             for meta in docstring.meta
             if 'examples' in meta.args

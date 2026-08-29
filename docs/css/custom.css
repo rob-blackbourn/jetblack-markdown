@@ -8,10 +8,12 @@ var.autodoc-varname {
 
 h3.autodoc-title {
     font-weight: bold;
+    margin: 0.5em 0 0.2em 0;
 }
 
 h4.autodoc-title {
     font-weight: bold;
+    margin: 0.5em 0 0.2em 0;
 }
 
 .autodoc-qualifier {
@@ -22,6 +24,17 @@ h4.autodoc-title {
     text-indent: 4em;
 }
 
-.autodoc-signature, .autodoc-property {
+div.autodoc-signature {
     font-family: "Roboto Mono","Courier New",Courier,monospace;
+}
+
+var.autodoc-property {
+    font-family: "Roboto Mono","Courier New",Courier,monospace;
+}
+
+div.autodoc-description p {
+    margin: 0 0 0.5em 0;
+}
+div.autodoc-vardesc p {
+    margin: 0 0 0.2em 0.5em;
 }

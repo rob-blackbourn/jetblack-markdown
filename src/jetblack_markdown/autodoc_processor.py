@@ -2,9 +2,9 @@
 
 import inspect
 import re
-from typing import Any, List, Optional
+from typing import Any
 import xml.etree.ElementTree as etree
-from xml.etree.cElementTree import Element
+from xml.etree.ElementTree import Element
 
 from jinja2 import (
     Environment,
@@ -40,7 +40,7 @@ class AutodocBlockProcessor(BlockProcessor):
             ignore_inherited: bool = True,
             prefer_docstring: bool = True,
             follow_module_tree: bool = False,
-            template_folder: Optional[str] = None,
+            template_folder: str | None = None,
             template_file: str = "main.jinja2"
     ) -> None:
         """An inline processor for **Python** documentation
@@ -61,9 +61,9 @@ class AutodocBlockProcessor(BlockProcessor):
             ignore_inherited (bool): If True ignore inherited members.
             prefer_docstring (bool): If true prefer the docstring.
             follow_module_tree (bool): If true follow the module tree.
-            template_folder (Optional[str], optional): The template folder,
+            template_folder (str | None, optional): The template folder,
                 Defaults to None.
-            template_file (Optional[str], optional): The template file to use,
+            template_file (str | None, optional): The template file to use,
                 Defaults to "main.jinja2".
         """
         super().__init__(parser)
@@ -85,13 +85,13 @@ class AutodocBlockProcessor(BlockProcessor):
         self.env.filters['md_format'] = self._md_format
         self.template = self.env.get_template(template_file)
         self._pattern = re.compile(r'@\[([^\]]+)\]')
-        self._match: Optional[re.Match[str]] = None
+        self._match: re.Match[str] | None = None
 
     def test(self, parent: Element, block: str) -> bool:
         self._match = self._pattern.match(block)
         return self._match is not None
 
-    def run(self, parent: Element, blocks: List[str]) -> Optional[bool]:
+    def run(self, parent: Element, blocks: list[str]) -> bool | None:
 
         assert self._match is not None
         import_str = self._match.group(1)

@@ -1,15 +1,10 @@
 """Meta data"""
 
 from __future__ import annotations
+
 import inspect
 from types import ModuleType
-from typing import (
-    Any,
-    Dict,
-    List,
-    Optional,
-    Tuple
-)
+from typing import Any
 
 import docstring_parser
 
@@ -26,29 +21,29 @@ class ModuleDescriptor(Descriptor):
     def __init__(
             self,
             name: str,
-            summary: Optional[str],
-            description: Optional[str],
-            attributes: List[ArgumentDescriptor],
-            examples: Optional[List[str]],
-            package: Optional[str],
-            file: Optional[str],
-            classes: List[ClassDescriptor],
-            functions: List[CallableDescriptor],
-            modules: List[ModuleDescriptor]
+            summary: str | None,
+            description: str | None,
+            attributes: list[ArgumentDescriptor],
+            examples: list[str] | None,
+            package: str | None,
+            file: str | None,
+            classes: list[ClassDescriptor],
+            functions: list[CallableDescriptor],
+            modules: list[ModuleDescriptor]
     ) -> None:
         """A module descriptor
 
         Args:
             name (str): The module name
-            summary (Optional[str]): The module summary
-            description (Optional[str]): The module description
-            attributes (List[ArgumentDescriptor]): The attribute list
-            examples (Optional[List[str]]): Examples from the docstring
-            package (Optional[str]): The package name
-            file (Optional[str]): The file name
-            classes (List[ClassDescriptor]): Classes in the module
-            functions (List[CallableDescriptor]): Functions in the module
-            modules (List[ModuleDescriptor]): The child modules
+            summary (str | None): The module summary
+            description (str | None): The module description
+            attributes (list[ArgumentDescriptor]): The attribute list
+            examples (list[str] | None): Examples from the docstring
+            package (str | None): The package name
+            file (str | None): The file name
+            classes (list[ClassDescriptor]): Classes in the module
+            functions (list[CallableDescriptor]): Functions in the module
+            modules (list[ModuleDescriptor]): The child modules
         """
         self.name = name
         self.summary = summary
@@ -103,19 +98,19 @@ class ModuleDescriptor(Descriptor):
         name = module.__name__
         summary = docstring.short_description if docstring else None
         description = docstring.long_description if docstring else None
-        attrs: List[Tuple[str, str]] = [
+        attrs: list[tuple[str, str]] = [
             (meta.args[1], meta.description or '')
             for meta in docstring.meta
             if 'attribute' in meta.args
         ]
-        attributes: List[ArgumentDescriptor] = []
+        attributes: list[ArgumentDescriptor] = []
         for attr_details, attr_desc in attrs:
             attr_name, _sep, attr_type = attr_details.partition(' ')
             attr_type = attr_type.strip('()')
             attributes.append(
                 ArgumentDescriptor(attr_name, attr_type, attr_desc)
             )
-        examples: Optional[List[str]] = [
+        examples: list[str] | None = [
             meta.description or ''
             for meta in docstring.meta
             if 'examples' in meta.args
@@ -124,11 +119,11 @@ class ModuleDescriptor(Descriptor):
         package = module.__package__
         file = make_file_relative(module.__file__)
 
-        members: Dict[str, Any] = dict(inspect.getmembers(module))
+        members: dict[str, Any] = dict(inspect.getmembers(module))
         valid_members = members.get('__all__', [])
 
-        classes: List[ClassDescriptor] = []
-        functions: List[CallableDescriptor] = []
+        classes: list[ClassDescriptor] = []
+        functions: list[CallableDescriptor] = []
         for member_name, member in members.items():
             imported_from_all = member_name in valid_members
 

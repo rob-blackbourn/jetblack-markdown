@@ -3,7 +3,7 @@
 import importlib
 from inspect import Parameter
 import re
-from typing import Any, Optional, Union
+from typing import Any
 import xml.etree.ElementTree as etree
 
 from docstring_parser import Docstring, DocstringParam, DocstringReturns
@@ -43,24 +43,24 @@ def import_from_string(import_str: str) -> Any:
         ) from exc
 
 
-def add_tag(tag: str, class_name: Optional[str], parent: etree.Element) -> etree.Element:
+def add_tag(tag: str, class_name: str | None, parent: etree.Element) -> etree.Element:
     element = etree.SubElement(parent, tag)
     if class_name:
         element.set('class', class_name)
     return element
 
 
-def add_text_tag(tag: str, text: str, klass: Optional[str], parent: etree.Element) -> etree.Element:
+def add_text_tag(tag: str, text: str, klass: str | None, parent: etree.Element) -> etree.Element:
     element = add_tag(tag, klass, parent)
     element.text = text
     return element
 
 
-def add_span_tag(text: str, klass: Optional[str], parent: etree.Element) -> etree.Element:
+def add_span_tag(text: str, klass: str | None, parent: etree.Element) -> etree.Element:
     return add_text_tag('span', text, klass, parent)
 
 
-def find_docstring_param(name: str, docstring: Docstring) -> Optional[DocstringParam]:
+def find_docstring_param(name: str, docstring: Docstring) -> DocstringParam | None:
     return next(
         (
             param
@@ -73,13 +73,13 @@ def find_docstring_param(name: str, docstring: Docstring) -> Optional[DocstringP
 
 def get_type_name(
         annotation: Any,
-        docstring_param: Optional[Union[DocstringParam, DocstringReturns]]
+        docstring_param: DocstringParam | DocstringReturns | None
 ) -> str:
     """Get the type name
 
     Args:
         annotation (Any): The type annotation
-        docstring_param (Optional[Union[DocstringParam, DocstringReturns]]):
+        docstring_param (DocstringParam | DocstringReturns | None):
             The docstring param
 
     Returns:

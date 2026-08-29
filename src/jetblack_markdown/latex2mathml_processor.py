@@ -1,15 +1,8 @@
 """A Latex to MathML markdown processor"""
 
-from functools import partial
 import re
-from typing import (
-    List,
-    Optional,
-    Tuple,
-    Union
-)
 import xml.etree.ElementTree as etree
-from xml.etree.cElementTree import Element
+from xml.etree.ElementTree import Element
 
 from markdown import Markdown
 from markdown.inlinepatterns import InlineProcessor
@@ -27,16 +20,16 @@ class Latex2MathMLInlineProcessor(InlineProcessor):
     def __init__(
             self,
             pattern,
-            md: Optional[Markdown] = None,
+            md: Markdown | None = None,
     ) -> None:
         super().__init__(pattern, md=md)
 
-    def handleMatch(
+    def handleMatch(  # type: ignore
             self,
-            matches: re.Match,
+            m: re.Match[str],
             data: str
-    ) -> Tuple[Optional[Union[etree.Element, str]], Optional[int], Optional[int]]:
-        latex = matches.group(1)
+    ) -> tuple[etree.Element | str | None, int | None, int | None]:
+        latex = m.group(1)
         if not latex:
             return None, None, None
 
@@ -44,8 +37,8 @@ class Latex2MathMLInlineProcessor(InlineProcessor):
         element.set("class", HTML_CLASS)
         del element.attrib['xmlns']
 
-        start = matches.start(0)
-        end = matches.end(0)
+        start = m.start(0)
+        end = m.end(0)
         return element, start, end
 
 
@@ -57,13 +50,13 @@ class Latex2MathMLBlockProcessor(BlockProcessor):
         self._pattern = re.compile(
             r' *\$\$\n(.*)\n\$\$ *'
         )
-        self._match: Optional[re.Match[str]] = None
+        self._match: re.Match[str] | None = None
 
     def test(self, parent: Element, block: str) -> bool:
         self._match = self._pattern.match(block)
         return self._match is not None
 
-    def run(self, parent: Element, blocks: List[str]) -> Optional[bool]:
+    def run(self, parent: Element, blocks: list[str]) -> bool | None:
 
         assert self._match is not None
         latex = self._match.group(1)

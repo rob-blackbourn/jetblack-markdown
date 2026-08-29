@@ -5,7 +5,6 @@ from markdown.extensions import Extension
 
 from .autodoc_processor import AutodocBlockProcessor
 
-_DOCSTRING_RE = r'@\[([^\]]+)\]'
 
 __all__ = [
     "AutodocExtension",

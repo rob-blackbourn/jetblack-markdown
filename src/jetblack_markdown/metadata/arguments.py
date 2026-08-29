@@ -1,7 +1,5 @@
 """Arguments"""
 
-from typing import Optional
-
 from .common import Descriptor
 
 ARG_DESCRIPTOR_EMPTY = '#EMPTY#'
@@ -15,17 +13,17 @@ class ArgumentDescriptor(Descriptor):
     def __init__(
             self,
             name: str,
-            type_: Optional[str],
-            description: Optional[str],
-            default: Optional[str] = ARG_DESCRIPTOR_EMPTY
+            type_: str | None,
+            description: str | None,
+            default: str | None = ARG_DESCRIPTOR_EMPTY
     ) -> None:
         """A descriptor for arguments
 
         Args:
             name (str): The argument name
-            type_ (Optional[str]): The argument type
-            description (Optional[str]): The arguments description
-            default (Optional[str], optional): The default value. Defaults to ARG_DESCRIPTOR_EMPTY.
+            type_ (str | None): The argument type
+            description (str | None): The arguments description
+            default (str | None, optional): The default value. Defaults to ARG_DESCRIPTOR_EMPTY.
         """
         self.name = name
         self.type = type_
