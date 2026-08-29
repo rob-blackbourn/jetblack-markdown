@@ -1,14 +1,11 @@
 """Callables"""
 
 from __future__ import annotations
+
 from enum import Enum, auto
 import inspect
 from inspect import Parameter, Signature
-from typing import (
-    Any,
-    List,
-    Optional
-)
+from typing import Any
 
 import docstring_parser
 from docstring_parser import Docstring
@@ -48,39 +45,39 @@ class CallableDescriptor(Descriptor):
             self,
             qualifier: str,
             name: str,
-            summary: Optional[str],
-            description: Optional[str],
-            arguments: List[ArgumentDescriptor],
+            summary: str | None,
+            description: str | None,
+            arguments: list[ArgumentDescriptor],
             return_type: str,
-            return_description: Optional[str],
+            return_description: str | None,
             callable_type: CallableType,
             is_async: bool,
             is_generator: bool,
-            raises: Optional[List[RaisesDescriptor]],
-            examples: Optional[List[str]],
+            raises: list[RaisesDescriptor] | None,
+            examples: list[str] | None,
             module: str,
-            package: Optional[str],
-            file: Optional[str]
+            package: str | None,
+            file: str | None
     ) -> None:
         """A descriptor for a callable
 
         Args:
             qualifier (str): The qualifier part of the name
             name (str): The name of the callable
-            summary (Optional[str]): The callables summary docstring
-            description (Optional[str]): The callables description docstring
-            arguments (List[ArgumentDescriptor]): The callables arguments
+            summary (str | None): The callables summary docstring
+            description (str | None): The callables description docstring
+            arguments (list[ArgumentDescriptor]): The callables arguments
             return_type (str): The callables return type
-            return_description (Optional[str]): The callables return description
+            return_description (str | None): The callables return description
             callable_type (CallableType): The type of callable
             is_async (bool): True if the callable is async
             is_generator (bool): True if the callable is a generator
-            raises (Optional[List[RaisesDescriptor]]): A list of the exceptions
+            raises (list[RaisesDescriptor] | None): A list of the exceptions
                 raised
-            examples (Optional[List[str]]): A list of examples
+            examples (list[str] | None): A list of examples
             module (str): The module name
-            package (Optional[str]): The package name
-            file (Optional[str]): The file name
+            package (str | None): The package name
+            file (str | None): The file name
         """
         self.qualifier = qualifier
         self.name = name
@@ -134,25 +131,26 @@ class CallableDescriptor(Descriptor):
     def create(
             cls,
             obj: Any,
-            signature: Optional[Signature] = None,
-            docstring: Optional[Docstring] = None,
+            signature: Signature | None = None,
+            docstring: Docstring | None = None,
             callable_type: CallableType = CallableType.FUNCTION,
-            prefer_docstring=False,
-            qualifier: Optional[str] = None,
+            prefer_docstring: bool = False,
+            qualifier: str | None = None,
             imported_from_all: bool = False
     ) -> CallableDescriptor:
         """Create a callable descriptor from a callable
 
         Args:
             obj (Any): The callable
-            signature (Optional[Signature], optional): The signature. Defaults
+            signature (Signature | None, optional): The signature. Defaults
                 to None.
-            docstring (Optional[Docstring], optional): The docstring. Defaults
+            docstring (Docstring | None, optional): The docstring. Defaults
                 to None.
             callable_type (CallableType, optional): The function type. Defaults
                 to CallableType.FUNCTION.
-            prefer_docstring (bool): If true prefer the docstring.
-            qualifier (Optional[str], optional): An overload for the qualifier.
+            prefer_docstring (bool, optional): If true prefer the docstring.
+                Defaults to False.
+            qualifier (str | None, optional): An overload for the qualifier.
                 Defaults to None.
             imported_from_all (bool): If true the class if defined in the `__init__.py`.
 
@@ -169,7 +167,7 @@ class CallableDescriptor(Descriptor):
         is_generator = inspect.isgeneratorfunction(
             obj) or inspect.isasyncgenfunction(obj)
 
-        arguments: List[ArgumentDescriptor] = []
+        arguments: list[ArgumentDescriptor] = []
         is_pos_only_rendered = False
         is_kw_only_rendered = False
         is_self = callable_type in CLASS_FUNCTIONS
@@ -235,7 +233,7 @@ class CallableDescriptor(Descriptor):
                 ArgumentDescriptor(arg_name, type_name, description, default)
             )
 
-        return_description: Optional[str] = None
+        return_description: str | None = None
         if callable_type == CallableType.CONSTRUCTOR or signature.return_annotation is None:
             return_type = 'None'
         elif not signature.return_annotation or signature.return_annotation == Parameter.empty:
@@ -251,7 +249,7 @@ class CallableDescriptor(Descriptor):
                 else None
             )
 
-        raises: Optional[List[RaisesDescriptor]] = [
+        raises: list[RaisesDescriptor] | None = [
             RaisesDescriptor(error.type_name or '', error.description or '')
             for error in docstring.raises
         ] if docstring and docstring.raises else None
@@ -259,7 +257,7 @@ class CallableDescriptor(Descriptor):
         summary = docstring.short_description if docstring else None
         description = docstring.long_description if docstring else None
 
-        examples: Optional[List[str]] = [
+        examples: list[str] | None = [
             meta.description or ''
             for meta in docstring.meta
             if 'examples' in meta.args

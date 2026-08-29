@@ -9,19 +9,28 @@ authors = [
   { name="Rob Blackbourn", email="rob.blackbourn@gmail.com" },
 ]
 description = "A markdown extension for python documentation"
-requires-python = ">=3.8"
+requires-python = ">=3.12"
 classifiers = [
     "Programming Language :: Python :: 3",
     "License :: OSI Approved :: Apache Software License",
     "Operating System :: OS Independent",
 ]
 readme = "README.md"
+license = {text = "Apache-2.0"}
 dependencies = [
     "markdown>=3.5.1,<4",
-    "docstring-parser==0.15",
-    "latex2mathml==3.77.0"
+    "docstring-parser>=0.15,<1",
+    "latex2mathml>=3.77.0,<4"
 ]
-license = {text = "Apache-2.0"}
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=9.1.1,<10",
+    "types-markdown"
+]
+docs = [
+    "mkdocs-material>=9.4.14,<10"
+]
 
 [project.urls]
 Repository = "https://github.com/rob-blackbourn/jetblack-markdown"
@@ -30,3 +39,39 @@ Issues = "https://github.com/rob-blackbourn/jetblack-markdown/issues"
 
 [tool.setuptools.package-data]
 "jetblack_markdown.templates" = ["*.jinja2"]
+
+# pylint
+[tool.pylint.main]
+py-version = "3.12"
+jobs = 4
+
+[tool.pylint.basic]
+good-names = ["i", "j", "k", "ex", "Run", "_", "md"]
+bad-names = ["foo", "bar", "baz", "toto", "tutu", "tata"]
+
+[tool.pylint."messages control"]
+disable = [
+    "raw-checker-failed",
+    "bad-inline-option",
+    "locally-disabled",
+    "file-ignored",
+    "suppressed-message",
+    "useless-suppression",
+    "deprecated-pragma",
+    "use-symbolic-message-instead",
+    "missing-module-docstring",
+]
+
+# pytest
+[tool.pytest.ini_options]
+testpaths = [
+    "tests",
+]
+
+# mypy
+[tool.mypy]
+files = [ "src", "tests", "examples" ]
+
+[[tool.mypy.overrides]]
+module = "pytest"
+ignore_missing_imports = true

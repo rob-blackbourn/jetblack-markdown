@@ -1,12 +1,9 @@
 """Properties"""
 
 from __future__ import annotations
+
 import inspect
-from typing import (
-    Any,
-    List,
-    Optional
-)
+from typing import Any
 
 import docstring_parser
 
@@ -24,27 +21,27 @@ class PropertyDescriptor(Descriptor):
             self,
             qualifier: str,
             name: str,
-            summary: Optional[str],
-            description: Optional[str],
-            type_: Optional[str],
+            summary: str | None,
+            description: str | None,
+            type_: str | None,
             is_settable: bool,
             is_deletable: bool,
-            raises: Optional[List[RaisesDescriptor]],
-            examples: Optional[List[str]]
+            raises: list[RaisesDescriptor] | None,
+            examples: list[str] | None
     ) -> None:
         """A properties descriptor
 
         Args:
             qualifier (str): The qualifier
             name (str): The property name
-            summary (Optional[str]): The summary from the docstring
-            description (Optional[str]): The description from the docstring
-            type_ (Optional[str]): The property type
+            summary (str | None): The summary from the docstring
+            description (str | None): The description from the docstring
+            type_ (str | None): The property type
             is_settable (bool): If True the property can be set
             is_deletable (bool): If True the property can be deleted
-            raises (Optional[List[RaisesDescriptor]]): A list of the exceptions
+            raises (list[RaisesDescriptor] | None): A list of the exceptions
                 the property might raise.
-            examples (Optional[List[str]]): A list of examples from the
+            examples (list[str] | None): A list of examples from the
                 docstring
         """
         self.qualifier = qualifier
@@ -98,11 +95,11 @@ class PropertyDescriptor(Descriptor):
                 docstring_param
             )
             summary = docstring_param.description if docstring_param else None
-            description: Optional[str] = None
-            raises: Optional[List[RaisesDescriptor]] = None
+            description: str | None = None
+            raises: list[RaisesDescriptor] | None = None
             is_settable = False
             is_deletable = False
-            examples: Optional[List[str]] = None
+            examples: list[str] | None = None
         else:
             docstring = docstring_parser.parse(inspect.getdoc(obj) or '')
             signature = inspect.signature(obj.fget)

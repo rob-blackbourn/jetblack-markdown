@@ -9,13 +9,14 @@ from jetblack_markdown.latex2mathml import Latex2MathMLExtension
 
 
 def test_smoketest():
+    """General test"""
     content = """
-An inline formula looks like: $x=\frac{-b\pm\sqrt{b^2-4ac} }{2a}$.
+An inline formula looks like: $x=\\frac{-b\\pm\\sqrt{b^2-4ac} }{2a}$.
 
 A block looks like:
 
 $$
-x=\frac{-b\pm\sqrt{b^2-4ac} }{2a}
+x=\\frac{-b\\pm\\sqrt{b^2-4ac} }{2a}
 $$
 
 The outer `<math>` tag has the HTML class `"latex2mathml"`.
@@ -30,8 +31,3 @@ Here is some API documentation.
     ]
     output = markdown.markdown(content, extensions=extensions)
     assert output is not None
-
-
-def test_etree():
-    tree = etree.fromstring('<div>Hello</div>')
-    print(tree)
